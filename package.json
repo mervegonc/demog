@@ -6,9 +6,19 @@
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
+    "axios": "^1.6.7",
+    "devextreme-react": "^23.2.5",
+    "draft-js": "^0.11.7",
+    "draftjs-to-html": "^0.9.1",
+    "mdb-react-ui-kit": "^7.2.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-draft-wysiwyg": "^1.15.0",
+    "react-files-preview": "^2.4.0",
+    "react-photo-editor": "^2.0.0",
+    "react-router-dom": "^6.22.1",
     "react-scripts": "5.0.1",
+    "react-toastify": "^10.0.5",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
@@ -34,5 +44,10 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@syncfusion/ej2-react-image-editor": "^25.1.38",
+    "@syncfusion/ej2-react-popups": "^25.1.38",
+    "@syncfusion/ej2-react-richtexteditor": "^25.1.38"
   }
 }

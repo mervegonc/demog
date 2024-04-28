@@ -1,0 +1,114 @@
+/*oNEPOST.JS*/
+.one-post-panel {
+    width: 600px;
+    /*height: 620px;*/
+    height: auto;
+    background-color: rgba(43, 144, 164, 0.688);
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.637); /* Pembe gölge */
+    color: rgb(255, 255, 255); /* Yazı rengi */
+    padding: 20px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    margin-top: 10px; /* Panel arasında 20px boşluk bırakmak için */
+    margin-left: 0px;
+    margin-bottom: 50px;
+    
+    
+  }
+
+
+  
+  .user-name{
+    margin-top: -50px;
+    margin-left: 65px;
+}
+  
+
+.posts-details {
+    margin-top: 40px; /* Title ve texti 5px aşağıya indir */
+    margin-left: 5px;
+    margin-bottom: -20px;
+  }
+
+  .posts-photos-container {
+    display: flex;
+    align-items: center;
+    width: 600px;
+    height: max-content;
+    border-radius: 5px;
+    overflow: hidden;
+    margin-top: 48px;
+    margin-left: 30;
+ 
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.637); /* Pembe gölge */
+    z-index: 999;
+  }
+  .comment-username{
+margin-top: -40px;
+margin-left:30px;
+  }
+.comment-user-text{
+  height: 60px;
+  margin-top: 30px;
+  margin-left:10px;
+}
+
+
+.comment-option-icon{
+  display: flex;
+  justify-content: center; /* Yatay ortala */
+  align-items: center; /* Dikey ortala */
+  width: 30px;
+  height: 30px;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
+ 
+  border-radius: 9px;
+  color: white;
+  margin-top: -105px;
+  margin-left: 520px;
+}
+
+.user-comment-options-panel{
+  display: flex;
+  justify-content: center; /* Yatay ortala */
+  align-items: center; /* Dikey ortala */
+  width: 100px;
+  height: 50px;
+background-color: rgba(0, 0, 0, 0.493);
+box-shadow: 0 0 10px rgba(255, 255, 255, 0.49);
+border-radius: 9px;
+  margin-top: -15px;
+  margin-left: 480px;
+}
+
+
+
+
+
+
+
+
+
+
+
+.comment-delete{
+  display: flex;
+  justify-content: center; /* Yatay ortala */
+  align-items: center; /* Dikey ortala */
+  width: 60px;
+  height: 30px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
+  background-color: rgba(6, 2, 2, 0.651);
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.49);
+  border-radius: 9px;
+  color: white;
+
+
+}

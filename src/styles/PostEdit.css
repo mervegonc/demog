@@ -1,0 +1,66 @@
+
+  .edit-post-button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 5px 10px;
+    cursor: pointer;
+  
+  }
+  .edit-post-button:hover {
+    background-color: #0056b3;
+  
+  }
+  .post-edit-panel {
+    position: absolute;
+    padding: 20px;
+    background-color: rgba(0, 0, 0, 0.8);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    border-radius: 15px;
+    width: 680px;
+    height: 670px;
+    padding: 20px;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-left: 410px;
+    margin-top: 10px;
+   
+  }
+
+  
+  .post-edit-panel form {
+    width: 100%;
+   
+  }
+  
+  .post-edit-panel input[type="text"],
+  .post-edit-panel textarea {
+    width: calc(100% - 40px);
+    margin-bottom: 20px;
+    padding: 10px;
+    border-radius: 5px;
+    border: none;
+    margin-left: 10px;
+    
+  }
+  
+  .post-edit-panel textarea {
+    height: 200px;
+    
+  }
+  
+  .post-edit-panel button {/*cancel save*/
+    width: 120px;
+    height: 40px;
+    background-color: #fff;
+    color: #000000;
+    border: 2px solid #000000;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  
+  

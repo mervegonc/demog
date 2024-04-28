@@ -1,0 +1,19 @@
+.like-container {
+  display: flex;
+  flex-direction: column; /* Dikey olarak hizala */
+  align-items: center; /* Ortalama hizalama */
+  margin-top:-26px;
+  margin-left: -500px;
+}
+
+.like-icon {
+  width: 25px;
+  height: 25px;
+  cursor: pointer;
+
+}
+
+.like-count {
+  margin-left: 0px; /* Beğeni simgesinden aşağıya boşluk bırakmak için */
+  margin-top: 0px;
+}

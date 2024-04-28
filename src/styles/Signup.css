@@ -1,0 +1,13 @@
+.password-toggle-container {
+    display: flex;
+    align-items: center;
+    margin-top: -3px;
+    margin-right: 5px;
+  }
+  
+  .password-toggle-container img {
+    cursor: pointer;
+    width: 20px;
+    height: 20px;
+  }
+  

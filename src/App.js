@@ -1,24 +1,41 @@
-import logo from './logo.svg';
-import './App.css';
 
-function App() {
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+
+import SignupForm from './SignupForm';
+import PostForm from './PostForm';
+import Post from './Post';
+import User from './User';
+import Entry from './Entry';
+import SigninForm from './SigninForm';
+import  Search  from './Search';
+import MyPost from './MyPost';
+import OnePost from './OnePost'
+import PostEdit from './PostEdit';
+import PostPhotoEdit from './PostPhotoEdit';
+import ForgotPassword from './ForgotPassword';
+
+
+const App = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+    
+      <Routes>
+        <Route path="/" element={<Entry />} />
+        <Route path="/signin" element={<SigninForm />} />
+        <Route path="/signup" element={<SignupForm />} />
+        <Route path="/forgotpassword" element={<ForgotPassword />} />
+      
+        <Route path="/postform" element={<PostForm />} />
+        <Route path="/post" element={<Post />} />
+      
+        <Route path="/onepost/:postId" element={<OnePost />} />
+        <Route path="/editpost/:postId" element={<PostEdit />} />
+        <Route path="/editpostphoto/:postId" element={<PostPhotoEdit />} />
+        <Route path="/search" element={<Search />} />
+        <Route path="/user/:userId" element={<User />} />
+      </Routes>
+    </Router>
   );
 }
 

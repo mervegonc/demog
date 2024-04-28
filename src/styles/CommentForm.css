@@ -1,0 +1,131 @@
+.see-all-comments-button,
+.add-comment-button {
+  display: inline-block; /* Butonları yan yana hizalamak için */
+  vertical-align: middle; /* Dikeyde hizalamak için */
+}
+
+.see-all-comments-button {
+  background-image: url('C:\campreact\demog\src\styles\images\seeallcomments.png');
+  background-repeat: no-repeat;
+  background-size: cover;
+  width: 25px;
+  height: 25px;
+  border: none;
+  cursor: pointer;
+  background-color: rgba(240, 75, 75, 0); /* Şeffaf arka plan rengi */
+  
+  margin-right: 5px; /* Aralarındaki boşluğu ayarlamak için */
+  margin-top: 14px; /* Aşağı doğru 5px kaydır */
+}
+
+.add-comment-button {
+  background-image: url('C:\campreact\demog\src\styles\images\comments.png');
+  background-repeat: no-repeat;
+  background-size: cover;
+  width: 25px;
+  height: 25px;
+  border: none;
+  cursor: pointer;
+  background-color:transparent; /* Şeffaf arka plan rengi */
+  margin-top: -85px;
+  margin-left:75px; /* Resmi sağa 9px kaydır */
+}
+.comment-box {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+   background-color: rgba(0, 0, 0, 0.39);
+    width: 400px;
+    height: 200px;
+    padding: 20px;
+    border-radius: 10px;
+   
+    box-shadow: 0 0 10px rgb(255, 255, 255); /* Gölgelendirme */
+   
+    margin-top: 45px;
+  }
+  
+  .comment-box textarea {
+   
+    width: 390px;
+    height: 190px;
+    margin-bottom: -30px;
+    background-color: transparent;
+    box-shadow: 0 0 10px rgb(238, 237, 237); /* Gölgelendirme */
+    color: white;
+  }
+  
+  .comment-box button {
+    
+    background-color: #00000000;
+    box-shadow: 0 0 10px rgb(0, 0, 0); /* Gölgelendirme */
+    border: none;
+    border-radius: 5px;
+    color: white;
+    cursor: pointer;
+    margin-left: 345px; /* Sağa doğru tamamen kaydır */
+    width: 50px;
+    height: 20px;
+    margin-top: 29px;
+    
+  }
+  
+  .comment-box button:hover {
+    background-color: #010d19d1;
+  
+  }
+  .save-comment-button{
+    background-color: aqua;
+
+  }
+
+
+
+.comment-btm-panel{
+  margin-bottom: 60px;
+}
+
+  .comment-list-panel {
+    border-radius: 15px;
+    width: 640px;
+    height:max-content;
+    margin-left: -20px;
+    background-color: rgba(7, 1, 1, 0.115);
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.823);
+    color: rgb(255, 255, 255); /* Yazı rengi */
+    border: none;
+    display: flex;
+    flex-direction: column; /* Dikey yönde sıralama */
+    align-items: center; /* Dikeyde ortala */
+    border-radius: 5px;
+    margin-top: 40px;
+  }
+  
+  .comment-panel {
+    margin-top: 20px;
+    width: 600px;
+    height: auto;
+    background-color: rgba(255, 255, 255, 0.688);
+    border-radius: 15px;
+    color: rgb(255, 255, 255); /* Yazı rengi */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.637); /* Pembe gölge */
+    border-radius: 5px;
+  }
+  
+  
+  
+  .comment-panel p {
+    margin-top: 0px;
+    margin-left: 15px;
+    
+  }
+  .comment-user-photo {
+    margin-top: 15px;
+    margin-left: 15px;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    overflow: hidden;
+  }
+  

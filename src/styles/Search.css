@@ -1,0 +1,129 @@
+
+.search-container {
+  position: fixed;
+  width: 680px;
+  height: 680px;
+ 
+  background-color: rgba(0, 0, 0, 0.8);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  border-radius: 15px;
+  /*top: 20px;
+  left: 20px;*/
+  top: calc(50% + 0px); /* 25px aşağı kaydırma */
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  color: white;
+  z-index: 1;
+ 
+}
+
+
+/*.search-container {
+
+
+
+ 
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  color: white;
+  z-index: 1;
+ 
+}*/
+
+
+
+.search-container input[type="text"] {
+  width: calc(100% - 20px);
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  margin-bottom: 10px;
+}
+
+
+.button-container {
+  margin-bottom: 10px;
+}
+
+.search-results-container {
+  margin-top: 10px;
+  
+}
+
+.search-result {
+  background-color: rgba(255, 255, 255, 0.6); /* Arka plan rengi kırmızı */
+  padding: 10px;
+  margin-bottom: 10px;
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+  border-radius: 15px;
+}
+
+.read-more {
+  color: white;
+}
+ 
+
+.search-results-container {
+  margin-top: 10px;
+  overflow-y: auto; /* İçeriği taşarsa dikey kaydırma çubuğunu göster */
+  height: auto; /* İçerik fazla büyürse maksimum yükseklik belirt */
+  margin-bottom: 30px;
+}
+
+/* Chrome, Safari, Edge ve Opera için */
+.search-results-container::-webkit-scrollbar {
+  display: none; /* Kaydırma çubuğunu gizlemek */
+}
+
+/* Firefox için */
+.search-results-container {
+  scrollbar-width: none; /* Kaydırma çubuğunu gizlemek */
+}
+
+
+.search-container button {
+ 
+  width: auto;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
+  background-color: rgba(0, 0, 0, 0.8);
+  color: white;
+  margin-top: 20px;
+  margin-left: 20px;
+}
+.tab-buttons {
+  display: flex;
+}
+
+.search-posts-button, .search-users-button {
+  margin-right: 10px;
+  margin-top: -20px;
+  margin-left: -18px;
+}
+
+.search-posts-button button, .search-users-button button {
+  width: auto;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
+  background-color: rgba(0, 0, 0, 0.651);
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.49);
+  border-radius: 9px;
+  color: white;
+ 
+}
+.user-photo{
+  width: 50px;
+  height: 50px;
+}

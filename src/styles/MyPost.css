@@ -1,0 +1,47 @@
+.post-container{
+  font-size: 14px;
+  position: fixed;
+  width: 680px;
+  height: 680px;
+  overflow-y: auto; /* Kaydırma çubuğunu gizlemek için */
+  background-color: rgba(0, 0, 0, 0.8);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  border-radius: 15px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  color: rgb(0, 0, 0);
+  z-index: 1;
+  margin-top: -0px;
+ 
+  align-items: center; /* Dikey hizalama */
+  justify-content: flex-start; /* Yatay hizalama */
+}   
+
+.post-container::-webkit-scrollbar {
+  display: none; /* Kaydırma çubuğunu tamamen gizlemek için */
+}
+
+
+
+/*burda */
+
+
+.edit-post-button {
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  padding: 5px 10px;
+  cursor: pointer;
+
+}
+.edit-post-button:hover {
+  background-color: #0056b3;
+
+}
