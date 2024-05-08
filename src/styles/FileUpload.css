@@ -1,0 +1,59 @@
+.drop-area {
+    border: 2px dashed #ccc;
+    border-radius: 20px;
+    width: 480px;
+    height: 200px;
+    font-family: sans-serif;
+margin-top: 0px;
+    padding: 20px;
+  }
+  
+  .drop-area.highlight {
+    border-color: purple;
+  }
+  
+  p {
+   
+    margin-left: 100px;
+  
+  }
+  .upload-file-names{
+    font-size: 12px;
+    margin-top: -55px;
+    margin-left: -30px;
+  }
+  .my-form {
+    margin-bottom: 10px;
+  }
+  
+  #gallery {
+    margin-top: 10px;
+  }
+  
+  #gallery img {
+    width: 150px;
+    margin-bottom: 10px;
+    margin-right: 10px;
+    vertical-align: middle;
+  }
+  
+  .button {
+    display: inline-block;
+    padding: 10px;
+    background: #ee0505;
+   
+  }
+  
+  .button:hover {
+    background: #a40d0d;
+  }
+  
+  #fileElem {
+    display: none;
+  }
+  .upload-area-image{
+    margin-top: 10px;
+    margin-left: 0px;
+width: 680px;
+height: 350px;
+  }

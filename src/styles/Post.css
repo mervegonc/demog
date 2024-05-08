@@ -83,14 +83,14 @@
   overflow: hidden;
   margin-top: 30px;
   margin-left: 30;
-  box-shadow: 0 0 10px rgba(255, 255, 255, 0.637); /* Pembe gölge */
+  box-shadow: 0 0 10px rgba(255, 0, 0, 0.637); /* Pembe gölge */
 }
 
 
 
 .post-details {
   margin-top: 22px; /* Title ve texti 5px aşağıya indir */
-  margin-left: 5px;
+  margin-left: -95px;
   margin-bottom: -2px;
 }
 
@@ -173,4 +173,25 @@
 
 .create-button {
   background-image: url('./images/create.png');
+}
+
+.post-photos-clicks {
+ 
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.right-click-icon,
+.left-click-icon {
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+}
+.right-click-icon {
+ margin-left: 570px;
+}
+
+.left-click-icon {
+  margin-left: -599px;
 }

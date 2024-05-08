@@ -1,24 +1,22 @@
-
-     
-      import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from './axios';
 import { Link } from 'react-router-dom';
 import LikeForm from './LikeForm';
 import './styles/Post.css';
 import './styles/CommentForm.css';
 import './styles/MyPost.css';
-import AuthService from './AuthService'; // Import AuthService here
+import AuthService from './AuthService'; // AuthService buraya import ediliyor
 import RightClickIcon from './styles/images/rightclick.png';
 import LeftClickIcon from './styles/images/leftclick.png';
 
-const Post = () => {
+const UserDemo = () => {
   const [posts, setPosts] = useState([]);
-  const userId = AuthService.getUserId(); // Get userId from AuthService
+  const userId = AuthService.getUserId(); // AuthService'den userId alınıyor
 
   useEffect(() => {
     const fetchPosts = async () => {
       try {
-        const response = await axios.get('http://localhost:8080/api/post');
+        const response = await axios.get(`http://localhost:8080/api/post/my/${userId}`);
         const postsWithPhotos = await Promise.all(response.data.map(async post => {
           try {
             const photoNamesResponse = await axios.get(`http://localhost:8080/api/post/photos/${post.id}`);
@@ -28,7 +26,7 @@ const Post = () => {
             const photoUrls = await Promise.all(photoNames.map(async photoName => {
               try {
                 const photoUrlResponse = await axios.get(`http://localhost:8080/api/post/photos/${post.id}/${photoName}`, {
-                  responseType: 'blob' // Set response type to blob to get the actual image data
+                  responseType: 'blob' // Response tipini blob olarak ayarla, gerçek görüntü verilerini almak için
                 });
                 console.log(`GET request for photo URL of post ${post.id}, photo name ${photoName}:`, photoUrlResponse);
                 const imageUrl = URL.createObjectURL(photoUrlResponse.data);
@@ -98,7 +96,7 @@ const Post = () => {
     setPosts(posts.map(post => post.id === postId ? { ...post, isCommentBoxOpen: !post.isCommentBoxOpen, selectedCommentText: '' } : post));
   };
 
- 
+
 
   const handleNextPhoto = (postId) => {
     setPosts(posts.map(post => {
@@ -147,28 +145,25 @@ const Post = () => {
                     <p>{post.text}</p>
                   </div>
                 )}
-              {!post.photoUrls || post.photoUrls.length === 0 ? (
-  <div className="post-details">
-   
-  </div>
-) : (
-  <div className="post-photo-container">
-    <div style={{ position: 'relative' }}>
-      <img src={post.photoUrls[post.currentPhotoIndex]} alt={`Photo for post ${post.id}`} className="post-photo" />
-      {post.photoUrls.length > 1 && (
-        <div className='post-photos-clicks'>
-          <img src={RightClickIcon} alt="Right click icon" className="right-click-icon" onClick={() => handleNextPhoto(post.id)} />
-          <img src={LeftClickIcon} alt="Left click icon" className="left-click-icon" onClick={() => handlePreviousPhoto(post.id)} />
-        </div>
-      )}
-    </div>
-  </div>
-)}
+                {!post.photoUrls || post.photoUrls.length === 0 ? (
+                  <div className="post-details">
+                    
+                  </div>
+                ) : (
+                  <div className="post-photo-container">
+                    <div style={{ position: 'relative' }}>
+                      <img src={post.photoUrls[post.currentPhotoIndex]} alt={`Photo for post ${post.id}`} className="post-photo" />
+                      {post.photoUrls.length > 1 && (
+                        <div className='post-photos-clicks'>
+                          <img src={RightClickIcon} alt="Right click icon" className="right-click-icon" onClick={() => handleNextPhoto(post.id)} />
+                          <img src={LeftClickIcon} alt="Left click icon" className="left-click-icon" onClick={() => handlePreviousPhoto(post.id)} />
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                )}
 
-              
-                <Link to={`/onepost/${post.id}`} style={{ textDecoration: 'none', color: 'inherit' }}>
-                  <button className="see-all-comments-button" onClick={() => handleShowComments(post.id)}></button>
-                </Link>
+               
                 {post.isCommentBoxOpen && post.selectedPostComments && (
                   <div>
                     <ul>
@@ -197,6 +192,4 @@ const Post = () => {
   );
 };
 
-export default Post;
-
-     
+export default UserDemo;

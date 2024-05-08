@@ -34,15 +34,15 @@ const Entry = () => {
         {showSignin && (
           <div className="signin-form-container">
             <SigninForm />
-            <p>Don't you have an account? <span className="signup-link" onClick={handleSignupClick}>Sign Up for Free</span></p>
-            <p><Link to="/forgotpassword" className="forgot-password-link">Forgot Password?</Link></p> {/* Forgot Password Link */}
+            <p className="signin-info">Don't you have an account?  <span className="signup-link" onClick={handleSignupClick}>Sign Up for Free</span></p>
+            <p className="signin-info"><Link to="/forgotpassword" className="forgot-password-link">Forgot Password?</Link></p> {/* Forgot Password Link */}
           </div>
         )}
         {showSignup && (
           <div className="signup-form-container">
             <SignupForm />
           
-            <p>Already have an account? <span className="signin-link" onClick={handleSigninClick}>Sign In</span></p>
+            <p className="signin-info">Already have an account? <span className="signin-link" onClick={handleSigninClick}>Sign In</span></p>
           </div>
         )}
       </div>

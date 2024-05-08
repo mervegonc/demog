@@ -44,6 +44,7 @@ body {
   align-items: center;
   width: 400px;
   height: 600px;
+  
 }
 
 .logo-container {
@@ -71,6 +72,7 @@ body {
 .signin-form-container,
 .signup-form-container {
   margin-top: 30px;
+ 
   text-align: center;
 }
 
@@ -79,6 +81,8 @@ body {
   display: block;
   margin-bottom: 5px;
   font-weight: bold;
+
+ 
 }
 
 .signin-form-container input,
@@ -89,13 +93,16 @@ body {
   border: 1px solid #ccc;
   border-radius: 5px;
   box-sizing: border-box;
+  
   transition: border-color 0.3s ease;
+  
 }
 
 .signin-form-container input:focus,
 .signup-form-container input:focus {
   outline: none;
   border-color: #b61f1f;
+
 }
 
 .signin-form-container button,
@@ -109,11 +116,13 @@ body {
   cursor: pointer;
   margin-top: 10px;
   transition: background-color 0.3s ease;
+  
 }
 
 .signin-form-container button:hover,
 .signup-form-container button:hover {
   background-color: #8c1616;
+  
 }
 
 .signup-button {
@@ -122,6 +131,8 @@ body {
 .signup-link {
   color: #8c1616; /* Yazı rengini kırmızı yap */
   text-decoration: underline; /* Yazının altına çizgi ekle */
+
+ 
 }
 .signin-link {
   color: #8c1616; /* Yazı rengini kırmızı yap */
@@ -129,3 +140,6 @@ body {
 }
 
 
+.signin-info {
+  margin-left: 0px;
+}

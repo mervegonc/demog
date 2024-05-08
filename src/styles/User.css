@@ -605,3 +605,69 @@
       width: 50px; /* Genişlik ayarı */
       height: 50px; /* Yükseklik ayarı */
     }
+    
+.postU-photos-clicks {
+ margin-top: 800PX;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.right-click-icon,
+.left-click-icon {
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+}
+.right-click-icon {
+ margin-left: 570px;
+}
+
+.left-click-icon {
+  margin-left: -599px;
+}
+
+
+
+
+    .user-post-photos-container {
+  display: flex;
+  overflow-x: hidden; /* Yatay kaydırmayı etkinleştir */
+}
+
+.post-photo-container {
+  flex: 0 0 auto;
+  margin-right: 10px; /* Fotoğraflar arasında bir boşluk bırakır */
+}
+
+.post-photo {
+  max-width: 100%; /* Fotoğrafları genişliğe sığdırır */
+}
+
+.right-click-icon,
+.left-click-icon {
+  cursor: pointer;
+}
+
+.post-photos-container {
+  display: flex;
+  overflow-x: hidden; /* Yatay kaydırmayı etkinleştir */
+}
+
+.post-photo-container {
+  flex: 0 0 auto;
+  margin-right: 10px; /* Fotoğraflar arasında bir boşluk bırakır */
+}
+
+.post-photo {
+  max-width: 100%; /* Fotoğrafları genişliğe sığdırır */
+}
+
+.right-click-icon,
+.left-click-icon {
+  cursor: pointer;
+}
+
+
+
+  

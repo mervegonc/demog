@@ -11,9 +11,9 @@ import SigninForm from './SigninForm';
 import  Search  from './Search';
 import MyPost from './MyPost';
 import OnePost from './OnePost'
-import PostEdit from './PostEdit';
-import PostPhotoEdit from './PostPhotoEdit';
 import ForgotPassword from './ForgotPassword';
+import Test from './Test';
+import UserDemo from './UserDemo';
 
 
 const App = () => {
@@ -22,16 +22,17 @@ const App = () => {
     
       <Routes>
         <Route path="/" element={<Entry />} />
+        <Route path="/test" element={<Test />} />
         <Route path="/signin" element={<SigninForm />} />
         <Route path="/signup" element={<SignupForm />} />
         <Route path="/forgotpassword" element={<ForgotPassword />} />
       
+        <Route path="/postform/:postId" element={<PostForm />} />
         <Route path="/postform" element={<PostForm />} />
         <Route path="/post" element={<Post />} />
       
         <Route path="/onepost/:postId" element={<OnePost />} />
-        <Route path="/editpost/:postId" element={<PostEdit />} />
-        <Route path="/editpostphoto/:postId" element={<PostPhotoEdit />} />
+        <Route path="/userdemo/:userId" element={<UserDemo />} />
         <Route path="/search" element={<Search />} />
         <Route path="/user/:userId" element={<User />} />
       </Routes>
