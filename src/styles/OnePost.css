@@ -3,7 +3,7 @@
     width: 600px;
     /*height: 620px;*/
     height: auto;
-    background-color: rgba(43, 144, 164, 0.688);
+   
     box-shadow: 0 0 10px rgba(255, 255, 255, 0.637); /* Pembe gölge */
     color: rgb(255, 255, 255); /* Yazı rengi */
     padding: 20px;
@@ -30,19 +30,7 @@
     margin-bottom: -20px;
   }
 
-  .posts-photos-container {
-    display: flex;
-    align-items: center;
-    width: 600px;
-    height: max-content;
-    border-radius: 5px;
-    overflow: hidden;
-    margin-top: 48px;
-    margin-left: 30;
- 
-    box-shadow: 0 0 10px rgba(255, 255, 255, 0.637); /* Pembe gölge */
-    z-index: 999;
-  }
+  
   .comment-username{
 margin-top: -40px;
 margin-left:30px;

@@ -248,7 +248,7 @@
       margin-top:10px;
     }
 
-    .options-container {
+    .options-button-for-options {
       position: absolute;
     
       top: 30px;
@@ -257,7 +257,7 @@
       height: 30px;
      
     }
-    .options-container:hover .options-panel {
+    .options-button-for-options:hover .options-panel {
       visibility: visible;
       opacity: 1; /* Opacity değerini düzelt */
     }
@@ -275,9 +275,11 @@
       position: absolute;
       top: calc(100% + 0px);
       right: 0;
-      background-color: rgb(255, 255, 255);
-      padding: 5px;
+      background-color: rgba(0, 0, 0, 0.171);
+      border: 1px solid #ccc;
       border-radius: 5px;
+      padding: 5px;
+    
       box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
       display: flex;
       flex-direction: column;
@@ -452,8 +454,7 @@
 
 
 
-
-
+ 
     .post-option-panel {
       height: auto;
       width: 100px;
@@ -487,7 +488,7 @@
 
 
 .post-option-panel-buttons{
-  background-color: #007bff;
+ /* background-color: ;*/
   
 }
 
@@ -502,8 +503,8 @@
       margin-left: 0px;
       border: none;
       border-radius: 0px;
-      color: rgb(0, 0, 0);
-      background-color: rgb(255, 255, 255);
+      color: rgb(255, 255, 255);
+      background-color:transparent;
       font-size: 12px;
       text-align: center;
       cursor: pointer;

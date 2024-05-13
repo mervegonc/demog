@@ -14,6 +14,7 @@ import OnePost from './OnePost'
 import ForgotPassword from './ForgotPassword';
 import Test from './Test';
 import UserDemo from './UserDemo';
+import OnepostDemo from './OnepostDemo';
 
 
 const App = () => {

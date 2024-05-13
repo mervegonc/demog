@@ -91,25 +91,25 @@
     width: 640px;
     height:max-content;
     margin-left: -20px;
-    background-color: rgba(7, 1, 1, 0.115);
-    box-shadow: 0 0 10px rgba(255, 255, 255, 0.823);
+    
+  
     color: rgb(255, 255, 255); /* Yazı rengi */
     border: none;
     display: flex;
     flex-direction: column; /* Dikey yönde sıralama */
     align-items: center; /* Dikeyde ortala */
     border-radius: 5px;
-    margin-top: 40px;
+    margin-top: 20px;
   }
   
   .comment-panel {
-    margin-top: 20px;
+    margin-top:20px;
     width: 600px;
     height: auto;
-    background-color: rgba(255, 255, 255, 0.688);
+    background-color: rgba(0, 0, 0, 0.338);
     border-radius: 15px;
     color: rgb(255, 255, 255); /* Yazı rengi */
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.637); /* Pembe gölge */
+   
     border-radius: 5px;
   }
   

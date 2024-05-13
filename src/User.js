@@ -485,13 +485,13 @@ import React, { useState, useEffect } from 'react';
         </div>
       )}
       {isAuthenticatedUser(userId) && ( // Kullanıcı kimlik doğrulamasını kontrol et
-        <div className="options-container" onMouseEnter={() => setShowOptionsPanel(true)} onMouseLeave={() => setShowOptionsPanel(false)}>
+        <div className="options-button-for-options" onMouseEnter={() => setShowOptionsPanel(true)} onMouseLeave={() => setShowOptionsPanel(false)}>
           <img src={OptionsIcon} className="options-icon" alt="Options" onClick={() => setShowOptionsPanel(!showOptionsPanel)} />
           {showOptionsPanel && (
             <div className="options-panel">
               <button className="options-button" onClick={handleEditProfile}>Edit Profile</button>
               <button className="options-button" onClick={handleLogout}>Logout</button>
-              <button className="options-button" onClick={handleChangeBackground}>Change Background</button>
+              <button className="options-button" onClick={handleChangeBackground}>Change Backg</button>
             </div>
           )}
         </div>
@@ -501,11 +501,7 @@ import React, { useState, useEffect } from 'react';
           <input type="text" name="name" value={editedUser.name || ''} onChange={handleChange} placeholder="Name" />
           <input type="text" name="connections" value={editedUser.connections || ''} onChange={handleChange} placeholder="Connections" />
           <input type="text" name="bio" value={editedUser.bio || ''} onChange={handleChange} placeholder="Bio" />
-          <select name="gender" value={editedUser.gender || ''} onChange={handleChange}>
-            <option value="MAN">Man</option>
-            <option value="WOMAN">Woman</option>
-            <option value="OTHER">Other</option>
-          </select>
+          
           <button className="save-button" onClick={handleSaveProfile}>Save</button>
           <button className="cancel-button" onClick={handleEditProfile}>Cancel</button>
         </div>
@@ -545,9 +541,9 @@ import React, { useState, useEffect } from 'react';
             {isAuthenticatedUser(userId) && (
               <React.Fragment>
 
-  <button className='post-option-panel-buttons' onClick={() => handleEditPost(post.id)}>Edit Post</button>
+  <button className='options-button' onClick={() => handleEditPost(post.id)}>Edit Post</button>
 
-                <button className='post-option-panel-buttons' onClick={() => {
+                <button className='options-button' onClick={() => {
                   if (window.confirm('Are you sure to delete your post?')) {
                     handleDeletePost(post.id);
                   }
@@ -610,160 +606,3 @@ import React, { useState, useEffect } from 'react';
 
 export default User;
 
-
-
- /* return (
-    <div className='profile-post-container'>
-        <div className='user-post-par-container'>
-          {userData && (
-            <div className='user-infos'>
-              {userPhotoUrl && (
-                <div className="user-pro-photo-container">
-                  <img src={userPhotoUrl} alt={`${userData.name}`} className="user-pro-photo" />
-                  {isAuthenticatedUser(userId) && userId === AuthService.getUserId() && ( // Kullanıcı kimlik doğrulamasını ve userId'nin token'dan alınan userId'ye eşit olup olmadığını kontrol et
-                    <div className="change-photo-container">
-                      <label htmlFor="file-upload" className="change-photo-button">
-                        <input id="file-upload" type="file" onChange={handleFileChange} style={{ display: "none" }} />
-                      </label>
-                    </div>
-                  )}
-
-                </div>
-
-              )}
-              <div className="user-info">
-                <div className="user-info-box">
-                  <p><strong>name:</strong> {userData.name}</p>
-                </div>
-                <div className="user-info-box">
-                  <p><strong>user Name:</strong> {userData.username}</p>
-                </div>
-                <div className="user-info-box">
-                  <p><strong>Bio:</strong> {userData.bio}</p>
-                  <p><strong>Connections:</strong> {userData.connections}</p>
-                </div>
-              </div>
-              {backgroundPhotoUrl && (
-                <div className="user-bg-photo-container">
-                  <img className="bg-photo" src={backgroundPhotoUrl} alt="" />
-                </div>
-              )}
-            </div>
-          )}
-          {isAuthenticatedUser(userId) && ( // Kullanıcı kimlik doğrulamasını kontrol et
-            <div className="options-container" onMouseEnter={() => setShowOptionsPanel(true)} onMouseLeave={() => setShowOptionsPanel(false)}>
-              <img src={OptionsIcon} className="options-icon" alt="Options" onClick={() => setShowOptionsPanel(!showOptionsPanel)} />
-              {showOptionsPanel && (
-                <div className="options-panel">
-                  <button className="options-button" onClick={handleEditProfile}>Edit Profile</button>
-                  <button className="options-button" onClick={handleLogout}>Logout</button>
-                  <button className="options-button" onClick={handleChangeBackground}>Change Background</button>
-                </div>
-              )}
-            </div>
-          )}
-          {editMode && (
-            <div className="edit-panel">
-              <input type="text" name="name" value={editedUser.name || ''} onChange={handleChange} placeholder="Name" />
-              <input type="text" name="connections" value={editedUser.connections || ''} onChange={handleChange} placeholder="Connections" />
-              <input type="text" name="bio" value={editedUser.bio || ''} onChange={handleChange} placeholder="Bio" />
-              <select name="gender" value={editedUser.gender || ''} onChange={handleChange}>
-                <option value="MAN">Man</option>
-                <option value="WOMAN">Woman</option>
-                <option value="OTHER">Other</option>
-              </select>
-              <button className="save-button" onClick={handleSaveProfile}>Save</button>
-              <button className="cancel-button" onClick={handleEditProfile}>Cancel</button>
-            </div>
-          )}
-          <div className='user-post-panel'></div>
-          <ul>
-          {posts.map(post => (
-            <li key={post.id}>
-              <div className="ones-post-panel">
-                <div style={{ display: 'flex', alignItems: 'center' }}>
-                  <Link to={`/user/${post.userId}`} style={{ textDecoration: 'none', color: 'inherit' }}>
-                    <div className="user-photo-container">
-                      {post.userProfilePhoto && (
-                        <img src={post.userProfilePhoto} alt={`Profile for ${post.userName}`} className="user-photo" />
-                      )}
-                    </div>
-                  </Link>
-                  <p style={{ marginLeft: '10px' }}>
-                    <strong><Link to={`/user/${post.userId}`}>{post.userName}</Link></strong>
-                  </p>
-                </div>
-
-
-                {post.isPanelOpen && (
-          <div className="post-option-panel" onMouseEnter={() => handleMouseEnterPostOption(post.id)} onMouseLeave={() => handleMouseLeavePostOption(post.id)}>
-            {isAuthenticatedUser(userId) && (
-              <React.Fragment>
-
-  <button className='post-option-panel-buttons' onClick={() => handleEditPost(post.id)}>Edit Post</button>
-
-                <button className='post-option-panel-buttons' onClick={() => {
-                  if (window.confirm('Are you sure to delete your post?')) {
-                    handleDeletePost(post.id);
-                  }
-                }}>Delete Post</button>
-              </React.Fragment>
-            )}
-          </div>
-        )}
-                {!post.photoUrl && (
-                  <div className="post-details">
-                    <p>{post.title}</p>
-                    <p>{post.text}</p>
-                  </div>
-                )}
-                {!post.photoUrls || post.photoUrls.length === 0 ? (
-                  <div className="post-details">
-                    
-                  </div>
-                ) : (
-                  <div className="post-photo-container">
-                    <div style={{ position: 'relative' }}>
-                      <img src={post.photoUrls[post.currentPhotoIndex]} alt={`Photo for post ${post.id}`} className="post-photo" />
-                      {post.photoUrls.length > 1 && (
-                        <div className='post-photos-clicks'>
-                          <img src={RightClickIcon} alt="Right click icon" className="right-click-icon" onClick={() => handleNextPhoto(post.id)} />
-                          <img src={LeftClickIcon} alt="Left click icon" className="left-click-icon" onClick={() => handlePreviousPhoto(post.id)} />
-                        </div>
-                      )}
-                    </div>
-                  </div>
-                )}
-
-                <Link to={`/onepost/${post.id}`} style={{ textDecoration: 'none', color: 'inherit' }}>
-                  <button className="see-all-comments-button" onClick={() => handleShowComments(post.id)}></button>
-                </Link>
-                {post.isCommentBoxOpen && post.selectedPostComments && (
-                  <div>
-                    <ul>
-                      {post.selectedPostComments.map(comment => (
-                        <li key={comment.id}>
-                          <p><Link to={`/user/${comment.userId}`}>{comment.userName}</Link></p>
-                          <p>{comment.text}</p>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                )}
-                <LikeForm className='post-like-contianer' userId={post.userId} postId={post.id} liked={post.liked} />
-              </div>
-            </li>
-          ))}
-        </ul>
-      </div>
-      <div className="button-container">
-        <Link to="/post" className="home-button"></Link>
-        <Link to={`/user/${userId}`} className="profile-button"></Link>
-        <Link to="/search" className="search-button"></Link>
-        <Link to="/postform" className="create-button"></Link>
-      </div>
-    </div>
-  );
-};
-
-export default User;*/
