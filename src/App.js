@@ -15,6 +15,9 @@ import ForgotPassword from './ForgotPassword';
 import Test from './Test';
 import UserDemo from './UserDemo';
 import OnepostDemo from './OnepostDemo';
+import Article from './Article';
+import OneArticle from './OneArticle';
+import ArticleForm from './ArticleForm';
 
 
 const App = () => {
@@ -29,10 +32,15 @@ const App = () => {
         <Route path="/forgotpassword" element={<ForgotPassword />} />
       
         <Route path="/postform/:postId" element={<PostForm />} />
+        <Route path="/articleform/:articleId" element={<ArticleForm />} />
+        <Route path="/articleform" element={<ArticleForm />} />
         <Route path="/postform" element={<PostForm />} />
         <Route path="/post" element={<Post />} />
-      
+        <Route path="/article" element={<Article />} />
+        <Route path="/onearticle/:articleId" element={<OneArticle />} />
         <Route path="/onepost/:postId" element={<OnePost />} />
+        
+        <Route path="/mypost" element={<MyPost />} />
         <Route path="/userdemo/:userId" element={<UserDemo />} />
         <Route path="/search" element={<Search />} />
         <Route path="/user/:userId" element={<User />} />

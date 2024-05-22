@@ -1,18 +1,18 @@
 import React, { useState, useEffect, useRef } from 'react';
 import axios from './axios';
 import { useParams, Link } from 'react-router-dom';
-import CommentForm from './CommentForm';
+import ArticleCommentForm from './ArticleCommentForm';
 import './styles/Post.css';
-import LikeForm from './LikeForm';
+import ArticleLikeForm from './ArticleLikeForm';
 import './styles/OnePost.css';
 import AuthService from './AuthService';
 import UserCommentOptionIcon from './styles/images/option.png';
 import RightClickIcon from './styles/images/rightclick.png';
 import LeftClickIcon from './styles/images/leftclick.png';
 
-const OnePost = () => {
-    const { postId } = useParams();
-    const [post, setPost] = useState(null);
+const OneArticle = () => {
+    const { articleId } = useParams();
+    const [article, setArticle] = useState(null);
     const [comments, setComments] = useState([]);
     const [showComments, setShowComments] = useState(true);
     const [user, setUser] = useState(null);
@@ -40,16 +40,16 @@ const OnePost = () => {
     }, [optionsPanelRef]);
 
     useEffect(() => {
-        const fetchPost = async () => {
+        const fetchArticle = async () => {
             try {
-                const response = await axios.get(`http://localhost:8080/api/post/${postId}`);
-                const postData = response.data;
-                console.log('postData:', postData); // Add this line to check the structure of postData
-                if (postData) {
-                    setPost(postData);
+                const response = await axios.get(`http://localhost:8080/api/article/${articleId}`);
+                const articleData = response.data;
+                console.log('articleData:', articleData); // Add this line to check the structure of articleData
+                if (articleData) {
+                    setArticle(articleData);
     
                     // Fetch user details and user profile photo
-                    const userId = postData.user.id; // This line likely causes the error
+                    const userId = articleData.user.id; // This line likely causes the error
                     const userResponse = await axios.get(`http://localhost:8080/api/user/${userId}`);
                     const userData = userResponse.data;
                     setUser(userData);
@@ -66,25 +66,25 @@ const OnePost = () => {
                     console.error('Post data is missing or incorrect.');
                 }
             } catch (error) {
-                console.error('Error fetching post:', error);
+                console.error('Error fetching article:', error);
             }
         };
     
-        fetchPost();
-    }, [postId]);
+        fetchArticle();
+    }, [articleId]);
     
 
     
     useEffect(() => {
-        const fetchPostPhotos = async () => {
+        const fetchArticlePhotos = async () => {
           try {
-            // İlk olarak, belirli bir postId'ye ait fotoğraf isimlerini almak için GET isteği yapın
-            const photoNamesResponse = await axios.get(`http://localhost:8080/api/post/photos/${postId}`);
+            // İlk olarak, belirli bir articleId'ye ait fotoğraf isimlerini almak için GET isteği yapın
+            const photoNamesResponse = await axios.get(`http://localhost:8080/api/article/photos/${articleId}`);
             
             // Fotoğraf isimlerini aldıktan sonra, her bir isim için ayrı bir GET isteği yaparak fotoğraf URL'lerini alın
             const photoUrls = await Promise.all(photoNamesResponse.data.map(async photoName => {
               try {
-                const photoUrlResponse = await axios.get(`http://localhost:8080/api/post/photos/${postId}/${photoName}`, {
+                const photoUrlResponse = await axios.get(`http://localhost:8080/api/article/photos/${articleId}/${photoName}`, {
                   responseType: 'blob' // Görüntü verilerini almak için blob türünde yanıt bekleyin
                 });
                 const imageUrl = URL.createObjectURL(photoUrlResponse.data);
@@ -95,24 +95,24 @@ const OnePost = () => {
               }
             }));
       
-            // Aldığınız fotoğraf URL'lerini post nesnesine ekleyin
-            setPost(prevPost => ({
-              ...prevPost,
+            // Aldığınız fotoğraf URL'lerini Article nesnesine ekleyin
+            setArticle(prevArticle => ({
+              ...prevArticle,
               photoUrls: photoUrls,
               currentPhotoIndex: 0 // Default current photo index
             }));
           } catch (error) {
-            console.error('Error fetching post photos:', error);
+            console.error('Error fetching article photos:', error);
           }
         };
       
-        fetchPostPhotos();
-      }, [postId]);
+        fetchArticlePhotos();
+      }, [articleId]);
       
 
     const fetchComments = async () => {
         try {
-            const response = await axios.get(`http://localhost:8080/api/comment/post/${postId}/comment`);
+            const response = await axios.get(`http://localhost:8080/api/articlecomment/article/${articleId}/articleComment`);
             const updatedComments = await Promise.all(response.data.map(async comment => {
                 try {
                     const userResponse = await axios.get(`http://localhost:8080/api/user/${comment.userId}`);
@@ -143,7 +143,7 @@ const OnePost = () => {
     const handleDeleteComment = async (commentId) => {
         try {
             // Yorumu silmek için HTTP DELETE isteği gönder
-            await axios.delete(`http://localhost:8080/api/comment/${userId}/${postId}/${commentId}`, {
+            await axios.delete(`http://localhost:8080/api/comment/${userId}/${articleId}/${commentId}`, {
                 headers: {
                     Authorization: `Bearer ${AuthService.getToken()}`
                 }
@@ -156,12 +156,12 @@ const OnePost = () => {
         }
     };
 
-    const handleUserCommentOptionClick = (commentId, commentUserId, postUserId) => {
+    const handleUserCommentOptionClick = (commentId, commentUserId, articleUserId) => {
         console.log("Current user ID:", userId);
         console.log("Comment user ID:", commentUserId);
-        console.log("Post user ID:", postUserId);
+        console.log("Post user ID:", articleUserId);
 
-        if (userId == commentUserId || userId == postUserId) {
+        if (userId == commentUserId || userId == articleUserId) {
             setShowOptionsPanel(true); // Doğru olan burası true olmalı
             setSelectedCommentId(commentId); // Seçili yorumu ayarla
             console.log("delete");
@@ -173,16 +173,16 @@ const OnePost = () => {
     };
 
     const handleNextPhoto = () => {
-        setPost(prevPost => {
-            const nextPhotoIndex = (prevPost.currentPhotoIndex + 1) % prevPost.photoUrls.length;
-            return { ...prevPost, currentPhotoIndex: nextPhotoIndex };
+        setArticle(prevArticle => {
+            const nextPhotoIndex = (prevArticle.currentPhotoIndex + 1) % prevArticle.photoUrls.length;
+            return { ...prevArticle, currentPhotoIndex: nextPhotoIndex };
         });
     };
 
     const handlePreviousPhoto = () => {
-        setPost(prevPost => {
-            const previousPhotoIndex = (prevPost.currentPhotoIndex + prevPost.photoUrls.length - 1) % prevPost.photoUrls.length;
-            return { ...prevPost, currentPhotoIndex: previousPhotoIndex };
+        setArticle(prevArticle => {
+            const previousPhotoIndex = (prevArticle.currentPhotoIndex + prevArticle.photoUrls.length - 1) % prevArticle.photoUrls.length;
+            return { ...prevArticle, currentPhotoIndex: previousPhotoIndex };
         });
     };
     
@@ -190,7 +190,7 @@ const OnePost = () => {
         <div>
             <div className="post-container">
                 <div className="one-post-panel">
-                    {post && (
+                    {article && (
                         <div>
                             <div className="user-infos">
                                 {userProfilePhoto && (
@@ -203,23 +203,22 @@ const OnePost = () => {
                                 </div>
                             </div>
 
-                            {!post.photoUrl && (
+                            {!article.photoUrl && (
                                 <div className="post-details">
-                                    <p>{post.title}</p>
-                                    <p>{post.text}</p>
+                                    <p>{article.subject}</p>
+                                    <p>{article.content}</p>
                                 </div>
                             )}
 
-                            {!post.photoUrls || post.photoUrls.length === 0 ? (
+                            {!article.photoUrls || article.photoUrls.length === 0 ? (
                                 <div className="post-details">
-                                    <p>{post.title}</p>
-                                    <p>{post.text}</p>
+                                   
                                 </div>
                             ) : (
                                 <div className="post-photo-container">
                                     <div style={{ position: 'relative' }}>
-                                        <img src={post.photoUrls[post.currentPhotoIndex]} alt={`Photo for post ${post.id}`} className="post-photo" />
-                                        {post.photoUrls.length > 1 && (
+                                        <img src={article.photoUrls[article.currentPhotoIndex]} alt={`Photo for article ${article.id}`} className="post-photo" />
+                                        {article.photoUrls.length > 1 && (
                                             <div className='post-photos-clicks'>
                                                 <img src={RightClickIcon} alt="Right click icon" className="right-click-icon" onClick={handleNextPhoto} />
                                                 <img src={LeftClickIcon} alt="Left click icon" className="left-click-icon" onClick={handlePreviousPhoto} />
@@ -229,19 +228,19 @@ const OnePost = () => {
                                 </div>
                             )}
 
-                            <button className="see-all-comments-button" onClick={handleShowComments}></button>
+<button className="see-all-comments-button" onClick={handleShowComments}></button>
                         </div>
                     )}
 
                     <div className="like">
-                        <LikeForm postId={postId} />
+                        <ArticleLikeForm articleId={articleId} />
                     </div>
                     <div className="comments-panel">
-                        <CommentForm postId={postId} />
+                        <ArticleCommentForm articleId={articleId} />
                     </div>
                     {showComments && (
                         <div className="comment-list-panel">
-                            <div className="comment-btm-panel">
+                            <div  className="comment-btm-panel">
                                 {comments.map(comment => (
                                     <div key={comment.id} className="comment-panel">
                                         <div className="comment-user-info">
@@ -261,7 +260,7 @@ const OnePost = () => {
                                                 src={UserCommentOptionIcon}
                                                 alt="Options"
                                                 className="comment-option-icon"
-                                                onClick={() => handleUserCommentOptionClick(comment.id, comment.userId, post.user.id)}
+                                                onClick={() => handleUserCommentOptionClick(comment.id, comment.userId, article.user.id)}
                                             />
 
                                             {showOptionsPanel && selectedCommentId == comment.id && (
@@ -277,9 +276,11 @@ const OnePost = () => {
                         </div>
                     )}
                 </div>
+
             </div>
             <div className="button-container">
                 <Link to="/post" className="home-button"></Link>
+                <Link to="/article" className="article-button"></Link>
                 <Link to={`/user/${userId}`} className="profile-button"></Link>
                 <Link to="/search" className="search-button"></Link>
                 <Link to="/articleform" className="article-create-button"></Link>
@@ -289,4 +290,4 @@ const OnePost = () => {
     );
 };
 
-export default OnePost;
+export default OneArticle;

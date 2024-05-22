@@ -17,7 +17,7 @@
         const fetchPosts = async () => {
           try {
             const userId = localStorage.getItem('userId'); // localStorage'dan userId al
-            const response = await axios.get(`http://localhost:8080/api/post/me/${userId}`);
+            const response = await axios.get(`http://localhost:8080/api/post/myposts/${userId}`);
 
             const postsWithPhotos = await Promise.all(response.data.map(async post => {
               try {
@@ -185,6 +185,7 @@
           <Link to={`/user/${userId}`} className="profile-button"></Link>
           <Link to="/search" className="search-button"></Link>
           <Link to="/myPost" className="my-post-button"></Link>
+          <Link to="/articleform" className="article-create-button"></Link>
           <Link to="/postform" className="create-button"></Link>
         </div>
       </div>

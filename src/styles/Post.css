@@ -145,6 +145,7 @@
 .profile-button,
 .search-button,
 .my-post-button,
+.article-create-button ,
 .create-button {
   width: 30px;
   height: 30px;
@@ -170,7 +171,9 @@
 .my-post-button {
   background-image: url('./images/myPost.png');
 }
-
+.article-create-button {
+  background-image: url('./images/articlecreate.png');
+}
 .create-button {
   background-image: url('./images/create.png');
 }

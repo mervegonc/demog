@@ -189,8 +189,10 @@ const Post = () => {
       </div>
       <div className="button-container">
         <Link to="/post" className="home-button"></Link>
+        <Link to="/article" className="article-button"></Link>
         <Link to={`/user/${userId}`} className="profile-button"></Link>
         <Link to="/search" className="search-button"></Link>
+        <Link to="/articleform" className="article-create-button"></Link>
         <Link to="/postform" className="create-button"></Link>
       </div>
     </div>
