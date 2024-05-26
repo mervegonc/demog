@@ -74,13 +74,16 @@ const Search = () => {
       </div>
 
       <div className='search-results-container'>
+
+
+        
         {activeTab === 'posts' && postResults.length > 0 && (
           <div className='search-results'>
             <h2>Posts</h2>
             {postResults.map((post) => (
               <div key={post.id} className='search-result'>
                 <h3>{post.title}</h3>
-                <p>{post.text}</p>
+                {/*<p>{post.text}</p>*/}
                 <Link to={`/onepost/${post.id}`} className='read-more'>Read more</Link>
               </div>
             ))}

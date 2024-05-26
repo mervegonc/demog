@@ -139,7 +139,7 @@ export default ArticleForm;
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import AuthService from './AuthService';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation ,useNavigate} from 'react-router-dom';
 import './styles/ArticleForm.css';
 import FileUpload from './FileUpload';
 import savePostImage from './styles/images/savepost.png';
@@ -152,7 +152,7 @@ const ArticleForm = () => {
   });
   const [selectedFiles, setSelectedFiles] = useState([]);
   const location = useLocation();
-
+  const navigate = useNavigate();
   useEffect(() => {
     if (location.state) {
       const { subject, content, photoUrl, articleId } = location.state;
@@ -171,7 +171,46 @@ const ArticleForm = () => {
     setFormData({ ...formData, [name]: formattedValue });
   };
   
+  const handleSubmit = async e => {
+    e.preventDefault();
+    if (!formData.subject.trim() || !formData.content.trim()) {
+      alert('Please enter subject and content');
+      return;
+    }
 
+    try {
+      const articleData = { ...formData, userId: AuthService.getUserId() };
+      const config = {
+        headers: { Authorization: `Bearer ${AuthService.getToken()}` }
+      };
+
+      let response;
+      if (formData.articleId) {
+        response = await axios.put(`http://localhost:8080/api/article/${formData.articleId}`, articleData, config);
+        alert('Updated Successfully');
+        navigate(`/onearticle/${response.data.id}`);
+      } else {
+        response = await axios.post('http://localhost:8080/api/article', articleData, config);
+        alert('Article created successfully');
+        // Yeni bir articleId aldığımızda state'i güncelliyoruz
+        setFormData({ ...formData, articleId: response.data.id });
+        // Redirect to OnePost component with the new articleId
+        navigate(`/onearticle/${response.data.id}`);
+      }
+
+      // Fotoğraf seçilmiş mi kontrol et
+      if (selectedFiles.length > 0) {
+        const updatedArticleId = response.data.id;
+        await uploadPhotos(updatedArticleId);
+      }
+
+      setFormData({ subject: '', content: '' });
+      setSelectedFiles([]);
+    } catch (error) {
+      console.error('Error creating or updating article:', error);
+    }
+  };
+/*
   const handleSubmit = async e => {
     e.preventDefault();
     if (!formData.subject.trim() || !formData.content.trim()) {
@@ -208,7 +247,7 @@ const ArticleForm = () => {
     } catch (error) {
       console.error('Error creating or updating article:', error);
     }
-  };
+  };*/
   
   const uploadPhotos = async articleId => {
     const photoFormData = new FormData();
@@ -246,7 +285,7 @@ const ArticleForm = () => {
             name="subject"
             value={formData.subject}
             onChange={handleChange}
-            placeholder="Please Write Your Post Subject"
+            placeholder="Please Write Your Article Subject"
           />
         </div>
         <div className='atext'>
@@ -263,7 +302,7 @@ const ArticleForm = () => {
         <FileUpload onFileChange={handleFileChange} />
       </div>
       <div>
-        <img src={savePostImage} onClick={handleSubmit} className='save-post'/>
+        <img src={savePostImage} onClick={handleSubmit} className='save-article'/>
       </div>
       <div className="button-container">
         <Link to="/post" className="home-button"></Link>

@@ -129,6 +129,7 @@ const Post = () => {
           {posts.map(post => (
             <li key={post.id}>
               <div className="ones-post-panel">
+              <p className='article-create-date'>{post.formattedCreatedAt}</p>
                 <div style={{ display: 'flex', alignItems: 'center' }}>
                   <Link to={`/user/${post.userId}`} style={{ textDecoration: 'none', color: 'inherit' }}>
                     <div className="user-photo-container">
@@ -145,6 +146,8 @@ const Post = () => {
                   <div className="post-details">
                     <p>{post.title}</p>
                     <p>{post.text}</p>
+                   
+
                   </div>
                 )}
               {!post.photoUrls || post.photoUrls.length === 0 ? (

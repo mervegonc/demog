@@ -129,6 +129,7 @@
                 {articles.map(article => (
                   <li key={article.id}>
                     <div className="ones-post-panel">
+                    <p className='article-create-date'>{article.formattedCreatedAt}</p>
                       <div style={{ display: 'flex', alignItems: 'center' }}>
                         <Link to={`/user/${article.userId}`} style={{ textDecoration: 'none', color: 'inherit' }}>
                           <div className="user-photo-container">
@@ -136,6 +137,7 @@
                               <img src={article.userProfilePhoto} alt={`Profile for ${article.userName}`} className="user-photo" />
                             )}
                           </div>
+                          
                         </Link>
                         <p style={{ marginLeft: '10px' }}>
                           <strong><Link to={`/user/${article.userId}`}>{article.userName}</Link></strong>
@@ -145,8 +147,9 @@
                         <div className="post-details">
                           <p>{article.subject}</p>
                           <p>{article.content}</p>
+                        
                         </div>
-                      )}
+                      )} 
                     {!article.photoUrls || article.photoUrls.length === 0 ? (
         <div className="post-details">
          

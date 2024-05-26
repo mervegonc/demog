@@ -36,16 +36,22 @@ margin-top: -40px;
 margin-left:30px;
   }
 .comment-user-text{
-  height: 60px;
-  margin-top: 30px;
+  position: relative;
+  height:auto ;
+  margin-top: 50px;
   margin-left:10px;
+  padding-bottom: 50px; /* Adds 10px to the bottom */
 }
 
 
+
+
+
+
 .comment-option-icon{
+  position: absolute;
   display: flex;
-  justify-content: center; /* Yatay ortala */
-  align-items: center; /* Dikey ortala */
+  
   width: 30px;
   height: 30px;
   padding: 10px 20px;
@@ -55,12 +61,16 @@ margin-left:30px;
   font-size: 14px;
  
   border-radius: 9px;
-  color: white;
-  margin-top: -105px;
-  margin-left: 520px;
+  color: white; 
+  margin-left: 550px;
 }
 
+.comment-option-new{
+  z-index: 999;
+}
 .user-comment-options-panel{
+  position: absolute;
+  z-index: 9999; 
   display: flex;
   justify-content: center; /* Yatay ortala */
   align-items: center; /* Dikey ortala */
@@ -69,16 +79,40 @@ margin-left:30px;
 background-color: rgba(0, 0, 0, 0.493);
 box-shadow: 0 0 10px rgba(255, 255, 255, 0.49);
 border-radius: 9px;
-  margin-top: -15px;
-  margin-left: 480px;
+  margin-top: 45px;
+  margin-left: 486px;
 }
 
 
 
 
 
+.comment-panel {
+  margin-top:20px;
+  width: 600px;
+ /* height: auto;*/
+  background-color: rgba(0, 0, 0, 0.574);
+  border-radius: 15px;
+  color: rgb(255, 255, 255); /* Yazı rengi */
+  padding: 10px;
+  border-radius: 5px;
+}
 
 
+
+.comment-panel p {
+ /* margin-top: 0px;
+  margin-left: 15px;
+  */  margin: 5px 15px;
+}
+.comment-user-photo {
+  margin-top: -15px;
+  margin-left: 15px;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  overflow: hidden;
+}
 
 
 

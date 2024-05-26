@@ -84,6 +84,7 @@
 
 .comment-btm-panel{
   margin-bottom: 60px;
+ 
 }
 
   .comment-list-panel {
@@ -92,7 +93,7 @@
     height:max-content;
     margin-left: -20px;
     
-  
+  background-color: rgba(0, 0, 0, 0);
     color: rgb(255, 255, 255); /* Yazı rengi */
     border: none;
     display: flex;
@@ -100,32 +101,5 @@
     align-items: center; /* Dikeyde ortala */
     border-radius: 5px;
     margin-top: 20px;
-  }
-  
-  .comment-panel {
-    margin-top:20px;
-    width: 600px;
-    height: auto;
-    background-color: rgba(0, 0, 0, 0.338);
-    border-radius: 15px;
-    color: rgb(255, 255, 255); /* Yazı rengi */
-   
-    border-radius: 5px;
-  }
-  
-  
-  
-  .comment-panel p {
-    margin-top: 0px;
-    margin-left: 15px;
-    
-  }
-  .comment-user-photo {
-    margin-top: 15px;
-    margin-left: 15px;
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    overflow: hidden;
   }
   

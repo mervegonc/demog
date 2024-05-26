@@ -21,7 +21,7 @@
 
   .apost-form-area{
 
-    margin-top: 150px;
+    margin-top: 170px;
   }
   .title {
 
@@ -68,73 +68,8 @@
 
 
 
-/*
-  .custom-file-upload {
-    margin-top: 400px;
-    margin-left: 580px;
-width:55px;
-height: 18px;
-  
-    padding: 3px 10px;
-    cursor: pointer;
-    background-color: rgb(255, 255, 255); /* Gri arka plan rengi *//*
-    border-radius: 10px; /* Köşeleri ovalleştirme *//*
-    color: rgb(0, 0, 0);
-    border-radius: 5px;
-    border: 1px solid #ccc;
-    display: inline-block;
-    padding: 5px 15px;
-    cursor: pointer;
-  
-    transition: background-color 0.3s ease;
-    position: relative; /* Eklendi *//*
-    z-index: 66;
-  
-  
-    z-index: 66;
-  }
-
-  .custom-file-upload input[type="file"] {
-  
-    display: block;
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    opacity: 0; /* No file chosen metnini gizler *//*
-
-  }
-
-  .custom-file-upload:hover {
-    background-color: #ddd;
-  }
-
-
-
-  /*.post-photo-selected{
-    margin-top: -450px; /* Yukarıya 10 piksel boşluk bırak *//*
-    width: 480px;
-    height: 380px;
-    background-color: rgba(212, 41, 41, 0); /* Gri arka plan rengi *//*
-    border-radius: 10px; /* Köşeleri ovalleştirme *//*
-    color: rgb(0, 0, 0);
-    border-radius: 5px;
-  }*/
-
-
-/*
-  .selected-image{
-    margin-top: 0px; /* Yukarıya 10 piksel boşluk bırak *//*
-    width: 480px;
-    height: 380px;
-    box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
-    border-radius: 15px;
-  
-  }*/
-
-  .save-post {
-    margin-top: -45px;
+  .save-article {
+    margin-top: -35px;
     width: 45px;
     height: 45px;
     margin-left: 650px;

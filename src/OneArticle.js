@@ -143,7 +143,7 @@ const OneArticle = () => {
     const handleDeleteComment = async (commentId) => {
         try {
             // Yorumu silmek için HTTP DELETE isteği gönder
-            await axios.delete(`http://localhost:8080/api/comment/${userId}/${articleId}/${commentId}`, {
+            await axios.delete(`http://localhost:8080/api/articlecomment/${userId}/${articleId}/${commentId}`, {
                 headers: {
                     Authorization: `Bearer ${AuthService.getToken()}`
                 }
@@ -159,7 +159,7 @@ const OneArticle = () => {
     const handleUserCommentOptionClick = (commentId, commentUserId, articleUserId) => {
         console.log("Current user ID:", userId);
         console.log("Comment user ID:", commentUserId);
-        console.log("Post user ID:", articleUserId);
+        console.log("Article user ID:", articleUserId);
 
         if (userId == commentUserId || userId == articleUserId) {
             setShowOptionsPanel(true); // Doğru olan burası true olmalı
@@ -193,6 +193,8 @@ const OneArticle = () => {
                     {article && (
                         <div>
                             <div className="user-infos">
+                            <p className='article-create-date'>{article.formattedCreatedAt}</p>
+                            
                                 {userProfilePhoto && (
                                     <img src={userProfilePhoto} alt={`Profile photo for ${user.username}`} className="user-photo-container" />
                                 )}
@@ -236,14 +238,30 @@ const OneArticle = () => {
                         <ArticleLikeForm articleId={articleId} />
                     </div>
                     <div className="comments-panel">
-                        <ArticleCommentForm articleId={articleId} />
-                    </div>
+    <ArticleCommentForm articleId={articleId} onCommentSubmitted={fetchComments} />
+</div>
+
                     {showComments && (
                         <div className="comment-list-panel">
                             <div  className="comment-btm-panel">
                                 {comments.map(comment => (
                                     <div key={comment.id} className="comment-panel">
+                                        
+                                        <div className='comment-option-new'>    <img
+                                                src={UserCommentOptionIcon}
+                                                alt="Options"
+                                                className="comment-option-icon"
+                                                onClick={() => handleUserCommentOptionClick(comment.id, comment.userId, article.user.id)}
+                                            />
+
+                                            {showOptionsPanel && selectedCommentId == comment.id && (
+                                                <div ref={optionsPanelRef} className='user-comment-options-panel'>
+                                                    <button className="comment-delete" onClick={() => handleDeleteComment(comment.id)}>Delete</button>
+                                                </div>
+                                            )}</div>
+                                              <p className='comment-create-date'style={{ marginTop: '17px' ,marginLeft: '500px' }}>{comment.formattedCreatedAt}</p>
                                         <div className="comment-user-info">
+                                      
                                             {comment.userProfilePhoto && (
                                                 <Link to={`/user/${comment.userId}`}>
                                                     <img src={comment.userProfilePhoto} alt={`Profile photo for ${comment.userName}`} className="comment-user-photo" />
@@ -256,18 +274,7 @@ const OneArticle = () => {
                                         <div className="comment-user-text">
                                             <p>{comment.text}</p>
 
-                                            <img
-                                                src={UserCommentOptionIcon}
-                                                alt="Options"
-                                                className="comment-option-icon"
-                                                onClick={() => handleUserCommentOptionClick(comment.id, comment.userId, article.user.id)}
-                                            />
-
-                                            {showOptionsPanel && selectedCommentId == comment.id && (
-                                                <div ref={optionsPanelRef} className='user-comment-options-panel'>
-                                                    <button className="comment-delete" onClick={() => handleDeleteComment(comment.id)}>Delete</button>
-                                                </div>
-                                            )}
+                                        
 
                                         </div>
                                     </div>

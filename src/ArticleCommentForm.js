@@ -4,7 +4,7 @@ import AuthService from './AuthService';
 import { Link } from 'react-router-dom';
 import './styles/Post.css';
 
-const ArticleCommentForm = ({ articleId }) => {
+const ArticleCommentForm = ({ articleId,onCommentSubmitted  }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [comment, setComment] = useState('');
   const [commentedUserId, setCommentedUserId] = useState(null);
@@ -43,24 +43,28 @@ const ArticleCommentForm = ({ articleId }) => {
 
   const handleSubmitComment = async () => {
     try {
-      const token = AuthService.getToken();
-      const userId = AuthService.getUserId();
-      const response = await axios.post('http://localhost:8080/api/articlecomment', {
-        userId,
-        articleId,
-        text: comment
-      }, {
-        headers: {
-          Authorization: `Bearer ${token}`
-        }
-      });
-      console.log('Response from server:', response.data);
-      setComment('');
-      setIsOpen(false);
+        const token = AuthService.getToken();
+        const userId = AuthService.getUserId();
+        const response = await axios.post('http://localhost:8080/api/articlecomment', {
+            userId,
+            articleId,
+            text: comment
+        }, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        });
+        console.log('Response from server:', response.data);
+        setComment('');
+        setIsOpen(false);
+
+        // Call the callback function to update comments after submission
+        onCommentSubmitted(); // Add this line
     } catch (error) {
-      console.error('Error article comment:', error);
+        console.error('Error article comment:', error);
     }
-  };
+};
+
 
   const handleClickOutside = (event) => {
     if (commentBoxRef.current && !commentBoxRef.current.contains(event.target)) {
