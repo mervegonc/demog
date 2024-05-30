@@ -3,7 +3,6 @@ import axios from './axios';
 import likeImage from './styles/images/unlike.png';
 import unlikeImage from './styles/images/like.png';
 import './styles/LikeForm.css';
-import AuthService from './AuthService';
 
 const ArticleLikeForm = ({ articleId }) => {
     const [liked, setLiked] = useState(false); // Beğenme durumu
