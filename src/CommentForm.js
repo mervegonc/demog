@@ -38,25 +38,25 @@ const CommentForm = ({ postId, refreshComments }) => {
     setSelectedPostId(postId);
   };
 
- const handleCommentChange = (e) => {
-  const inputValue = e.target.value;
-  const lines = inputValue.split('\n');
-  const truncatedLines = lines.map(line => {
-    let truncatedLine = '';
-    let remainingChars = line;
-    while (remainingChars.length > 70) {
-      // Satırı 66 karakterlik parçalara ayır
-      const chunk = remainingChars.slice(0, 70);
-      truncatedLine += chunk + '\n';
-      remainingChars = remainingChars.slice(70); // Kalan kısmı al
-    }
-    // Kalan kısmı ekle (66 karakterden kısa ise)
-    truncatedLine += remainingChars;
-    return truncatedLine;
-  });
-  const truncatedValue = truncatedLines.join('\n');
-  setComment(truncatedValue);
-};
+  const handleCommentChange = (e) => {
+    const inputValue = e.target.value;
+    const lines = inputValue.split('\n');
+    const truncatedLines = lines.map(line => {
+      let truncatedLine = '';
+      let remainingChars = line;
+      while (remainingChars.length > 70) {
+        // Satırı 66 karakterlik parçalara ayır
+        const chunk = remainingChars.slice(0, 70);
+        truncatedLine += chunk + '\n';
+        remainingChars = remainingChars.slice(70); // Kalan kısmı al
+      }
+      // Kalan kısmı ekle (66 karakterden kısa ise)
+      truncatedLine += remainingChars;
+      return truncatedLine;
+    });
+    const truncatedValue = truncatedLines.join('\n');
+    setComment(truncatedValue);
+  };
 
 
   const handleSubmitComment = async () => {

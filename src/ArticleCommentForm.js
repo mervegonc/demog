@@ -4,7 +4,7 @@ import AuthService from './AuthService';
 import { Link } from 'react-router-dom';
 import './styles/Post.css';
 
-const ArticleCommentForm = ({ articleId,onCommentSubmitted  }) => {
+const ArticleCommentForm = ({ articleId, onCommentSubmitted }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [comment, setComment] = useState('');
   const [commentedUserId, setCommentedUserId] = useState(null);
@@ -43,27 +43,27 @@ const ArticleCommentForm = ({ articleId,onCommentSubmitted  }) => {
 
   const handleSubmitComment = async () => {
     try {
-        const token = AuthService.getToken();
-        const userId = AuthService.getUserId();
-        const response = await axios.post('http://localhost:8080/api/articlecomment', {
-            userId,
-            articleId,
-            text: comment
-        }, {
-            headers: {
-                Authorization: `Bearer ${token}`
-            }
-        });
-        console.log('Response from server:', response.data);
-        setComment('');
-        setIsOpen(false);
+      const token = AuthService.getToken();
+      const userId = AuthService.getUserId();
+      const response = await axios.post('http://localhost:8080/api/articlecomment', {
+        userId,
+        articleId,
+        text: comment
+      }, {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      });
+      console.log('Response from server:', response.data);
+      setComment('');
+      setIsOpen(false);
 
-        // Call the callback function to update comments after submission
-        onCommentSubmitted(); // Add this line
+      // Call the callback function to update comments after submission
+      onCommentSubmitted(); // Add this line
     } catch (error) {
-        console.error('Error article comment:', error);
+      console.error('Error article comment:', error);
     }
-};
+  };
 
 
   const handleClickOutside = (event) => {
@@ -89,12 +89,12 @@ const ArticleCommentForm = ({ articleId,onCommentSubmitted  }) => {
             onChange={handleCommentChange}
             placeholder="Write your comment here..."
           ></textarea>
-          <button  onClick={handleSubmitComment}>save</button>
+          <button onClick={handleSubmitComment}>save</button>
         </div>
       )}
       {commentedUserId && (
         <div   >
-        <p> Commented by: <Link to={`/user/${commentedUserId}`}>{commentedUserName}</Link></p>
+          <p> Commented by: <Link to={`/user/${commentedUserId}`}>{commentedUserName}</Link></p>
         </div>
       )}
     </div>

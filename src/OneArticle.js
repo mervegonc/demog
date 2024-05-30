@@ -47,13 +47,13 @@ const OneArticle = () => {
                 console.log('articleData:', articleData); // Add this line to check the structure of articleData
                 if (articleData) {
                     setArticle(articleData);
-    
+
                     // Fetch user details and user profile photo
                     const userId = articleData.user.id; // This line likely causes the error
                     const userResponse = await axios.get(`http://localhost:8080/api/user/${userId}`);
                     const userData = userResponse.data;
                     setUser(userData);
-    
+
                     const userProfilePhotoResponse = await axios.get(`http://localhost:8080/api/user/profile/${userId}`, {
                         responseType: 'blob',
                         headers: {
@@ -69,46 +69,46 @@ const OneArticle = () => {
                 console.error('Error fetching article:', error);
             }
         };
-    
+
         fetchArticle();
     }, [articleId]);
-    
 
-    
+
+
     useEffect(() => {
         const fetchArticlePhotos = async () => {
-          try {
-            // İlk olarak, belirli bir articleId'ye ait fotoğraf isimlerini almak için GET isteği yapın
-            const photoNamesResponse = await axios.get(`http://localhost:8080/api/article/photos/${articleId}`);
-            
-            // Fotoğraf isimlerini aldıktan sonra, her bir isim için ayrı bir GET isteği yaparak fotoğraf URL'lerini alın
-            const photoUrls = await Promise.all(photoNamesResponse.data.map(async photoName => {
-              try {
-                const photoUrlResponse = await axios.get(`http://localhost:8080/api/article/photos/${articleId}/${photoName}`, {
-                  responseType: 'blob' // Görüntü verilerini almak için blob türünde yanıt bekleyin
-                });
-                const imageUrl = URL.createObjectURL(photoUrlResponse.data);
-                return imageUrl;
-              } catch (error) {
-                console.error('Error fetching photo URL:', error);
-                return null;
-              }
-            }));
-      
-            // Aldığınız fotoğraf URL'lerini Article nesnesine ekleyin
-            setArticle(prevArticle => ({
-              ...prevArticle,
-              photoUrls: photoUrls,
-              currentPhotoIndex: 0 // Default current photo index
-            }));
-          } catch (error) {
-            console.error('Error fetching article photos:', error);
-          }
+            try {
+                // İlk olarak, belirli bir articleId'ye ait fotoğraf isimlerini almak için GET isteği yapın
+                const photoNamesResponse = await axios.get(`http://localhost:8080/api/article/photos/${articleId}`);
+
+                // Fotoğraf isimlerini aldıktan sonra, her bir isim için ayrı bir GET isteği yaparak fotoğraf URL'lerini alın
+                const photoUrls = await Promise.all(photoNamesResponse.data.map(async photoName => {
+                    try {
+                        const photoUrlResponse = await axios.get(`http://localhost:8080/api/article/photos/${articleId}/${photoName}`, {
+                            responseType: 'blob' // Görüntü verilerini almak için blob türünde yanıt bekleyin
+                        });
+                        const imageUrl = URL.createObjectURL(photoUrlResponse.data);
+                        return imageUrl;
+                    } catch (error) {
+                        console.error('Error fetching photo URL:', error);
+                        return null;
+                    }
+                }));
+
+                // Aldığınız fotoğraf URL'lerini Article nesnesine ekleyin
+                setArticle(prevArticle => ({
+                    ...prevArticle,
+                    photoUrls: photoUrls,
+                    currentPhotoIndex: 0 // Default current photo index
+                }));
+            } catch (error) {
+                console.error('Error fetching article photos:', error);
+            }
         };
-      
+
         fetchArticlePhotos();
-      }, [articleId]);
-      
+    }, [articleId]);
+
 
     const fetchComments = async () => {
         try {
@@ -185,7 +185,7 @@ const OneArticle = () => {
             return { ...prevArticle, currentPhotoIndex: previousPhotoIndex };
         });
     };
-    
+
     return (
         <div>
             <div className="post-container">
@@ -193,8 +193,8 @@ const OneArticle = () => {
                     {article && (
                         <div>
                             <div className="user-infos">
-                            <p className='article-create-date'>{article.formattedCreatedAt}</p>
-                            
+                                <p className='article-create-date'>{article.formattedCreatedAt}</p>
+
                                 {userProfilePhoto && (
                                     <img src={userProfilePhoto} alt={`Profile photo for ${user.username}`} className="user-photo-container" />
                                 )}
@@ -214,7 +214,7 @@ const OneArticle = () => {
 
                             {!article.photoUrls || article.photoUrls.length === 0 ? (
                                 <div className="post-details">
-                                   
+
                                 </div>
                             ) : (
                                 <div className="post-photo-container">
@@ -230,7 +230,7 @@ const OneArticle = () => {
                                 </div>
                             )}
 
-<button className="see-all-comments-button" onClick={handleShowComments}></button>
+                            <button className="see-all-comments-button" onClick={handleShowComments}></button>
                         </div>
                     )}
 
@@ -238,30 +238,30 @@ const OneArticle = () => {
                         <ArticleLikeForm articleId={articleId} />
                     </div>
                     <div className="comments-panel">
-    <ArticleCommentForm articleId={articleId} onCommentSubmitted={fetchComments} />
-</div>
+                        <ArticleCommentForm articleId={articleId} onCommentSubmitted={fetchComments} />
+                    </div>
 
                     {showComments && (
                         <div className="comment-list-panel">
-                            <div  className="comment-btm-panel">
+                            <div className="comment-btm-panel">
                                 {comments.map(comment => (
                                     <div key={comment.id} className="comment-panel">
-                                        
+
                                         <div className='comment-option-new'>    <img
-                                                src={UserCommentOptionIcon}
-                                                alt="Options"
-                                                className="comment-option-icon"
-                                                onClick={() => handleUserCommentOptionClick(comment.id, comment.userId, article.user.id)}
-                                            />
+                                            src={UserCommentOptionIcon}
+                                            alt="Options"
+                                            className="comment-option-icon"
+                                            onClick={() => handleUserCommentOptionClick(comment.id, comment.userId, article.user.id)}
+                                        />
 
                                             {showOptionsPanel && selectedCommentId == comment.id && (
                                                 <div ref={optionsPanelRef} className='user-comment-options-panel'>
                                                     <button className="comment-delete" onClick={() => handleDeleteComment(comment.id)}>Delete</button>
                                                 </div>
                                             )}</div>
-                                              <p className='comment-create-date'style={{ marginTop: '17px' ,marginLeft: '500px' }}>{comment.formattedCreatedAt}</p>
+                                        <p className='comment-create-date' style={{ marginTop: '17px', marginLeft: '500px' }}>{comment.formattedCreatedAt}</p>
                                         <div className="comment-user-info">
-                                      
+
                                             {comment.userProfilePhoto && (
                                                 <Link to={`/user/${comment.userId}`}>
                                                     <img src={comment.userProfilePhoto} alt={`Profile photo for ${comment.userName}`} className="comment-user-photo" />
@@ -274,7 +274,7 @@ const OneArticle = () => {
                                         <div className="comment-user-text">
                                             <p>{comment.text}</p>
 
-                                        
+
 
                                         </div>
                                     </div>

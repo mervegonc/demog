@@ -160,23 +160,3 @@
   background-image: url('./images/create.png');
 }
 
-.post-photos-clicks {
- 
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-}
-
-.right-click-icon,
-.left-click-icon {
-  width: 30px;
-  height: 30px;
-  cursor: pointer;
-}
-.right-click-icon {
- margin-left: 570px;
-}
-
-.left-click-icon {
-  margin-left: -599px;
-}

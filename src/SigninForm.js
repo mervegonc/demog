@@ -30,7 +30,7 @@ const SigninForm = () => {
       AuthService.setToken(token);
       AuthService.setUserId(userId);
       navigate(`/user/${userId}`);
-    /*  navigate('/profile')*/
+      /*  navigate('/profile')*/
     } catch (error) {
       console.error('Error:', error);
     }
@@ -53,7 +53,7 @@ const SigninForm = () => {
           <label htmlFor="password"></label>
           <div style={{ display: 'flex', alignItems: 'center' }}>
             <input type={showPassword ? 'text' : 'password'} name="password" id="password" value={formData.password} onChange={handleChange} placeholder="Password" />
-            <img src={showPassword ? closeEyeIcon : openEyeIcon} alt="Password visibility toggle" onClick={togglePasswordVisibility} style={{ cursor: 'pointer', marginLeft: '-25px', marginTop:'-15px',width: '20px', height: '20px' }} />
+            <img src={showPassword ? closeEyeIcon : openEyeIcon} alt="Password visibility toggle" onClick={togglePasswordVisibility} style={{ cursor: 'pointer', marginLeft: '-25px', marginTop: '-15px', width: '20px', height: '20px' }} />
           </div>
         </div>
         <button type="submit">Sign In</button>

@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect, useRef } from 'react';
 import axios from './axios';
 import { useParams, Link } from 'react-router-dom';
@@ -230,11 +229,11 @@ const OnePost = () => {
     <div>
       <div className="post-container">
         <div className="one-post-panel">
-          
+
           {post && (
             <div>
               <div className="user-infos">
-              <p className='article-create-date'>{post.formattedCreatedAt}</p>
+                <p className='article-create-date'>{post.formattedCreatedAt}</p>
                 {userProfilePhoto && (
                   <img src={userProfilePhoto} alt={`Profile photo for ${user.username}`} className="user-photo-container" />
                 )}
@@ -249,7 +248,7 @@ const OnePost = () => {
                 <div className="post-details">
                   <p>{post.title}</p>
                   <p>{post.text}</p>
-                
+
                 </div>
               )}
 
@@ -281,46 +280,46 @@ const OnePost = () => {
             <CommentForm postId={postId} refreshComments={fetchComments} />
           </div>
           {showComments && (
-            
+
             <div className="comment-list-panel">
               <div className="comment-btm-panel">
-                
+
                 {comments.map(comment => (
-                  
+
                   <div key={comment.id} className="comment-panel">
-                   
+
                     <div className='comment-option-new'>   <img
-                        src={UserCommentOptionIcon}
-                        alt="Options"
-                        className="comment-option-icon"
-                        onClick={() => handleUserCommentOptionClick(comment.id, comment.userId, post.user.id)}
-                      />
+                      src={UserCommentOptionIcon}
+                      alt="Options"
+                      className="comment-option-icon"
+                      onClick={() => handleUserCommentOptionClick(comment.id, comment.userId, post.user.id)}
+                    />
 
                       {showOptionsPanel && selectedCommentId == comment.id && (
                         <div ref={optionsPanelRef} className='user-comment-options-panel'>
                           <button className="comment-delete" onClick={() => handleDeleteComment(comment.id)}>Delete</button>
                         </div>
                       )}</div>
-                           <p className='comment-create-date'style={{ marginTop: '17px' ,marginLeft: '500px' }}>{comment.formattedCreatedAt}</p>
+                    <p className='comment-create-date' style={{ marginTop: '17px', marginLeft: '500px' }}>{comment.formattedCreatedAt}</p>
                     <div className="comment-user-info">
-                  
+
                       {comment.userProfilePhoto && (
                         <Link to={`/user/${comment.userId}`}>
                           <img src={comment.userProfilePhoto} alt={`Profile photo for ${comment.userName}`} className="comment-user-photo" />
                         </Link>
                       )}
-                   
+
                       <div className="comment-username">
                         <p><Link className='comment-username' to={`/user/${comment.userId}`}>{comment.userName}</Link></p>
                       </div>
-                   
-                    </div>  
+
+                    </div>
                     <div className="comment-user-text">
-                 
+
                       <p>{comment.text}</p>
-           
-                    
-                   
+
+
+
 
                     </div>
                   </div>

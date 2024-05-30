@@ -1,6 +1,4 @@
-
-     
-      import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from './axios';
 import { Link } from 'react-router-dom';
 import LikeForm from './LikeForm';
@@ -23,7 +21,7 @@ const Post = () => {
           try {
             const photoNamesResponse = await axios.get(`http://localhost:8080/api/post/photos/${post.id}`);
             console.log(`GET request for photo names of post ${post.id}:`, photoNamesResponse);
-            
+
             const photoNames = photoNamesResponse.data;
             const photoUrls = await Promise.all(photoNames.map(async photoName => {
               try {
@@ -38,7 +36,7 @@ const Post = () => {
                 return null;
               }
             }));
-            
+
             const userProfilePhoto = await fetchUserProfilePhoto(post.userId);
             return { ...post, photoUrls, userProfilePhoto };
           } catch (error) {
@@ -54,7 +52,7 @@ const Post = () => {
     };
     fetchPosts();
   }, []);
-  
+
   const fetchUserProfilePhoto = async (userId) => {
     try {
       const token = localStorage.getItem('token');
@@ -94,11 +92,9 @@ const Post = () => {
       setPosts(posts.map(post => post.id === postId ? { ...post, selectedPostComments: [], isCommentBoxOpen: !post.isCommentBoxOpen, selectedCommentText: '' } : post));
     }
   };
-  const handleToggleComments = (postId) => {
-    setPosts(posts.map(post => post.id === postId ? { ...post, isCommentBoxOpen: !post.isCommentBoxOpen, selectedCommentText: '' } : post));
-  };
 
- 
+
+
 
   const handleNextPhoto = (postId) => {
     setPosts(posts.map(post => {
@@ -129,7 +125,7 @@ const Post = () => {
           {posts.map(post => (
             <li key={post.id}>
               <div className="ones-post-panel">
-              <p className='article-create-date'>{post.formattedCreatedAt}</p>
+                <p className='article-create-date'>{post.formattedCreatedAt}</p>
                 <div style={{ display: 'flex', alignItems: 'center' }}>
                   <Link to={`/user/${post.userId}`} style={{ textDecoration: 'none', color: 'inherit' }}>
                     <div className="user-photo-container">
@@ -146,29 +142,29 @@ const Post = () => {
                   <div className="post-details">
                     <p>{post.title}</p>
                     <p>{post.text}</p>
-                   
+
 
                   </div>
                 )}
-              {!post.photoUrls || post.photoUrls.length === 0 ? (
-  <div className="post-details">
-   
-  </div>
-) : (
-  <div className="post-photo-container">
-    <div style={{ position: 'relative' }}>
-      <img src={post.photoUrls[post.currentPhotoIndex]} alt={`Photo for post ${post.id}`} className="post-photo" />
-      {post.photoUrls.length > 1 && (
-        <div className='post-photos-clicks'>
-          <img src={RightClickIcon} alt="Right click icon" className="right-click-icon" onClick={() => handleNextPhoto(post.id)} />
-          <img src={LeftClickIcon} alt="Left click icon" className="left-click-icon" onClick={() => handlePreviousPhoto(post.id)} />
-        </div>
-      )}
-    </div>
-  </div>
-)}
+                {!post.photoUrls || post.photoUrls.length === 0 ? (
+                  <div className="post-details">
 
-              
+                  </div>
+                ) : (
+                  <div className="post-photo-container">
+                    <div style={{ position: 'relative' }}>
+                      <img src={post.photoUrls[post.currentPhotoIndex]} alt={`Photo for post ${post.id}`} className="post-photo" />
+                      {post.photoUrls.length > 1 && (
+                        <div className='post-photos-clicks'>
+                          <img src={RightClickIcon} alt="Right click icon" className="right-click-icon" onClick={() => handleNextPhoto(post.id)} />
+                          <img src={LeftClickIcon} alt="Left click icon" className="left-click-icon" onClick={() => handlePreviousPhoto(post.id)} />
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                )}
+
+
                 <Link to={`/onepost/${post.id}`} style={{ textDecoration: 'none', color: 'inherit' }}>
                   <button className="see-all-comments-button" onClick={() => handleShowComments(post.id)}></button>
                 </Link>
@@ -204,4 +200,3 @@ const Post = () => {
 
 export default Post;
 
-     

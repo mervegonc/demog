@@ -34,8 +34,8 @@ class AuthService {
       passwordReminder
     });
   }
-  
-  
+
+
 
   getCurrentUser() {
     return JSON.parse(localStorage.getItem('user'));

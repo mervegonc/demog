@@ -16,7 +16,7 @@ const FileUpload = ({ onFileChange }) => {
                 file.newName = fileName; // Yeni ismi dosyanın içine ekliyoruz
             });
         },
-        multiple: true 
+        multiple: true
     });
     return (
         <div {...getRootProps()} className="drop-area">
@@ -24,9 +24,9 @@ const FileUpload = ({ onFileChange }) => {
             <p>Drag and drop files here or click to browse.</p>
             <ul>
                 <div className='upload-file-names'>
-                {uploadedFiles.map((file, index) => (
-                    <li key={index}>{file.newName || file.name}</li>
-                ))}
+                    {uploadedFiles.map((file, index) => (
+                        <li key={index}>{file.newName || file.name}</li>
+                    ))}
                 </div>
             </ul>
         </div>

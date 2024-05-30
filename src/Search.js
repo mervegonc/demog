@@ -2,8 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import './styles/Search.css';
-import AuthService from './AuthService'; // Import AuthService here
-import { Color } from 'devextreme-react/cjs/chart';
+import AuthService from './AuthService'; 
 
 const Search = () => {
   const [searchTerm, setSearchTerm] = useState('');
@@ -12,11 +11,6 @@ const Search = () => {
   const [userResults, setUserResults] = useState([]);
   const [activeTab, setActiveTab] = useState('posts'); // Active tab: 'posts' or 'users'
   const userId = AuthService.getUserId(); // Get userId from AuthService
-
-
-
-
-  
 
   const handleSearchChange = async (e) => {
     const term = e.target.value.trim();
@@ -53,7 +47,7 @@ const Search = () => {
   return (
     <div className='search-container'>
       <form>
-        <input 
+        <input
           type="text"
           placeholder="Search..."
           value={searchTerm}
@@ -76,7 +70,7 @@ const Search = () => {
       <div className='search-results-container'>
 
 
-        
+
         {activeTab === 'posts' && postResults.length > 0 && (
           <div className='search-results'>
             <h2>Posts</h2>
@@ -90,7 +84,7 @@ const Search = () => {
           </div>
         )}
 
-{activeTab === 'articles' && articleResults.length > 0 && (
+        {activeTab === 'articles' && articleResults.length > 0 && (
           <div className='search-results'>
             <h2>Articles</h2>
             {articleResults.map((article) => (
@@ -108,8 +102,8 @@ const Search = () => {
             <h2>Users</h2>
             {userResults.map((user) => (
               <div key={user.id} className='search-result'>
-              
-                
+
+
                 <Link to={`/user/${user.id}`} className='read-more'>{user.username}</Link>
               </div>
             ))}
