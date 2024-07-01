@@ -112,6 +112,7 @@ const Search = () => {
       </div>
 
       <div className="button-container">
+      <Link to="/home" className="realhome-button"></Link>
         <Link to="/post" className="home-button"></Link>
         <Link to="/article" className="article-button"></Link>
         <Link to={`/user/${userId}`} className="profile-button"></Link>

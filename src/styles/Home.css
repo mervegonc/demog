@@ -1,0 +1,69 @@
+.home-container {
+    font-size: 14px;
+    position: fixed;
+    width: 680px;
+    height: 680px;
+    overflow-y: auto;
+    /* Kaydırma çubuğunu gizlemek için */
+    background-color: rgba(0, 0, 0, 0.8);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    border-radius: 15px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    color: rgb(0, 0, 0);
+    z-index: 1;
+    margin-top: 0px;
+      }
+
+    
+    .home-container h1 {
+        text-align: center;
+        margin-bottom: 20px;
+        font-size: 2em;
+        color: #333;
+    }
+    
+    .posts-section,
+    .articles-section {
+        margin-bottom: 40px;
+    }
+    
+    .posts-section h2,
+    .articles-section h2 {
+        font-size: 1.5em;
+        color: #555;
+        margin-bottom: 20px;
+    }
+    
+    .posts-section ul,
+    .articles-section ul {
+        list-style: none;
+        padding: 0;
+    }
+    
+    .posts-section li,
+    .articles-section li {
+        margin-bottom: 20px;
+        padding: 15px;
+        background-color: #fff;
+        border-radius: 8px;
+        box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    }
+    
+    .posts-section li:last-child,
+    .articles-section li:last-child {
+        margin-bottom: 0;
+    }
+    
+    .no-posts,
+    .no-articles {
+        text-align: center;
+        font-size: 1.2em;
+        color: #777;
+    }

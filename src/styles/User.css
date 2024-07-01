@@ -1,9 +1,10 @@
-.profile-post-container{
+.profile-post-container {
   font-size: 14px;
   position: fixed;
   width: 680px;
   height: 680px;
-  overflow-y: auto; /* Kaydırma çubuğunu gizlemek için */
+  overflow-y: auto;
+  /* Kaydırma çubuğunu gizlemek için */
   background-color: rgba(0, 0, 0, 0.8);
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
   border-radius: 15px;
@@ -18,23 +19,27 @@
   color: rgb(0, 0, 0);
   z-index: 1;
   margin-top: 0px;
- 
-  align-items: center; /* Dikey hizalama */
-  justify-content: flex-start; /* Yatay hizalama */
-}   
+
+  align-items: center;
+  /* Dikey hizalama */
+  justify-content: flex-start;
+  /* Yatay hizalama */
+}
 
 .profile-post-container::-webkit-scrollbar {
-  display: none; /* Kaydırma çubuğunu tamamen gizlemek için */
+  display: none;
+  /* Kaydırma çubuğunu tamamen gizlemek için */
 }
 
 
-.pro-post-container{
+.pro-post-container {
   font-size: 14px;
   position: fixed;
   width: 680px;
   height: 680px;
-  overflow-y: auto; /* Kaydırma çubuğunu gizlemek için */
-/* background-color: rgba(255, 253, 253, 0.6);*/
+  overflow-y: auto;
+  /* Kaydırma çubuğunu gizlemek için */
+  /* background-color: rgba(255, 253, 253, 0.6);*/
   box-shadow: 0 0 10px rgb(197, 26, 26);
   border-radius: 15px;
   top: 50%;
@@ -48,38 +53,48 @@
   color: rgb(0, 0, 0);
   z-index: 1;
   margin-top: -8px;
-  margin-left: 0px; 
-  align-items: center; /* Dikey hizalama */
-  justify-content: flex-start; /* Yatay hizalama */
+  margin-left: 0px;
+  align-items: center;
+  /* Dikey hizalama */
+  justify-content: flex-start;
+  /* Yatay hizalama */
 }
+
 .pro-post-container::-webkit-scrollbar {
-  display: none; /* Kaydırma çubuğunu tamamen gizlemek için */
+  display: none;
+  /* Kaydırma çubuğunu tamamen gizlemek için */
 }
 
 
-    
-.pro-user-post-panel {/*                    bu panel postların üstünde 250px boşluk olması için yapıldı*/
-  height: 620px; /* Yükseklik ayarı */
-  background-color:transparent; /* Arkaplan rengi */
-  margin-top: 250px; /* Diğer gönderilere 50px boşluk */
+
+.pro-user-post-panel {
+  /*                    bu panel postların üstünde 250px boşluk olması için yapıldı*/
+  height: 620px;
+  /* Yükseklik ayarı */
+  background-color: transparent;
+  /* Arkaplan rengi */
+  margin-top: 250px;
+  /* Diğer gönderilere 50px boşluk */
 }
 
 
 
 /*buuser in kenid post paneli*/
-.profile-ones-post-panel {/*         bu panel ise postlaın pnaeli ayrı ayrı olan */
+.profile-ones-post-panel {
+  /*         bu panel ise postlaın pnaeli ayrı ayrı olan */
   width: 600px;
-      /*height: 620px;*/
-      height: auto;
-      background-color: rgba(0, 0, 0, 0.449);  
-      box-shadow: 0 0 10px rgba(255, 255, 255, 0.637);
-      color: rgb(255, 255, 255);
-      padding: 20px;
-      border-radius: 10px;
-      margin-bottom: 50px; /* Diğer gönderilere 50px boşluk */
-      margin-left: -40px;
-      margin-top: 50px;
-  
+  /*height: 620px;*/
+  height: auto;
+  background-color: rgba(0, 0, 0, 0.449);
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.637);
+  color: rgb(255, 255, 255);
+  padding: 20px;
+  border-radius: 10px;
+  margin-bottom: 50px;
+  /* Diğer gönderilere 50px boşluk */
+  margin-left: -40px;
+  margin-top: 50px;
+
 }
 
 
@@ -96,577 +111,840 @@
 
 
 
- .profile-photo-container {
-    
-      position: relative;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    top:80px;/*tamamen profile fotoğrafının top u */
+.profile-photo-container {
 
-    }
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  top: 80px;
+  /*tamamen profile fotoğrafının top u */
 
-    .profile-photo {
-     
-      border-radius: 100%;
-      width: 150px;
-      height: 150px;
-      margin-bottom: 280px;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.637); /* Pembe gölge */
-      margin-left: 0px; /* Profil fotoğrafını sola 100px kaydır */
-      box-shadow: 0 0 10px rgba(255, 255, 255, 0.648);
-    }
+}
 
+.profile-photo {
 
-
-    .change-photo-button {
-      width: 25px;
-      height: 25px;
-      background-image: url('./images/change-photo.png'); /* Resim dosyasının yolunu belirtin */
-      background-size: cover; /* Arka plan resminin butonun tamamını kaplamasını sağlar */
-      background-repeat: no-repeat; /* Arka plan resminin tekrarlanmasını engeller */
-      background-color: transparent; /* Arka plan rengini saydam yapar */
-      border: none;
-      border-radius: 50%; /* Yuvarlatılmış kenarlar için */
-      cursor: pointer;
-      position: absolute; /* Konumlandırmak için */
-      margin-top: -430px; /* Üst kenardan 10px uzaklıkta */
-      margin-left: 50px; /* Sağ kenardan 10px uzaklıkta */
-    }
-
-
-    .background-photo-container {
-      position: relative;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-     
-    
-    
-    }
-
-    .background-photo {
-      width: 720px; /* Arka plan fotoğrafının genişliği */
-      height: 175px; /* Arka plan fotoğrafının yüksekliği */
-      object-fit: cover; /* Objenin boyutunu, nesne ölçüleriyle örtüşecek şekilde ayarlar */
-      object-position: center; /* Nesnenin konumunu, nesneyle örtüşecek şekilde ayarlar */
-      position: absolute; /* Pozisyonlandırma */
-     margin-top: -445px;
-      z-index: -50;
-      box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
-      border-radius: 15px;
-     
-    }
-
-    .background-wrapper {
-      position: relative;
-    }
+  border-radius: 100%;
+  width: 150px;
+  height: 150px;
+  margin-bottom: 280px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.637);
+  /* Pembe gölge */
+  margin-left: 0px;
+  /* Profil fotoğrafını sola 100px kaydır */
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.648);
+}
 
 
 
+.change-photo-button {
+  width: 25px;
+  height: 25px;
+  background-image: url('./images/change-photo.png');
+  /* Resim dosyasının yolunu belirtin */
+  background-size: cover;
+  /* Arka plan resminin butonun tamamını kaplamasını sağlar */
+  background-repeat: no-repeat;
+  /* Arka plan resminin tekrarlanmasını engeller */
+  background-color: transparent;
+  /* Arka plan rengini saydam yapar */
+  border: none;
+  border-radius: 50%;
+  /* Yuvarlatılmış kenarlar için */
+  cursor: pointer;
+  position: absolute;
+  /* Konumlandırmak için */
+  margin-top: -430px;
+  /* Üst kenardan 10px uzaklıkta */
+  margin-left: -130px;
+  /* Sağ kenardan 10px uzaklıkta */
+}
+
+
+.background-photo-container {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 
 
 
-    .pro-user-info {
-      display: flex;
-      flex-direction: column;
-      text-align: center; /* Profil bilgilerini ortala */
-      margin-top: -200px;
-      margin-left: 0px;
-    }
+}
 
-    .pro-user-info-box {
-      background-color: rgba(0, 0, 0, 0.579);
-      width: 200px; /* Kutunun genişliğini ayarlayın */
-      padding: 10px;
-      margin-bottom: 10px; /* Kutular arası boşluk */
-      border-radius: 5px;
-    }
+.background-photo {
+  width: 720px;
+  /* Arka plan fotoğrafının genişliği */
+  height: 175px;
+  /* Arka plan fotoğrafının yüksekliği */
+  object-fit: cover;
+  /* Objenin boyutunu, nesne ölçüleriyle örtüşecek şekilde ayarlar */
+  object-position: center;
+  /* Nesnenin konumunu, nesneyle örtüşecek şekilde ayarlar */
+  position: absolute;
+  /* Pozisyonlandırma */
+  margin-top: -445px;
+  z-index: -50;
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+  border-radius: 15px;
 
-    .pro-user-info-box p {
-      color: white;
-      margin: 5px 0;
-    }
+}
 
-
-
-    .edit-panel {
-      /* margin-top: -350px; Bu satırı silin */
-      width: 680px; /* Genişlik ve yüksekliği eşit olarak ayarla */
-      height: 680px; /* Genişlik ve yüksekliği eşit olarak ayarla */
-      background-color: rgb(255, 255, 255);
-      border: 2px solid rgb(255, 255, 255);
-      border-radius: 10px;
-      padding: 20px;
-      display: flex;
-      flex-direction: column;
-      position: fixed; /* Position değeri değişti */
-      bottom: 0;
-      right: 0;
-      z-index: 5;
-    }
-
-    .edit-panel input,
-    .edit-panel select {
-      margin-bottom: 10px;
-      padding: 8px;
-    }
-    .save-button {
-      background-image: url('./images/save-button.png'); /* Resim dosyasının yolunu belirtin */
-      background-size: cover; /* Arka plan resminin butonun tamamını kaplamasını sağlar */
-      background-repeat: no-repeat; /* Arka plan resminin tekrarlanmasını engeller */
-      background-color: transparent; /* Arka plan rengini saydam yapar */
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-      font-size: 14px;
-      width: 40px; /* Buton genişliği */
-      height: 40px; /* Buton yüksekliği */
-      color: transparent; /* Metin rengini şeffaf yapar */
-      margin-left: auto; /* Sağa hizala */
-    
-      margin-top:10px;
-    }
-
-    .cancel-button {
-      /* Önceki stilleri kaldırın veya yorum satırına alın */
-      background-image: url('./images/cancel-button.png'); /* Resim dosyasının yolunu belirtin */
-      background-size: cover; /* Arka plan resminin butonun tamamını kaplamasını sağlar */
-      background-repeat: no-repeat; /* Arka plan resminin tekrarlanmasını engeller */
-      background-color: transparent; /* Arka plan rengini saydam yapar */
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-      font-size: 14px;
-      width: 25px; /* Buton genişliği */
-      height: 25px; /* Buton yüksekliği */
-      color: transparent; /* Metin rengini şeffaf yapar */
-    
-      margin-left: auto; /* Sağa hizala */
-      margin-right: 8px; /* Sağa hizala */
-    
-      margin-top:10px;
-    }
-
-    .options-button-for-options {
-      position: absolute;
-    
-      top: 30px;
-      right: 30px;
-      width: 40px;
-      height: 30px;
-     
-    }
-    .options-button-for-options:hover .options-panel {
-      visibility: visible;
-      opacity: 1; /* Opacity değerini düzelt */
-    }
+.background-wrapper {
+  position: relative;
+}
 
 
 
-    .options-icon {
-      width: 100%;
-      height: 100%;
-      cursor: pointer; /* Bu satırı ekleyin */
-      margin-left: -20px;
-    }
 
-    .options-panel {
-      position: absolute;
-      top: calc(100% + 0px);
-      right: 0;
-      background-color: rgba(0, 0, 0, 0.171);
-      border: 1px solid #ccc;
-      border-radius: 5px;
-      padding: 5px;
-    
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      visibility: hidden;
-      opacity: 0;
-      transition: visibility 0s, opacity 0.5s linear;
-    }
 
+
+.pro-user-info {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  /* Profil bilgilerini ortala */
+  margin-top: -200px;
+  margin-left: 0px;
+}
+
+.pro-user-info-box {
+  background-color: rgba(0, 0, 0, 0.579);
+  width: 200px;
+  /* Kutunun genişliğini ayarlayın */
+  padding: 10px;
+  margin-bottom: 10px;
+  /* Kutular arası boşluk */
+  border-radius: 5px;
+}
+
+.pro-user-info-box p {
+  color: white;
+  margin: 5px 0;
+}
+
+
+
+.edit-panel {
+  /* margin-top: -350px; Bu satırı silin */
+  width: 680px;
+  /* Genişlik ve yüksekliği eşit olarak ayarla */
+  height: 680px;
+  /* Genişlik ve yüksekliği eşit olarak ayarla */
+  background-color: rgb(255, 255, 255);
+  border: 2px solid rgb(255, 255, 255);
+  border-radius: 10px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  /* Position değeri değişti */
+  bottom: 0;
+  right: 0;
+  z-index: 5;
+}
+
+.edit-panel input,
+.edit-panel select {
+  margin-bottom: 10px;
  
 
-    .options-button:hover {
-      background-color: rgba(223, 223, 223, 0.5);
-    }
+}
+.edit-panel textarea[name="bio"] {
+  height: 150px;  /* Yüksekliği 250px olarak ayarla */
+  overflow: auto; /* Metin kutusunun içeriği çok uzun olduğunda kaydırmayı etkinleştir */
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+}
 
-  
-    .mypost-list {
-      overflow-y: auto; /* Dikey olarak kaydırılabilir içerik */
-      max-height: 400px; /* Maksimum yükseklik, istediğiniz bir değer olabilir */
-    }
-    
-    .post-container{
-      font-size: 14px;
-      position: fixed;
-      width: 680px;
-      height: 680px;
-      overflow-y: auto; /* Kaydırma çubuğunu gizlemek için */
-      background-color: rgba(0, 0, 0, 0.8);
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-      border-radius: 15px;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      padding: 20px;
-      color: rgb(0, 0, 0);
-      z-index: 1;
-      margin-top: -5px;
-     
-      align-items: center; /* Dikey hizalama */
-      justify-content: flex-start; /* Yatay hizalama */
-    }   
-    
-    .post-container::-webkit-scrollbar {
-      display: none; /* Kaydırma çubuğunu tamamen gizlemek için */
-    }
-    
-    
-    .edit-post-button {
-      background-color: #007bff;
-      color: #fff;
-      border: none;
-      border-radius: 5px;
-      padding: 5px 10px;
-      cursor: pointer;
-    
-    }
-    .edit-post-button:hover {
-      background-color: #0056b3;
-    
-    }
-    
-  
+.connections-panel{
+ 
+}
+.connections-panel input{
+width: 680px;
+}
+.connections-delete{
+ margin-left: 25px;
+ height: 20px;
+  }
 
 
-    
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  .user-post-par-container{
+  .connections-cancel-button {
+    /* Önceki stilleri kaldırın veya yorum satırına alın */
+    background-image: url('./images/cancel-button.png');
+    /* Resim dosyasının yolunu belirtin */
+    background-size: cover;
+    /* Arka plan resminin butonun tamamını kaplamasını sağlar */
+    background-repeat: no-repeat;
+    /* Arka plan resminin tekrarlanmasını engeller */
+    background-color: transparent;
+    /* Arka plan rengini saydam yapar */
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
     font-size: 14px;
-    position: fixed;
-    width: 680px;
-    height: 680px;
-    overflow-y: auto; /* Kaydırma çubuğunu gizlemek için */
-  background-color:transparent;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-    border-radius: 15px;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 20px;
-    color: rgb(0, 0, 0);
-    z-index: 1;
-    margin-top: -8px;
+    width: 15px;
+    /* Buton genişliği */
+    height: 15px;
+    /* Buton yüksekliği */
+    color: transparent;
+    /* Metin rengini şeffaf yapar */
   
-    align-items: center; /* Dikey hizalama */
-    justify-content: flex-start; /* Yatay hizalama */
-  }
-  .user-post-par-container::-webkit-scrollbar {
-    display: none; /* Kaydırma çubuğunu tamamen gizlemek için */
+    margin-left: 10px;
+    /* Sağa hizala */
+    margin-right: 8px;
+    /* Sağa hizala */
+  
+    margin-top: 10px;
   }
 
-  .profile-container {
-      position: fixed;
-      width: 680px;
-      height: 680px;
-      background-color: rgba(159, 9, 9, 0.8);
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-      border-radius: 15px;
-      top: calc(50% + 0px); /* 25px aşağı kaydırma */
-      left: 50%;
-      transform: translate(-50%, -50%);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      padding: 20px;
-      color: white;
-      z-index: 1;
-      margin-top: -5px;
-    }
+.save-button {
+  background-image: url('./images/save-button.png');
+  /* Resim dosyasının yolunu belirtin */
+  background-size: cover;
+  /* Arka plan resminin butonun tamamını kaplamasını sağlar */
+  background-repeat: no-repeat;
+  /* Arka plan resminin tekrarlanmasını engeller */
+  background-color: transparent;
+  /* Arka plan rengini saydam yapar */
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
+  width: 40px;
+  /* Buton genişliği */
+  height: 40px;
+  /* Buton yüksekliği */
+  color: transparent;
+  /* Metin rengini şeffaf yapar */
+  margin-left: auto;
+  /* Sağa hizala */
 
-    .user-post-list {
-    
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      width: 100%;
-      padding: 0;
-      margin: 0;
-      list-style-type: none; /* Noktaları görünmez hale getiriyoruz */
-      padding-left: 0; /* Sol taraftaki beyaz yuvarlağı kaldırır */
-    }
-    
+  margin-top: 10px;
+}
 
-    .user-pro-photo-container {
-      
-      position: relative;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    top:-123px;/*tamamen profile fotoğrafının top u */
+.cancel-button {
+  /* Önceki stilleri kaldırın veya yorum satırına alın */
+  background-image: url('./images/cancel-button.png');
+  /* Resim dosyasının yolunu belirtin */
+  background-size: cover;
+  /* Arka plan resminin butonun tamamını kaplamasını sağlar */
+  background-repeat: no-repeat;
+  /* Arka plan resminin tekrarlanmasını engeller */
+  background-color: transparent;
+  /* Arka plan rengini saydam yapar */
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
+  width: 25px;
+  /* Buton genişliği */
+  height: 25px;
+  /* Buton yüksekliği */
+  color: transparent;
+  /* Metin rengini şeffaf yapar */
 
-    }
+  margin-left: auto;
+  /* Sağa hizala */
+  margin-right: 8px;
+  /* Sağa hizala */
 
-    .user-pro-photo {
-      margin-top: 0px;
-      border-radius: 100%;
-      width: 150px;
-      height: 150px;
-      margin-bottom: 280px;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.637); /* Pembe gölge */
-      margin-left: px; /* Profil fotoğrafını sola 100px kaydır */
-      box-shadow: 0 0 10px rgba(255, 255, 255, 0.648);
-      margin-top: 200px;
-    }
-  
+  margin-top: 10px;
+}
 
+.options-button-for-options {
+  position: absolute;
 
- 
-    .post-option-panel {
-      height: auto;
-      width: 100px;
-      background-color: rgba(0, 0, 0, 0.171);
-      border: 1px solid #ccc;
-      border-radius: 5px;
-      padding: 10px;
-      position: absolute; /* Paneli sabit bir konuma taşı */
-      margin-top: -30px;
-      margin-left: 475px;
-    
-    }
+  top: 30px;
+  right: 30px;
+  width: 40px;
+  height: 30px;
 
-    .post-option-button {
-      padding: 10px 10px;
-     
-      background-size: contain;
-      background-repeat: no-repeat;
-      width: 25px;
-      height: 25px;
-      border: none;
-      cursor: pointer;
-      margin-top: -35px;
-      margin-left:460px;
-     
-      cursor: pointer;
-      white-space: nowrap;
-    }
+}
 
-
-
-
-.post-option-panel-buttons{
- /* background-color: ;*/
-  
+.options-button-for-options:hover .options-panel {
+  visibility: visible;
+  opacity: 1;
+  /* Opacity değerini düzelt */
 }
 
 
 
-    .options-button {
-      width: 100px; /* Yeni genişlik değeri */
-      padding: 8px 8px;
-      margin-bottom: 0px;
-      margin-top: 0px;
-      margin-right: 0px;
-      margin-left: 0px;
-      border: none;
-      border-radius: 0px;
-      color: rgb(255, 255, 255);
-      background-color:transparent;
-      font-size: 12px;
-      text-align: center;
-      cursor: pointer;
-      white-space: nowrap;
-    }
-    .user-bg-photo-container {
-      position: relative;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      margin-top: 31px; /* Ayarlanacak olan üst kenar boşluğu */
-    
-    
-    }
+.options-icon {
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+  /* Bu satırı ekleyin */
+  margin-left: -20px;
+}
 
-    .bg-photo {
-      width: 720px; /* Arka plan fotoğrafının genişliği */
-      height: 175px; /* Arka plan fotoğrafının yüksekliği */
-      object-fit: cover; /* Objenin boyutunu, nesne ölçüleriyle örtüşecek şekilde ayarlar */
-      object-position: center; /* Nesnenin konumunu, nesneyle örtüşecek şekilde ayarlar */
-      position: absolute; /* Pozisyonlandırma */
-      margin-top: -471px; /* Üst kenardan hizalamak için */
-      z-index: -50;
-      box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
-      border-radius: 15px;
-    }
+.options-panel {
+  position: absolute;
+  top: calc(100% + 0px);
+  right: 0;
+  background-color: rgba(0, 0, 0, 0.171);
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 5px;
 
-    .bg-wrapper {
-      position: relative;
-    }
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  visibility: hidden;
+  opacity: 0;
+  transition: visibility 0s, opacity 0.5s linear;
+}
 
 
 
+.options-button:hover {
+  background-color: rgba(223, 223, 223, 0.5);
+}
+
+
+.mypost-list {
+  overflow-y: auto;
+  /* Dikey olarak kaydırılabilir içerik */
+  max-height: 400px;
+  /* Maksimum yükseklik, istediğiniz bir değer olabilir */
+}
+
+.post-container {
+  font-size: 14px;
+  position: fixed;
+  width: 680px;
+  height: 680px;
+  overflow-y: auto;
+  /* Kaydırma çubuğunu gizlemek için */
+  background-color: rgba(0, 0, 0, 0.8);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  border-radius: 15px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  color: rgb(0, 0, 0);
+  z-index: 1;
+  margin-top: -5px;
+
+  align-items: center;
+  /* Dikey hizalama */
+  justify-content: flex-start;
+  /* Yatay hizalama */
+}
+
+.post-container::-webkit-scrollbar {
+  display: none;
+  /* Kaydırma çubuğunu tamamen gizlemek için */
+}
+
+
+.edit-post-button {
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  padding: 5px 10px;
+  cursor: pointer;
+
+}
+
+.edit-post-button:hover {
+  background-color: #0056b3;
+
+}
 
 
 
-    .user-info {
-      display: flex;
-      flex-direction: column;
-      text-align: center;
-      margin-top: -400px;
-      margin-left: 0px;
-    }
-
-    .user-info-box {
-      background-color: rgba(0, 0, 0, 0.579);
-      width: 200px; /* Kutunun genişliğini ayarlayın */
-      padding: 10px;
-      margin-bottom: 10px; /* Kutular arası boşluk */
-      border-radius: 5px;
-    }
-
-    .user-info-box p {
-      color: white;
-      margin: 5px 0;
-    }
 
 
-    
-    .user-post-panel {/*                    bu panel postların üstünde 250px boşluk olması için yapıldı*/
-      height: 620px; /* Yükseklik ayarı */
-      background-color:transparent; /* Arkaplan rengi */
-      margin-top: 250px; /* Diğer gönderilere 50px boşluk */
-    }
-    
 
-    
-    .user-one-post-panel {
-      width: 600px;
-      height: 620px;
-      background-color: rgba(14, 5, 5, 0.603);  
-      box-shadow: 0 0 10px rgba(255, 255, 255, 0.637);
-      color: rgb(255, 255, 255);
-      padding: 20px;
-      border-radius: 10px;
-      margin-bottom: 50px; /* Diğer gönderilere 50px boşluk */
-      margin-left: -40px;
-      margin-top: 50px;
-    }
-    
-   
-  
-    
-    .user-post-photo-container {
-      margin-top: 10px; /* Fotoğrafın üst kenarından mesafeyi ayarla */
-    }
-    
-    .user-post-photo {
-      max-width: 100%; /* Fotoğrafın genişliğini ayarla */
-      height: auto; /* Oranları koru */
-    }
-    
-    .user-photo-container {
-      margin-right: 10px; /* Kullanıcı fotoğrafından sağ tarafa mesafe ekle */
-    }
-    
-    .user-photo {
-      border-radius: 50%; /* Yuvarlak köşeler */
-      width: 50px; /* Genişlik ayarı */
-      height: 50px; /* Yükseklik ayarı */
-    }
-    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.user-post-par-container {
+  font-size: 14px;
+  position: fixed;
+  width: 680px;
+  height: 680px;
+  overflow-y: auto;
+  /* Kaydırma çubuğunu gizlemek için */
+  background-color: transparent;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  border-radius: 15px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  color: rgb(0, 0, 0);
+  z-index: -99999;
+  margin-top: -8px;
+
+  align-items: center;
+  /* Dikey hizalama */
+  justify-content: flex-start;
+  /* Yatay hizalama */
+}
+
+.user-post-par-container::-webkit-scrollbar {
+  display: none;
+  /* Kaydırma çubuğunu tamamen gizlemek için */
+}
+
+.profile-container {
+  position: fixed;
+  width: 680px;
+  height: 680px;
+  background-color: rgba(159, 9, 9, 0.8);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  border-radius: 15px;
+  top: calc(50% + 0px);
+  /* 25px aşağı kaydırma */
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  color: white;
+  z-index: 1;
+  margin-top: -5px;
+}
+
+.user-post-list {
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: 0;
+  margin: 0;
+  list-style-type: none;
+  /* Noktaları görünmez hale getiriyoruz */
+  padding-left: 0;
+  /* Sol taraftaki beyaz yuvarlağı kaldırır */
+}
+
+
+.user-pro-photo-container {
+
+  background-color: beige;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  top: -120px;
+  /*tamamen profile fotoğrafının top u */
+
+}
+
+.user-pro-photo {
+  margin-left: -360px;
+  border-radius: 100%;
+  width: 150px;
+  height: 150px;
+  margin-bottom: 280px;
+
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.637);
+  /* Pembe gölge */
+
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.648);
+  margin-top: 200px;
+}
+
+
+
+
+.post-option-panel {
+  height: auto;
+  width: 100px;
+  background-color: rgba(0, 0, 0, 0.171);
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 10px;
+  position: absolute;
+  /* Paneli sabit bir konuma taşı */
+  margin-top: -30px;
+  margin-left: 475px;
+
+}
+
+.post-option-button {
+  padding: 10px 10px;
+
+  background-size: contain;
+  background-repeat: no-repeat;
+  width: 25px;
+  height: 25px;
+  border: none;
+  cursor: pointer;
+  margin-top: -35px;
+  margin-left: 460px;
+
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+
+
+
+.post-option-panel-buttons {
+  /* background-color: ;*/
+
+}
+
+
+
+.options-button {
+  width: 100px;
+  /* Yeni genişlik değeri */
+  padding: 8px 8px;
+  margin-bottom: 0px;
+  margin-top: 0px;
+  margin-right: 0px;
+  margin-left: 0px;
+  border: none;
+  border-radius: 0px;
+  color: rgb(255, 255, 255);
+  background-color: transparent;
+  font-size: 12px;
+  text-align: center;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.user-bg-photo-container {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: -642px;
+
+
+}
+
+.bg-photo {
+  width: 720px;
+  /* Arka plan fotoğrafının genişliği */
+  height: 175px;
+  /* Arka plan fotoğrafının yüksekliği */
+  object-fit: cover;
+  /* Objenin boyutunu, nesne ölçüleriyle örtüşecek şekilde ayarlar */
+  object-position: center;
+  /* Nesnenin konumunu, nesneyle örtüşecek şekilde ayarlar */
+  position: absolute;
+  /* Pozisyonlandırma */
+  z-index: -50;
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+  border-radius: 15px;
+}
+
+.bg-wrapper {
+  position: relative;
+}
+
+.blank-need {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  margin-top: 362px;
+  margin-left: 0px;
+
+
+}
+
+
+.user-info {
+  width: 200px;
+  height: 430px;
+  background-color: rgba(0, 0, 0, 0.77);
+  box-shadow: 0 0 10px rgba(255, 253, 253, 0.2);
+ border-radius: 15px;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  margin-top: 70px;
+  margin-left: -280px;
+  z-index: 1000;
+  margin-bottom: -60px;
+
+}
+
+
+.user-bio {
+
+  width: 300px;
+margin-top: -150px;
+margin-left: 250px;
+
+
+
+      
+}
+.user-bio p{
+  background-color: rgba(0, 0, 0, 0.77);
+  box-shadow: 0 0 10px rgba(255, 253, 253, 0.2);
+ border-radius: 15px;
+padding: 20px;
+ width: 320px;
+ height: 210px;
+
+}
+
+
+.user-connections-component{
+  width: 350px;
+height: 150px;
+
+margin-top: 50px;
+}
+
+
+.user-info-connections {
+  margin-left: -190px;
+  margin-top:175px;
+}
+
+.user-connections-component-p{
+
+margin-right: 150px;
+}
+
+.user-info p {
+  color: white;
+margin-left: 0px;
+  margin-top: 180px;
+  margin-bottom: -170px;
+
+}
+
+
+
+.user-post-panel {
+  /*                    bu panel postların üstünde 250px boşluk olması için yapıldı*/
+  height: 620px;
+  /* Yükseklik ayarı */
+  background-color: transparent;
+  /* Arkaplan rengi */
+  margin-top: 250px;
+  /* Diğer gönderilere 50px boşluk */
+}
+
+
+
+.user-one-post-panel {
+  width: 600px;
+  height: 620px;
+  background-color: rgba(14, 5, 5, 0.603);
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.637);
+  color: rgb(255, 255, 255);
+  padding: 20px;
+  border-radius: 10px;
+  margin-bottom: 50px;
+  /* Diğer gönderilere 50px boşluk */
+  margin-left: -40px;
+  margin-top: 50px;
+}
+
+
+
+
+.user-post-photo-container {
+  margin-top: 10px;
+  /* Fotoğrafın üst kenarından mesafeyi ayarla */
+}
+
+.user-post-photo {
+  max-width: 100%;
+  /* Fotoğrafın genişliğini ayarla */
+  height: auto;
+  /* Oranları koru */
+}
+
+.user-photo-container {
+  margin-right: 10px;
+  /* Kullanıcı fotoğrafından sağ tarafa mesafe ekle */
+}
+
+.user-photo {
+  border-radius: 50%;
+  /* Yuvarlak köşeler */
+  width: 50px;
+  /* Genişlik ayarı */
+  height: 50px;
+  /* Yükseklik ayarı */
+}
+
 .postU-photos-clicks {
- margin-top: 800PX;
+  margin-top: 800PX;
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
 }
 
-.right-click-icon,
-.left-click-icon {
+
+
+
+
+.user-post-photos-container {
+  display: flex;
+  overflow-x: hidden;
+  /* Yatay kaydırmayı etkinleştir */
+}
+
+.post-photo-container {
+  flex: 0 0 auto;
+  margin-right: 10px;
+  /* Fotoğraflar arasında bir boşluk bırakır */
+}
+
+.post-photo {
+  max-width: 100%;
+  /* Fotoğrafları genişliğe sığdırır */
+}
+
+
+.post-photos-container {
+  display: flex;
+  overflow-x: hidden;
+  /* Yatay kaydırmayı etkinleştir */
+}
+
+.post-photo-container {
+  flex: 0 0 auto;
+  margin-right: 10px;
+  /* Fotoğraflar arasında bir boşluk bırakır */
+}
+
+.post-photo {
+  max-width: 100%;
+  /* Fotoğrafları genişliğe sığdırır */
+}
+
+
+
+
+
+
+.user-post-buttons {
+  width: 39px;
+  height: 39px;
+  cursor: pointer;
+  margin-left: 150px;
+  margin-top: 5px;
+}
+
+.user-article-buttons {
+  width: 33px;
+  height: 33px;
+  cursor: pointer;
+  margin-left: 320px;
+}
+
+.user-buttons {
+  display: flex;
+  align-items: center;
+  margin-top: 180px;
+  width: 720px;
+  height: auto;
+}
+
+.user-post-buttons-p {
+  margin-left: 153px;
+  /* 10px sağa kaydır */
+  margin-top: 0px;
+  color: white;
+  /* Yazı rengini beyaz yap */
+}
+
+.user-article-buttons-p {
+  margin-left: 314px;
+  /* 10px sağa kaydır */
+  margin-top: 0px;
+  color: white;
+  /* Yazı rengini beyaz yap */
+}
+.upost-photos-clicks {
+  position: absolute;
+  top: 50%;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.uright-click-icon, .uleft-click-icon {
   width: 30px;
   height: 30px;
   cursor: pointer;
 }
-.right-click-icon {
- margin-left: 570px;
+
+.umedia-container {
+  position: relative;
+  text-align: center;
 }
 
-.left-click-icon {
-  margin-left: -599px;
+.umedia-content img, .umedia-content video, .umedia-content iframe {
+  width: 600px;
+  height: 300px;
+  margin-top: 15px;
+  margin-left: px;
 }
 
+.user-follow-buttons{
 
-
-
-    .user-post-photos-container {
+margin-top: -60px;
+margin-left: 135px;
+}
+.user-unfollow{
+  width: 30px;
+  height: 30px;
+}
+.user-follow{
+  width: 60px;
+  height: 60px;
+}
+/* styles/User.css */
+.user-followers-count {
+  margin-top: -200px;
+  margin-left: 30px;
   display: flex;
-  overflow-x: hidden; /* Yatay kaydırmayı etkinleştir */
+  gap: 20px;
 }
 
-.post-photo-container {
-  flex: 0 0 auto;
-  margin-right: 10px; /* Fotoğraflar arasında bir boşluk bırakır */
-}
-
-.post-photo {
-  max-width: 100%; /* Fotoğrafları genişliğe sığdırır */
-}
-
-.right-click-icon,
-.left-click-icon {
+.followers-count,
+.following-count {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   cursor: pointer;
 }
 
-.post-photos-container {
-  display: flex;
-  overflow-x: hidden; /* Yatay kaydırmayı etkinleştir */
+.followers-count span,
+.following-count span {
+  font-size: 1.2em;
+  font-weight: bold;
 }
-
-.post-photo-container {
-  flex: 0 0 auto;
-  margin-right: 10px; /* Fotoğraflar arasında bir boşluk bırakır */
-}
-
-.post-photo {
-  max-width: 100%; /* Fotoğrafları genişliğe sığdırır */
-}
-
-.right-click-icon,
-.left-click-icon {
-  cursor: pointer;
-}
-
-
-
-  

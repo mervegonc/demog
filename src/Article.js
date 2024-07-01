@@ -6,8 +6,8 @@ import './styles/Article.css';
 import './styles/CommentForm.css';
 import './styles/MyPost.css';
 import AuthService from './AuthService'; // Import AuthService here
-import RightClickIcon from './styles/images/rightclick.png';
-import LeftClickIcon from './styles/images/leftclick.png';
+import RightClickIcon from './styles/images/leftclick.png';
+import LeftClickIcon from './styles/images/rightclick.png';
 
 const Article = () => {
   const [articles, setArticles] = useState([]);
@@ -119,7 +119,15 @@ const Article = () => {
       }
     }));
   };
-
+  const renderTextWithLinks = (content) => {
+    const urlPattern = /(https?:\/\/[^\s]+)/g;
+    return content.split(urlPattern).map((part, index) => {
+      if (urlPattern.test(part)) {
+        return <a key={index} href={part} target="_blank" rel="noopener noreferrer">{part}</a>;
+      }
+      return part;
+    });
+  };
   return (
     <div>
       <div className="profile-post-container">
@@ -144,8 +152,10 @@ const Article = () => {
                 {!article.photoUrl && (
                   <div className="post-details">
                     <p>{article.subject}</p>
-                    <p>{article.content}</p>
-
+                    <p>{renderTextWithLinks(article.content)}</p>
+                    {article.connections && (
+                                        <p><a href={article.connections} target="_blank" rel="noopener noreferrer">{article.connections}</a></p>
+                                    )}
                   </div>
                 )}
                 {!article.photoUrls || article.photoUrls.length === 0 ? (
@@ -189,6 +199,7 @@ const Article = () => {
         </ul>
       </div>
       <div className="button-container">
+      <Link to="/home" className="realhome-button"></Link>
         <Link to="/post" className="home-button"></Link>
         <Link to="/article" className="article-button"></Link>
         <Link to={`/user/${userId}`} className="profile-button"></Link>

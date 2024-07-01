@@ -17,10 +17,10 @@
   z-index: 1;
 }
 
-.post-form-area {
+
+.article-form-area {
   margin-top: 15px;
 }
-
 .title {
   border-radius: 15px;
 }
@@ -44,16 +44,166 @@
   border-radius: 10px;
 }
 
-.custom-file-upload {
-  margin-top: 20px;
+.postform-custom-file-upload {
+  margin-bottom: -70px;
+  margin-top: 26px;
+ 
 }
 
+.custom-file-upload {
+  margin-bottom: 30px;
+ 
+ 
+}
+.custom-file-blank{
+
+}
 .save-post {
-  margin-top: 20px;
+  margin-bottom:-200px;
+  margin-left: 630px;
   width: 45px;
   height: 45px;
   background-color: transparent;
   border: none;
 }
+.article-search {
+  position: relative;
+  
+}
+
+.article-search-modal {
+  position: absolute;
+  top: 50px; /* Bu değeri ihtiyacınıza göre ayarlayabilirsiniz */
+  left: 0;
+  background: rgba(0, 0, 0, 0.444);
+  border: 1px solid #ccc;
+  z-index: 10;
+  padding: 10px;
+  width: 350px;
+  border-radius: 10px;
+}
+
+.article-results {
+  
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.article-results li {
+  display: flex;
+  justify-content: space-between;
+  padding: 5px 0;
+}
+
+.article-results li button {
+  background-color: #ffffff;
+  color: rgb(0, 0, 0);
+  border: none;
+  padding: 3px 5px;
+  cursor: pointer;
+  border-radius: 10px;
+
+}
+
+.article-results li button:hover {
+  background-color: #0056b3;
+}
+.article-search-modal input{
+  width: 345px;
+}
+
+.connections{
+  margin-top: -0px;
+  margin-left: 85px;
+}
 
 
+  .button-container {
+  display: flex;
+  align-items: center;
+}
+
+.postform-file-upload {
+  margin-top: -562px;
+  margin-left: 250px;
+}
+
+.postform-t-t{
+  margin-top:-50px;
+}
+.icon-container {
+ margin-left: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: -70px; /* Adjust as needed */
+}
+
+.youtube-link, .article-search {
+ margin-left: -355px;
+ margin-right: 270px;
+  margin-top: 55px;
+}
+
+.article-add-click-icon {
+  width: 30px;
+  height: 30px;
+  margin-top: -10px; /* Adjust as needed */
+}
+
+.youtube-link-add-click-icon {
+  width: 30px;
+  height: 30px;
+  margin-top: -10px; /* Adjust as needed */
+}
+
+.youtube-link-modal {
+  position: absolute;
+  margin-top: 20px; /* Adjust as needed */
+  margin-left: -55px;
+  background: rgba(0, 0, 0, 0.444);
+  border: 1px solid #ccc;
+  z-index: 10;
+  padding: 10px;
+  width: 350px;
+  border-radius: 10px;
+  z-index: 999999;
+}
+
+.youtube-link-modal input {
+  width: 345px;
+}
+.youtube-link-modal button{
+  background-color: #ffffff;
+  color: rgb(0, 0, 0);
+  border: none;
+  padding: 3px 5px;
+  cursor: pointer;
+  border-radius: 10px;
+  margin-left: 319px;
+  margin-bottom: -5px;
+}
+
+
+.article-search-modal {
+  position: absolute;
+  top: 45px; /* Adjust as needed */
+  left: 0;
+  background: rgba(0, 0, 0, 0.444);
+  border: 1px solid #ccc;
+  z-index: 10;
+  padding: 10px;
+  width: 350px;
+  border-radius: 10px;
+}
+
+.article-search-modal input {
+  width: 345px;
+}
+.add-video-icon{
+  width: 30px;
+  height: 28px;
+  margin-bottom: -8px;
+  margin-left: -230px;
+}

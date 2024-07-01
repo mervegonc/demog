@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect, useRef } from 'react';
 import axios from './axios';
 import { useParams, Link } from 'react-router-dom';
@@ -30,7 +31,7 @@ const OnePost = () => {
         if (postData) {
           setPost(postData);
 
-          const userId = postData.user.id;
+          const userId = postData.userId;
           const userResponse = await axios.get(`http://localhost:8080/api/user/${userId}`);
           const userData = userResponse.data;
           setUser(userData);
@@ -57,10 +58,11 @@ const OnePost = () => {
               return null;
             }
           }));
+
           setPost(prevPost => ({
             ...prevPost,
             photoUrls: photoUrls,
-            currentPhotoIndex: 0
+            currentPhotoIndex: 0,
           }));
         } else {
           console.error('Post data is missing or incorrect.');
@@ -86,70 +88,6 @@ const OnePost = () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, [optionsPanelRef]);
-
-  useEffect(() => {
-    const fetchPost = async () => {
-      try {
-        const response = await axios.get(`http://localhost:8080/api/post/${postId}`);
-        const postData = response.data;
-        console.log('postData:', postData);
-        if (postData) {
-          setPost(postData);
-
-          const userId = postData.user.id;
-          const userResponse = await axios.get(`http://localhost:8080/api/user/${userId}`);
-          const userData = userResponse.data;
-          setUser(userData);
-
-          const userProfilePhotoResponse = await axios.get(`http://localhost:8080/api/user/profile/${userId}`, {
-            responseType: 'blob',
-            headers: {
-              Authorization: `Bearer ${AuthService.getToken()}`
-            }
-          });
-          const userProfilePhotoUrl = URL.createObjectURL(userProfilePhotoResponse.data);
-          setUserProfilePhoto(userProfilePhotoUrl);
-        } else {
-          console.error('Post data is missing or incorrect.');
-        }
-      } catch (error) {
-        console.error('Error fetching post:', error);
-      }
-    };
-
-    fetchPost();
-  }, [postId]);
-
-  useEffect(() => {
-    const fetchPostPhotos = async () => {
-      try {
-        const photoNamesResponse = await axios.get(`http://localhost:8080/api/post/photos/${postId}`);
-
-        const photoUrls = await Promise.all(photoNamesResponse.data.map(async photoName => {
-          try {
-            const photoUrlResponse = await axios.get(`http://localhost:8080/api/post/photos/${postId}/${photoName}`, {
-              responseType: 'blob'
-            });
-            const imageUrl = URL.createObjectURL(photoUrlResponse.data);
-            return imageUrl;
-          } catch (error) {
-            console.error('Error fetching photo URL:', error);
-            return null;
-          }
-        }));
-
-        setPost(prevPost => ({
-          ...prevPost,
-          photoUrls: photoUrls,
-          currentPhotoIndex: 0
-        }));
-      } catch (error) {
-        console.error('Error fetching post photos:', error);
-      }
-    };
-
-    fetchPostPhotos();
-  }, [postId]);
 
   const fetchComments = async () => {
     try {
@@ -196,18 +134,12 @@ const OnePost = () => {
   };
 
   const handleUserCommentOptionClick = (commentId, commentUserId, postUserId) => {
-    console.log("Current user ID:", userId);
-    console.log("Comment user ID:", commentUserId);
-    console.log("Post user ID:", postUserId);
-
-    if (userId == commentUserId || userId == postUserId) {
+    if (userId === commentUserId || userId === postUserId) {
       setShowOptionsPanel(true);
       setSelectedCommentId(commentId);
-      console.log("delete");
     } else {
       setShowOptionsPanel(false);
       setSelectedCommentId(null);
-      console.log("report");
     }
   };
 
@@ -225,11 +157,60 @@ const OnePost = () => {
     });
   };
 
+  const renderTextWithLinks = (text) => {
+    if (!text) {
+      return null;
+    }
+    const urlPattern = /(https?:\/\/[^\s]+)/g;
+    return text.split(urlPattern).map((part, index) => {
+      if (urlPattern.test(part)) {
+        return <a key={index} href={part} target="_blank" rel="noopener noreferrer">{part}</a>;
+      }
+      return part;
+    });
+  };
+
+  const renderVideoEmbed = (url) => {
+    if (!url) return null;
+
+    const isYouTube = url.includes('youtube.com') || url.includes('youtu.be');
+    const isVimeo = url.includes('vimeo.com');
+
+    if (isYouTube) {
+      const videoId = url.split('v=')[1]?.split('&')[0] || url.split('/').pop();
+      return (
+        <iframe
+          width="560"
+          height="315"
+          src={`https://www.youtube.com/embed/${videoId}`}
+          title="YouTube video player"
+          frameBorder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowFullScreen
+        ></iframe>
+      );
+    } else if (isVimeo) {
+      const videoId = url.split('/').pop();
+      return (
+        <iframe
+          src={`https://player.vimeo.com/video/${videoId}`}
+          width="640"
+          height="360"
+          frameBorder="0"
+          allow="autoplay; fullscreen; picture-in-picture"
+          allowFullScreen
+          title="Vimeo video player"
+        ></iframe>
+      );
+    } else {
+      return <a href={url} target="_blank" rel="noopener noreferrer">{url}</a>;
+    }
+  };
+
   return (
     <div>
-      <div className="post-container">
+      <div className="profile-post-container">
         <div className="one-post-panel">
-
           {post && (
             <div>
               <div className="user-infos">
@@ -243,18 +224,23 @@ const OnePost = () => {
                   )}
                 </div>
               </div>
+  
+              <div className="post-details">
+                <p>{post.title}</p>
+                <p>{renderTextWithLinks(post.text)}</p>
+                {post.article ? (
+                  <p><Link to={`/onearticle/${post.article.id}`}>{post.article.subject}</Link></p>
+                ) : (
+                  <p>{}</p>
+                )}
 
-              {!post.photoUrl && (
-                <div className="post-details">
-                  <p>{post.title}</p>
-                  <p>{post.text}</p>
-
+                <div className="video-container">
+                  {post.connections && renderVideoEmbed(post.connections, "video-class")}
                 </div>
-              )}
-
+              </div>
+  
               {!post.photoUrls || post.photoUrls.length === 0 ? (
-                <div className="post-details">
-                </div>
+                <div className="post-details"></div>
               ) : (
                 <div className="post-photo-container">
                   <div style={{ position: 'relative' }}>
@@ -268,11 +254,19 @@ const OnePost = () => {
                   </div>
                 </div>
               )}
-
+              {post.videoUrls && post.videoUrls.length > 0 && (
+                <div className="post-video-container">
+                  {post.videoUrls.map((videoUrl, index) => (
+                    <video key={index} controls className="post-video">
+                      <source src={videoUrl} type="video/mp4" />
+                    </video>
+                  ))}
+                </div>
+              )}
               <button className="see-all-comments-button" onClick={handleShowComments}></button>
             </div>
           )}
-
+  
           <div className="like">
             <LikeForm postId={postId} />
           </div>
@@ -280,47 +274,36 @@ const OnePost = () => {
             <CommentForm postId={postId} refreshComments={fetchComments} />
           </div>
           {showComments && (
-
             <div className="comment-list-panel">
               <div className="comment-btm-panel">
-
                 {comments.map(comment => (
-
                   <div key={comment.id} className="comment-panel">
-
-                    <div className='comment-option-new'>   <img
-                      src={UserCommentOptionIcon}
-                      alt="Options"
-                      className="comment-option-icon"
-                      onClick={() => handleUserCommentOptionClick(comment.id, comment.userId, post.user.id)}
-                    />
-
+                    <div className='comment-option-new'>
+                      <img
+                        src={UserCommentOptionIcon}
+                        alt="Options"
+                        className="comment-option-icon"
+                        onClick={() => handleUserCommentOptionClick(comment.id, comment.userId, post.user.id)}
+                      />
                       {showOptionsPanel && selectedCommentId == comment.id && (
                         <div ref={optionsPanelRef} className='user-comment-options-panel'>
                           <button className="comment-delete" onClick={() => handleDeleteComment(comment.id)}>Delete</button>
                         </div>
-                      )}</div>
+                      )}
+                    </div>
                     <p className='comment-create-date' style={{ marginTop: '17px', marginLeft: '500px' }}>{comment.formattedCreatedAt}</p>
                     <div className="comment-user-info">
-
                       {comment.userProfilePhoto && (
                         <Link to={`/user/${comment.userId}`}>
                           <img src={comment.userProfilePhoto} alt={`Profile photo for ${comment.userName}`} className="comment-user-photo" />
                         </Link>
                       )}
-
                       <div className="comment-username">
                         <p><Link className='comment-username' to={`/user/${comment.userId}`}>{comment.userName}</Link></p>
                       </div>
-
                     </div>
                     <div className="comment-user-text">
-
                       <p>{comment.text}</p>
-
-
-
-
                     </div>
                   </div>
                 ))}
@@ -328,9 +311,9 @@ const OnePost = () => {
             </div>
           )}
         </div>
-
       </div>
       <div className="button-container">
+        <Link to="/home" className="realhome-button"></Link>
         <Link to="/post" className="home-button"></Link>
         <Link to="/article" className="article-button"></Link>
         <Link to={`/user/${userId}`} className="profile-button"></Link>

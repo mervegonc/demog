@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import axios from './axios';
 import { Link } from 'react-router-dom';
@@ -5,47 +6,63 @@ import LikeForm from './LikeForm';
 import './styles/Post.css';
 import './styles/CommentForm.css';
 import './styles/MyPost.css';
-import AuthService from './AuthService'; // Import AuthService here
-import RightClickIcon from './styles/images/rightclick.png';
-import LeftClickIcon from './styles/images/leftclick.png';
+import AuthService from './AuthService';
+import RightClickIcon from './styles/images/leftclick.png';
+import LeftClickIcon from './styles/images/rightclick.png';
 
 const Post = () => {
   const [posts, setPosts] = useState([]);
-  const userId = AuthService.getUserId(); // Get userId from AuthService
+  const userId = AuthService.getUserId();
 
   useEffect(() => {
     const fetchPosts = async () => {
       try {
         const response = await axios.get('http://localhost:8080/api/post');
-        const postsWithPhotos = await Promise.all(response.data.map(async post => {
+        const postsWithMedia = await Promise.all(response.data.map(async post => {
           try {
             const photoNamesResponse = await axios.get(`http://localhost:8080/api/post/photos/${post.id}`);
             console.log(`GET request for photo names of post ${post.id}:`, photoNamesResponse);
-
+  
             const photoNames = photoNamesResponse.data;
             const photoUrls = await Promise.all(photoNames.map(async photoName => {
               try {
                 const photoUrlResponse = await axios.get(`http://localhost:8080/api/post/photos/${post.id}/${photoName}`, {
-                  responseType: 'blob' // Set response type to blob to get the actual image data
+                  responseType: 'blob'
                 });
                 console.log(`GET request for photo URL of post ${post.id}, photo name ${photoName}:`, photoUrlResponse);
                 const imageUrl = URL.createObjectURL(photoUrlResponse.data);
-                return imageUrl;
+                return { type: 'photo', url: imageUrl };
               } catch (error) {
                 console.error('Error fetching photo URL:', error);
                 return null;
               }
             }));
+  
+            const videoNamesResponse = await axios.get(`http://localhost:8080/api/post/videos/${post.id}`);
+            const videoUrls = await Promise.all(videoNamesResponse.data.map(async videoName => {
+              try {
+                const videoUrlResponse = await axios.get(`http://localhost:8080/api/post/videos/${post.id}/${videoName}`, {
+                  responseType: 'blob'
+                });
+                const videoUrl = URL.createObjectURL(videoUrlResponse.data);
+                return { type: 'video', url: videoUrl };
+              } catch (error) {
+                console.error('Error fetching video URL:', error);
+                return null;
+              }
+            }));
+  
+            const connections = post.connections ? [{ type: 'youtube', url: post.connections }] : [];
 
             const userProfilePhoto = await fetchUserProfilePhoto(post.userId);
-            return { ...post, photoUrls, userProfilePhoto };
+            return { ...post, mediaContent: [...photoUrls, ...videoUrls, ...connections], userProfilePhoto };
           } catch (error) {
-            console.error('Error fetching post photos:', error);
+            console.error('Error fetching post photos and videos:', error);
             const userProfilePhoto = await fetchUserProfilePhoto(post.userId);
-            return { ...post, photoUrls: [], userProfilePhoto };
+            return { ...post, mediaContent: [], userProfilePhoto };
           }
         }));
-        setPosts(postsWithPhotos.map(post => ({ ...post, isCommentBoxOpen: false, selectedCommentText: '', currentPhotoIndex: 0 })));
+        setPosts(postsWithMedia.map(post => ({ ...post, isCommentBoxOpen: false, selectedCommentText: '', currentMediaIndex: 0 })));
       } catch (error) {
         console.error('Error fetching posts:', error);
       }
@@ -93,29 +110,89 @@ const Post = () => {
     }
   };
 
-
-
-
-  const handleNextPhoto = (postId) => {
+  const handleNextMedia = (postId) => {
     setPosts(posts.map(post => {
       if (post.id === postId) {
-        const nextPhotoIndex = (post.currentPhotoIndex + 1) % post.photoUrls.length;
-        return { ...post, currentPhotoIndex: nextPhotoIndex };
+        const nextMediaIndex = (post.currentMediaIndex + 1) % post.mediaContent.length;
+        return { ...post, currentMediaIndex: nextMediaIndex };
       } else {
         return post;
       }
     }));
   };
 
-  const handlePreviousPhoto = (postId) => {
+  const handlePreviousMedia = (postId) => {
     setPosts(posts.map(post => {
       if (post.id === postId) {
-        const previousPhotoIndex = (post.currentPhotoIndex + post.photoUrls.length - 1) % post.photoUrls.length;
-        return { ...post, currentPhotoIndex: previousPhotoIndex };
+        const previousMediaIndex = (post.currentMediaIndex + post.mediaContent.length - 1) % post.mediaContent.length;
+        return { ...post, currentMediaIndex: previousMediaIndex };
       } else {
         return post;
       }
     }));
+  };
+
+  const renderTextWithLinks = (text) => {
+    const urlPattern = /(https?:\/\/[^\s]+)/g;
+    return text.split(urlPattern).map((part, index) => {
+      if (urlPattern.test(part)) {
+        return <a key={index} href={part} target="_blank" rel="noopener noreferrer">{part}</a>;
+      }
+      return part;
+    });
+  };
+
+  const renderVideoEmbed = (url) => {
+    if (!url) return null;
+
+    const isYouTube = url.includes('youtube.com') || url.includes('youtu.be');
+    const isVimeo = url.includes('vimeo.com');
+
+    if (isYouTube) {
+      const videoId = url.split('v=')[1]?.split('&')[0] || url.split('/').pop();
+      return (
+        <iframe
+          width="560"
+          height="315"
+          src={`https://www.youtube.com/embed/${videoId}`}
+          title="YouTube video player"
+          frameBorder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowFullScreen
+        ></iframe>
+      );
+    } else if (isVimeo) {
+      const videoId = url.split('/').pop();
+      return (
+        <iframe
+          src={`https://player.vimeo.com/video/${videoId}`}
+          width="640"
+          height="360"
+          frameBorder="0"
+          allow="autoplay; fullscreen; picture-in-picture"
+          allowFullScreen
+          title="Vimeo video player"
+        ></iframe>
+      );
+    } else {
+      return <a href={url} target="_blank" rel="noopener noreferrer">{url}</a>;
+    }
+  };
+
+  const renderCurrentMedia = (mediaContent, currentIndex) => {
+    if (mediaContent.length === 0) return null;
+    const currentMedia = mediaContent[currentIndex];
+    if (currentMedia.type === 'photo') {
+      return <img src={currentMedia.url} alt={`Content ${currentIndex}`} className="post-photo" />;
+    } else if (currentMedia.type === 'video') {
+      return (
+        <video controls className="post-video">
+          <source src={currentMedia.url} type="video/mp4" />
+        </video>
+      );
+    } else if (currentMedia.type === 'youtube') {
+      return renderVideoEmbed(currentMedia.url);
+    }
   };
 
   return (
@@ -138,32 +215,27 @@ const Post = () => {
                     <strong><Link to={`/user/${post.userId}`}>{post.userName}</Link></strong>
                   </p>
                 </div>
-                {!post.photoUrl && (
-                  <div className="post-details">
-                    <p>{post.title}</p>
-                    <p>{post.text}</p>
+                <div className="post-details">
+                  <p>{post.title}</p>
+                  <p>{renderTextWithLinks(post.text)}</p>
+                  {post.articleId ? (
+                    <p><Link to={`/onearticle/${post.articleId}`}>{post.articleSubject}</Link></p>
+                  ) : (
+                    <p></p>
+                  )}
+                </div>
 
-
+                <div className="mmedia-container">
+                  <div className="mmedia-content">
+                    {renderCurrentMedia(post.mediaContent, post.currentMediaIndex)}
                   </div>
-                )}
-                {!post.photoUrls || post.photoUrls.length === 0 ? (
-                  <div className="post-details">
-
-                  </div>
-                ) : (
-                  <div className="post-photo-container">
-                    <div style={{ position: 'relative' }}>
-                      <img src={post.photoUrls[post.currentPhotoIndex]} alt={`Photo for post ${post.id}`} className="post-photo" />
-                      {post.photoUrls.length > 1 && (
-                        <div className='post-photos-clicks'>
-                          <img src={RightClickIcon} alt="Right click icon" className="right-click-icon" onClick={() => handleNextPhoto(post.id)} />
-                          <img src={LeftClickIcon} alt="Left click icon" className="left-click-icon" onClick={() => handlePreviousPhoto(post.id)} />
-                        </div>
-                      )}
+                  {post.mediaContent.length > 1 && (
+                    <div className='ppost-photos-clicks'>
+                      <img src={RightClickIcon} alt="Right click icon" className="roright-click-icon" onClick={() => handleNextMedia(post.id)} />
+                      <img src={LeftClickIcon} alt="Left click icon" className="roleft-click-icon" onClick={() => handlePreviousMedia(post.id)} />
                     </div>
-                  </div>
-                )}
-
+                  )}
+                </div>
 
                 <Link to={`/onepost/${post.id}`} style={{ textDecoration: 'none', color: 'inherit' }}>
                   <button className="see-all-comments-button" onClick={() => handleShowComments(post.id)}></button>
@@ -187,6 +259,7 @@ const Post = () => {
         </ul>
       </div>
       <div className="button-container">
+      <Link to="/home" className="realhome-button"></Link>
         <Link to="/post" className="home-button"></Link>
         <Link to="/article" className="article-button"></Link>
         <Link to={`/user/${userId}`} className="profile-button"></Link>
@@ -199,4 +272,3 @@ const Post = () => {
 };
 
 export default Post;
-

@@ -3,7 +3,7 @@
     width: 600px;
     /*height: 620px;*/
     height: auto;
-   
+    background-color: rgba(0, 0, 0, 0.305);
     box-shadow: 0 0 10px rgba(255, 255, 255, 0.637); /* Pembe gölge */
     color: rgb(255, 255, 255); /* Yazı rengi */
     padding: 20px;
@@ -133,4 +133,75 @@ border-radius: 9px;
   color: white;
 
 
+}
+.post-video{
+  width: 600px;
+}
+
+.video-container {
+  margin-left: 95px;
+  margin-top: 20px;
+  text-align: center;
+}
+
+.video-class {
+  max-width: 100%;
+  height: auto;
+  margin: 0 auto;
+}
+.post-photos-clicks {
+  position: absolute;
+  top: 50%;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+
+
+.oright-click-icon,
+.oleft-click-icon {
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+}
+
+.oright-click-icon {
+  margin-left: 100px;
+}
+
+.oleft-click-icon {
+  margin-left: -599px;
+}
+
+
+
+.roright-click-icon,
+.roleft-click-icon {
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+}
+
+.roright-click-icon {
+  margin-left: 00px;
+}
+
+.roleft-click-icon {
+  margin-left: -599px;
+}
+
+
+
+
+.media-container {
+  position: relative;
+  text-align: center;
+}
+
+.media-content img, .media-content video, .media-content iframe {
+  width: 600px;
+  height: 300px;
+  margin-top: 15px;
+  margin-left: 95px;
 }

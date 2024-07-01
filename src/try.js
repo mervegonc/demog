@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect, useRef } from 'react';
 import axios from './axios';
 import { useParams, Link } from 'react-router-dom';
@@ -8,8 +7,8 @@ import ArticleLikeForm from './ArticleLikeForm';
 import './styles/OnePost.css';
 import AuthService from './AuthService';
 import UserCommentOptionIcon from './styles/images/option.png';
-import LeftClickIcon from './styles/images/rightclick.png';
-import RightClickIcon  from './styles/images/leftclick.png';
+import RightClickIcon from './styles/images/rightclick.png';
+import LeftClickIcon from './styles/images/leftclick.png';
 
 const OneArticle = () => {
     const { articleId } = useParams();
@@ -18,34 +17,39 @@ const OneArticle = () => {
     const [showComments, setShowComments] = useState(true);
     const [user, setUser] = useState(null);
     const [userProfilePhoto, setUserProfilePhoto] = useState(null);
-    const userId = AuthService.getUserId();
+    const userId = AuthService.getUserId(); // Get userId from AuthService
     const [showOptionsPanel, setShowOptionsPanel] = useState(false);
-    const [selectedCommentId, setSelectedCommentId] = useState(null);
-    const optionsPanelRef = useRef(null);
+    const [selectedCommentId, setSelectedCommentId] = useState(null); // Keep track of the selected comment id
+    const optionsPanelRef = useRef(null); // Ref for options panel
 
     useEffect(() => {
         const handleClickOutside = (event) => {
+            // Check if the click is outside the options panel
             if (optionsPanelRef.current && !optionsPanelRef.current.contains(event.target)) {
-                setShowOptionsPanel(false);
+                setShowOptionsPanel(false); // Close the options panel
             }
         };
 
+        // Add event listener when component mounts
         document.addEventListener("mousedown", handleClickOutside);
 
+        // Cleanup by removing the event listener when component unmounts
         return () => {
             document.removeEventListener("mousedown", handleClickOutside);
         };
     }, [optionsPanelRef]);
 
     useEffect(() => {
-        const fetchArticleData = async () => {
+        const fetchArticle = async () => {
             try {
-                const articleResponse = await axios.get(`http://localhost:8080/api/article/${articleId}`);
-                const articleData = articleResponse.data;
+                const response = await axios.get(`http://localhost:8080/api/article/${articleId}`);
+                const articleData = response.data;
+                console.log('articleData:', articleData); // Add this line to check the structure of articleData
                 if (articleData) {
                     setArticle(articleData);
 
-                    const userId = articleData.userId;
+                    // Fetch user details and user profile photo
+                    const userId = articleData.user.id; // This line likely causes the error
                     const userResponse = await axios.get(`http://localhost:8080/api/user/${userId}`);
                     const userData = userResponse.data;
                     setUser(userData);
@@ -59,14 +63,14 @@ const OneArticle = () => {
                     const userProfilePhotoUrl = URL.createObjectURL(userProfilePhotoResponse.data);
                     setUserProfilePhoto(userProfilePhotoUrl);
                 } else {
-                    console.error('Article data is missing or incorrect.');
+                    console.error('Post data is missing or incorrect.');
                 }
             } catch (error) {
                 console.error('Error fetching article:', error);
             }
         };
 
-        fetchArticleData();
+        fetchArticle();
     }, [articleId]);
 
     useEffect(() => {
@@ -171,19 +175,6 @@ const OneArticle = () => {
         });
     };
 
-    const renderTextWithLinks = (content) => {
-        if (!content) {
-            return null;
-        }
-        const urlPattern = /(https?:\/\/[^\s]+)/g;
-        return content.split(urlPattern).map((part, index) => {
-            if (urlPattern.test(part)) {
-                return <a key={index} href={part} target="_blank" rel="noopener noreferrer">{part}</a>;
-            }
-            return part;
-        });
-    };
-
     return (
         <div>
             <div className="post-container">
@@ -194,7 +185,7 @@ const OneArticle = () => {
                                 <p className='article-create-date'>{article.formattedCreatedAt}</p>
 
                                 {userProfilePhoto && (
-                                    <img src={userProfilePhoto} alt={`Profile photo for ${user?.username}`} className="user-photo-container" />
+                                    <img src={userProfilePhoto} alt={`Profile photo for ${user.username}`} className="user-photo-container" />
                                 )}
                                 <div className="user-name">
                                     {user && (
@@ -206,8 +197,7 @@ const OneArticle = () => {
                             {!article.photoUrl && (
                                 <div className="post-details">
                                     <p>{article.subject}</p>
-                                    <p>{renderTextWithLinks(article.content)}</p>
-                                   
+                                    <p>{article.content}</p>
                                     {article.connections && (
                                         <p><a href={article.connections} target="_blank" rel="noopener noreferrer">{article.connections}</a></p>
                                     )}
@@ -282,7 +272,6 @@ const OneArticle = () => {
                 </div>
             </div>
             <div className="button-container">
-                  <Link to="/home" className="realhome-button"></Link>
                 <Link to="/post" className="home-button"></Link>
                 <Link to="/article" className="article-button"></Link>
                 <Link to={`/user/${userId}`} className="profile-button"></Link>
