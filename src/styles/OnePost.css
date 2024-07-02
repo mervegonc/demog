@@ -145,7 +145,7 @@ border-radius: 9px;
 }
 
 .video-class {
-  max-width: 100%;
+  width: 600px;
   height: auto;
   margin: 0 auto;
 }
@@ -195,13 +195,31 @@ border-radius: 9px;
 
 
 .media-container {
+  margin-left: 95px;
   position: relative;
   text-align: center;
 }
 
 .media-content img, .media-content video, .media-content iframe {
-  width: 600px;
-  height: 300px;
+  width: 600px; /* Genişlik artırıldı */
+  height: 265px; /* Yükseklik de aynı oranda artırıldı */
   margin-top: 15px;
-  margin-left: 95px;
+}
+
+.onright-click-icon,
+.onleft-click-icon {
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.onright-click-icon {
+  right: 0px;
+}
+
+.onleft-click-icon {
+  left: 0px;
 }

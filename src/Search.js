@@ -25,18 +25,21 @@ const Search = () => {
 
     try {
       const postResponse = await axios.get(`http://localhost:8080/api/post/search?keyword=${term}`);
-      const posts = postResponse.data;
+      const posts = Array.isArray(postResponse.data) ? postResponse.data : [];
       setPostResults(posts);
 
       const articleResponse = await axios.get(`http://localhost:8080/api/article/search?keyword=${term}`);
-      const articles = articleResponse.data;
+      const articles = Array.isArray(articleResponse.data) ? articleResponse.data : [];
       setArticleResults(articles);
 
       const userResponse = await axios.get(`http://localhost:8080/api/user/search?username=${term}`);
-      const users = userResponse.data;
+      const users = Array.isArray(userResponse.data) ? userResponse.data : [];
       setUserResults(users);
     } catch (error) {
       console.error('Error searching posts or users:', error);
+      setPostResults([]);
+      setArticleResults([]);
+      setUserResults([]);
     }
   };
 
@@ -69,15 +72,12 @@ const Search = () => {
 
       <div className='search-results-container'>
 
-
-
         {activeTab === 'posts' && postResults.length > 0 && (
           <div className='search-results'>
             <h2>Posts</h2>
             {postResults.map((post) => (
               <div key={post.id} className='search-result'>
                 <h3>{post.title}</h3>
-                {/*<p>{post.text}</p>*/}
                 <Link to={`/onepost/${post.id}`} className='read-more'>Read more</Link>
               </div>
             ))}
@@ -90,7 +90,6 @@ const Search = () => {
             {articleResults.map((article) => (
               <div key={article.id} className='search-result'>
                 <h3>{article.subject}</h3>
-                {/*<p>{article.content}</p>*/}
                 <Link to={`/onearticle/${article.id}`} className='read-more'>Read more</Link>
               </div>
             ))}
@@ -102,8 +101,6 @@ const Search = () => {
             <h2>Users</h2>
             {userResults.map((user) => (
               <div key={user.id} className='search-result'>
-
-
                 <Link to={`/user/${user.id}`} className='read-more'>{user.username}</Link>
               </div>
             ))}
@@ -112,7 +109,7 @@ const Search = () => {
       </div>
 
       <div className="button-container">
-      <Link to="/home" className="realhome-button"></Link>
+        <Link to="/home" className="realhome-button"></Link>
         <Link to="/post" className="home-button"></Link>
         <Link to="/article" className="article-button"></Link>
         <Link to={`/user/${userId}`} className="profile-button"></Link>

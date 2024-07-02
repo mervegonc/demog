@@ -2,7 +2,7 @@
     font-size: 14px;
     position: fixed;
     width: 680px;
-   max-height: 680px;
+   height: 680px;
     overflow-y: auto; /* Kaydırma çubuğunu gizlemek için */
     background-color: rgba(0, 0, 0, 0.8);
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);

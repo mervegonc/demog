@@ -5,10 +5,10 @@ import unlikeImage from './styles/images/like.png';
 import './styles/LikeForm.css';
 
 const ArticleLikeForm = ({ articleId }) => {
-    const [liked, setLiked] = useState(false); // Beğenme durumu
-    const [likeId, setLikeId] = useState(null); // Beğeninin kimliği
-    const [likeCount, setLikeCount] = useState(0); // Beğeni sayısı
-    const [userId, setUserId] = useState(null); // Kullanıcı ID'si
+    const [liked, setLiked] = useState(false); 
+    const [likeId, setLikeId] = useState(null); 
+    const [likeCount, setLikeCount] = useState(0); 
+    const [userId, setUserId] = useState(null); 
 
     useEffect(() => {
         const fetchUserId = async () => {
@@ -33,14 +33,14 @@ const ArticleLikeForm = ({ articleId }) => {
         const fetchLikeCount = async () => {
             try {
                 const response = await axios.get(`http://localhost:8080/api/articlelike/count/${articleId}`);
-                setLikeCount(response.data); // Beğeni sayısını güncelle
+                setLikeCount(response.data); 
             } catch (error) {
                 console.error('Error fetching like count:', error);
             }
         };
 
         fetchLikeCount();
-    }, [articleId]); // articleId değiştiğinde yeniden çalıştır
+    }, [articleId]); 
 
     useEffect(() => {
         const checkUserLiked = async () => {
@@ -53,12 +53,11 @@ const ArticleLikeForm = ({ articleId }) => {
                         }
                     });
 
-                    // Kullanıcı daha önce like atmışsa, like butonunu gizle
                     if (response.data) {
                         setLiked(true);
                         setLikeId(response.data.likeId);
                     } else {
-                        // Kullanıcı daha önce like atmamışsa, like butonunu göster
+                      
                         setLiked(false);
                         setLikeId(null);
                     }
@@ -73,44 +72,43 @@ const ArticleLikeForm = ({ articleId }) => {
 
     const handleLike = async () => {
         try {
-            const token = localStorage.getItem('token'); // LocalStorage'dan tokeni al
+            const token = localStorage.getItem('token');
             const response = await axios.post('http://localhost:8080/api/articlelike', {
-                userId: userId, // Giriş yapmış kullanıcının userId'sini kullan
+                userId: userId,
                 articleId: articleId
             }, {
                 headers: {
-                    Authorization: `Bearer ${token}` // Authorization headeri ile tokeni gönder
+                    Authorization: `Bearer ${token}` 
                 }
             });
 
-            // Başarılı beğenme işlemi
-            setLiked(true); // Beğenme durumunu güncelle
-            setLikeId(response.data.id); // Beğeninin kimliğini sakla
-            setLikeCount(likeCount + 1); // Beğeni sayısını arttır
+        
+            setLiked(true);
+            setLikeId(response.data.id); 
+            setLikeCount(likeCount + 1); 
 
             console.log('Article liked!');
         } catch (error) {
-            console.error('Error liking article:', error); // Beğenme hatası
+            console.error('Error liking article:', error); 
         }
     };
 
     const handleUnlike = async () => {
         try {
-            const token = localStorage.getItem('token'); // LocalStorage'dan tokeni al
+            const token = localStorage.getItem('token'); 
             await axios.delete(`http://localhost:8080/api/articlelike/unlike/${userId}/${articleId}`, {
                 headers: {
-                    Authorization: `Bearer ${token}` // Authorization headeri ile tokeni gönder
+                    Authorization: `Bearer ${token}` 
                 }
             });
 
-            // Başarılı beğenmeme işlemi
-            setLiked(false); // Beğenme durumunu güncelle
-            setLikeId(null); // Beğeninin kimliğini kaldır
-            setLikeCount(likeCount - 1); // Beğeni sayısını azalt
+            setLiked(false); 
+            setLikeId(null); 
+            setLikeCount(likeCount - 1); 
 
             console.log('Article unliked!');
         } catch (error) {
-            console.error('Error unliking article:', error); // Beğenmeme hatası
+            console.error('Error unliking article:', error); 
         }
     };
 

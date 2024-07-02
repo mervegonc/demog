@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect, useRef } from 'react';
 import axios from './axios';
 import { useParams, Link } from 'react-router-dom';
@@ -9,7 +8,7 @@ import './styles/OnePost.css';
 import AuthService from './AuthService';
 import UserCommentOptionIcon from './styles/images/option.png';
 import LeftClickIcon from './styles/images/rightclick.png';
-import RightClickIcon  from './styles/images/leftclick.png';
+import RightClickIcon from './styles/images/leftclick.png';
 
 const OneArticle = () => {
     const { articleId } = useParams();
@@ -43,13 +42,9 @@ const OneArticle = () => {
                 const articleResponse = await axios.get(`http://localhost:8080/api/article/${articleId}`);
                 const articleData = articleResponse.data;
                 if (articleData) {
-                    setArticle(articleData);
-
                     const userId = articleData.userId;
                     const userResponse = await axios.get(`http://localhost:8080/api/user/${userId}`);
                     const userData = userResponse.data;
-                    setUser(userData);
-
                     const userProfilePhotoResponse = await axios.get(`http://localhost:8080/api/user/profile/${userId}`, {
                         responseType: 'blob',
                         headers: {
@@ -57,7 +52,12 @@ const OneArticle = () => {
                         }
                     });
                     const userProfilePhotoUrl = URL.createObjectURL(userProfilePhotoResponse.data);
+                    setUser(userData);
                     setUserProfilePhoto(userProfilePhotoUrl);
+                    setArticle({
+                        ...articleData,
+                        user: userData, // Include user data in the article object
+                    });
                 } else {
                     console.error('Article data is missing or incorrect.');
                 }
@@ -186,7 +186,7 @@ const OneArticle = () => {
 
     return (
         <div>
-            <div className="post-container">
+            <div className="profile-post-container">
                 <div className="one-post-panel">
                     {article && (
                         <div>
@@ -252,9 +252,9 @@ const OneArticle = () => {
                                                 src={UserCommentOptionIcon}
                                                 alt="Options"
                                                 className="comment-option-icon"
-                                                onClick={() => handleUserCommentOptionClick(comment.id, comment.userId, article.user.id)}
+                                                onClick={() => handleUserCommentOptionClick(comment.id, comment.userId, article.user?.id)}
                                             />
-                                            {showOptionsPanel && selectedCommentId == comment.id && (
+                                            {showOptionsPanel && selectedCommentId === comment.id && (
                                                 <div ref={optionsPanelRef} className='user-comment-options-panel'>
                                                     <button className="comment-delete" onClick={() => handleDeleteComment(comment.id)}>Delete</button>
                                                 </div>
@@ -282,7 +282,7 @@ const OneArticle = () => {
                 </div>
             </div>
             <div className="button-container">
-                  <Link to="/home" className="realhome-button"></Link>
+                <Link to="/home" className="realhome-button"></Link>
                 <Link to="/post" className="home-button"></Link>
                 <Link to="/article" className="article-button"></Link>
                 <Link to={`/user/${userId}`} className="profile-button"></Link>

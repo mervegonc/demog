@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect, useRef } from 'react';
 import axios from './axios';
 import { useParams, Link } from 'react-router-dom';
@@ -29,13 +28,9 @@ const OnePost = () => {
         const postDataResponse = await axios.get(`http://localhost:8080/api/post/${postId}`);
         const postData = postDataResponse.data;
         if (postData) {
-          setPost(postData);
-
           const userId = postData.userId;
           const userResponse = await axios.get(`http://localhost:8080/api/user/${userId}`);
           const userData = userResponse.data;
-          setUser(userData);
-
           const userProfilePhotoResponse = await axios.get(`http://localhost:8080/api/user/profile/${userId}`, {
             responseType: 'blob',
             headers: {
@@ -43,7 +38,12 @@ const OnePost = () => {
             }
           });
           const userProfilePhotoUrl = URL.createObjectURL(userProfilePhotoResponse.data);
-          setUserProfilePhoto(userProfilePhotoUrl);
+
+          setPost({
+            ...postData,
+            user: userData, // Include user data in the post object
+            userProfilePhoto: userProfilePhotoUrl,
+          });
 
           const photoNamesResponse = await axios.get(`http://localhost:8080/api/post/photos/${postId}`);
           const photoUrls = await Promise.all(photoNamesResponse.data.map(async photoName => {
@@ -52,17 +52,28 @@ const OnePost = () => {
                 responseType: 'blob'
               });
               const imageUrl = URL.createObjectURL(photoUrlResponse.data);
-              return imageUrl;
+              return { type: 'photo', url: imageUrl };
             } catch (error) {
               console.error('Error fetching photo URL:', error);
               return null;
             }
           }));
 
+          const videoUrlsResponse = await axios.get(`http://localhost:8080/api/post/videos/${postId}`);
+          const videoUrls = videoUrlsResponse.data.map(videoUrl => ({
+            type: 'video',
+            url: videoUrl,
+          }));
+
+          const content = [...photoUrls, ...videoUrls];
+          if (postData.connections) {
+            content.push({ type: 'youtube', url: postData.connections });
+          }
+
           setPost(prevPost => ({
             ...prevPost,
-            photoUrls: photoUrls,
-            currentPhotoIndex: 0,
+            content: content,
+            currentContentIndex: 0,
           }));
         } else {
           console.error('Post data is missing or incorrect.');
@@ -134,26 +145,32 @@ const OnePost = () => {
   };
 
   const handleUserCommentOptionClick = (commentId, commentUserId, postUserId) => {
-    if (userId === commentUserId || userId === postUserId) {
+    console.log('User ID:', userId);
+    console.log('Comment User ID:', commentUserId);
+    console.log('Post User ID:', postUserId);
+
+    if (userId == commentUserId || userId == postUserId) {
+      console.log('User is authorized to delete this comment.');
       setShowOptionsPanel(true);
       setSelectedCommentId(commentId);
     } else {
+      console.log('User is not authorized to delete this comment.');
       setShowOptionsPanel(false);
       setSelectedCommentId(null);
     }
   };
 
-  const handleNextPhoto = () => {
+  const handleNextContent = () => {
     setPost(prevPost => {
-      const nextPhotoIndex = (prevPost.currentPhotoIndex + 1) % prevPost.photoUrls.length;
-      return { ...prevPost, currentPhotoIndex: nextPhotoIndex };
+      const nextContentIndex = (prevPost.currentContentIndex + 1) % prevPost.content.length;
+      return { ...prevPost, currentContentIndex: nextContentIndex };
     });
   };
 
-  const handlePreviousPhoto = () => {
+  const handlePreviousContent = () => {
     setPost(prevPost => {
-      const previousPhotoIndex = (prevPost.currentPhotoIndex + prevPost.photoUrls.length - 1) % prevPost.photoUrls.length;
-      return { ...prevPost, currentPhotoIndex: previousPhotoIndex };
+      const previousContentIndex = (prevPost.currentContentIndex + prevPost.content.length - 1) % prevPost.content.length;
+      return { ...prevPost, currentContentIndex: previousContentIndex };
     });
   };
 
@@ -180,8 +197,8 @@ const OnePost = () => {
       const videoId = url.split('v=')[1]?.split('&')[0] || url.split('/').pop();
       return (
         <iframe
-          width="560"
-          height="315"
+          width="650"
+          height="365"
           src={`https://www.youtube.com/embed/${videoId}`}
           title="YouTube video player"
           frameBorder="0"
@@ -194,8 +211,8 @@ const OnePost = () => {
       return (
         <iframe
           src={`https://player.vimeo.com/video/${videoId}`}
-          width="640"
-          height="360"
+          width="650"
+          height="365"
           frameBorder="0"
           allow="autoplay; fullscreen; picture-in-picture"
           allowFullScreen
@@ -224,7 +241,7 @@ const OnePost = () => {
                   )}
                 </div>
               </div>
-  
+
               <div className="post-details">
                 <p>{post.title}</p>
                 <p>{renderTextWithLinks(post.text)}</p>
@@ -234,39 +251,35 @@ const OnePost = () => {
                   <p>{}</p>
                 )}
 
-                <div className="video-container">
-                  {post.connections && renderVideoEmbed(post.connections, "video-class")}
+                <div className="media-container">
+                  {post.content && (
+                    <>
+                      {post.content[post.currentContentIndex].type === 'photo' && (
+                        <img src={post.content[post.currentContentIndex].url} alt={`Photo for post ${post.id}`} className="post-photo" />
+                      )}
+                      {post.content[post.currentContentIndex].type === 'video' && (
+                        <video controls className="post-video">
+                          <source src={post.content[post.currentContentIndex].url} type="video/mp4" />
+                        </video>
+                      )}
+                      {post.content[post.currentContentIndex].type === 'youtube' && (
+                        renderVideoEmbed(post.content[post.currentContentIndex].url)
+                      )}
+                      {post.content.length > 1 && (
+                        <div className='post-content-clicks'>
+                          <img src={RightClickIcon} alt="Right click icon" className="onright-click-icon" onClick={handleNextContent} />
+                          <img src={LeftClickIcon} alt="Left click icon" className="onleft-click-icon" onClick={handlePreviousContent} />
+                        </div>
+                      )}
+                    </>
+                  )}
                 </div>
               </div>
-  
-              {!post.photoUrls || post.photoUrls.length === 0 ? (
-                <div className="post-details"></div>
-              ) : (
-                <div className="post-photo-container">
-                  <div style={{ position: 'relative' }}>
-                    <img src={post.photoUrls[post.currentPhotoIndex]} alt={`Photo for post ${post.id}`} className="post-photo" />
-                    {post.photoUrls.length > 1 && (
-                      <div className='post-photos-clicks'>
-                        <img src={RightClickIcon} alt="Right click icon" className="right-click-icon" onClick={handleNextPhoto} />
-                        <img src={LeftClickIcon} alt="Left click icon" className="left-click-icon" onClick={handlePreviousPhoto} />
-                      </div>
-                    )}
-                  </div>
-                </div>
-              )}
-              {post.videoUrls && post.videoUrls.length > 0 && (
-                <div className="post-video-container">
-                  {post.videoUrls.map((videoUrl, index) => (
-                    <video key={index} controls className="post-video">
-                      <source src={videoUrl} type="video/mp4" />
-                    </video>
-                  ))}
-                </div>
-              )}
+
               <button className="see-all-comments-button" onClick={handleShowComments}></button>
             </div>
           )}
-  
+
           <div className="like">
             <LikeForm postId={postId} />
           </div>
@@ -283,9 +296,9 @@ const OnePost = () => {
                         src={UserCommentOptionIcon}
                         alt="Options"
                         className="comment-option-icon"
-                        onClick={() => handleUserCommentOptionClick(comment.id, comment.userId, post.user.id)}
+                        onClick={() => handleUserCommentOptionClick(comment.id, comment.userId, post.user?.id)}
                       />
-                      {showOptionsPanel && selectedCommentId == comment.id && (
+                      {showOptionsPanel && selectedCommentId === comment.id && (
                         <div ref={optionsPanelRef} className='user-comment-options-panel'>
                           <button className="comment-delete" onClick={() => handleDeleteComment(comment.id)}>Delete</button>
                         </div>
