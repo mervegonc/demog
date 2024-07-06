@@ -17,24 +17,24 @@ const Home = () => {
     useEffect(() => {
         const fetchFollowingUsersContent = async () => {
             try {
-                const followingResponse = await axios.get(`http://localhost:8080/api/user/${authenticatedUserId}/following`);
+                const followingResponse = await axios.get(`http://16.16.43.64:8080/api/user/${authenticatedUserId}/following`);
                 const followingUsers = followingResponse.data.following;
 
                 const postsPromises = followingUsers.map(async userId => {
-                    const postsResponse = await axios.get(`http://localhost:8080/api/post/my/${userId}`);
+                    const postsResponse = await axios.get(`http://16.16.43.64:8080/api/post/my/${userId}`);
                     const postsWithMedia = await Promise.all(postsResponse.data.map(async post => {
-                        const photoNamesResponse = await axios.get(`http://localhost:8080/api/post/photos/${post.id}`);
+                        const photoNamesResponse = await axios.get(`http://16.16.43.64:8080/api/post/photos/${post.id}`);
                         const photoUrls = await Promise.all(photoNamesResponse.data.map(async photoName => {
-                            const photoUrlResponse = await axios.get(`http://localhost:8080/api/post/photos/${post.id}/${photoName}`, {
+                            const photoUrlResponse = await axios.get(`http://16.16.43.64:8080/api/post/photos/${post.id}/${photoName}`, {
                                 responseType: 'blob'
                             });
                             const imageUrl = URL.createObjectURL(photoUrlResponse.data);
                             return { type: 'photo', url: imageUrl };
                         }));
 
-                        const videoNamesResponse = await axios.get(`http://localhost:8080/api/post/videos/${post.id}`);
+                        const videoNamesResponse = await axios.get(`http://16.16.43.64:8080/api/post/videos/${post.id}`);
                         const videoUrls = await Promise.all(videoNamesResponse.data.map(async videoName => {
-                            const videoUrlResponse = await axios.get(`http://localhost:8080/api/post/videos/${post.id}/${videoName}`, {
+                            const videoUrlResponse = await axios.get(`http://16.16.43.64:8080/api/post/videos/${post.id}/${videoName}`, {
                                 responseType: 'blob'
                             });
                             const videoUrl = URL.createObjectURL(videoUrlResponse.data);
@@ -50,11 +50,11 @@ const Home = () => {
                 });
 
                 const articlesPromises = followingUsers.map(async userId => {
-                    const articlesResponse = await axios.get(`http://localhost:8080/api/article/my/${userId}`);
+                    const articlesResponse = await axios.get(`http://16.16.43.64:8080/api/article/my/${userId}`);
                     const articlesWithPhotos = await Promise.all(articlesResponse.data.map(async article => {
-                        const photoNamesResponse = await axios.get(`http://localhost:8080/api/article/photos/${article.id}`);
+                        const photoNamesResponse = await axios.get(`http://16.16.43.64:8080/api/article/photos/${article.id}`);
                         const photoUrls = await Promise.all(photoNamesResponse.data.map(async photoName => {
-                            const photoUrlResponse = await axios.get(`http://localhost:8080/api/article/photos/${article.id}/${photoName}`, {
+                            const photoUrlResponse = await axios.get(`http://16.16.43.64:8080/api/article/photos/${article.id}/${photoName}`, {
                                 responseType: 'blob'
                             });
                             const imageUrl = URL.createObjectURL(photoUrlResponse.data);
@@ -82,7 +82,7 @@ const Home = () => {
 
     const fetchUserProfilePhoto = async (userId) => {
         try {
-            const response = await axios.get(`http://localhost:8080/api/user/profile/${userId}`, {
+            const response = await axios.get(`http://16.16.43.64:8080/api/user/profile/${userId}`, {
                 responseType: 'blob',
                 headers: {
                     Authorization: `Bearer ${authToken}`
@@ -98,10 +98,10 @@ const Home = () => {
 
     const handleShowComments = async (postId) => {
         try {
-            const response = await axios.get(`http://localhost:8080/api/comment/post/${postId}/comment`);
+            const response = await axios.get(`http://16.16.43.64:8080/api/comment/post/${postId}/comment`);
             const updatedComments = await Promise.all(response.data.map(async comment => {
                 try {
-                    const userResponse = await axios.get(`http://localhost:8080/api/user/${comment.userId}`);
+                    const userResponse = await axios.get(`http://16.16.43.64:8080/api/user/${comment.userId}`);
                     const userProfilePhoto = await fetchUserProfilePhoto(comment.userId);
                     return { ...comment, userName: userResponse.data.name, userProfilePhoto };
                 } catch (error) {
@@ -118,10 +118,10 @@ const Home = () => {
 
     const handleShowArticleComments = async (articleId) => {
         try {
-            const response = await axios.get(`http://localhost:8080/api/articlecomment/article/${articleId}/articleComment`);
+            const response = await axios.get(`http://16.16.43.64:8080/api/articlecomment/article/${articleId}/articleComment`);
             const updatedComments = await Promise.all(response.data.map(async comment => {
                 try {
-                    const userResponse = await axios.get(`http://localhost:8080/api/user/${comment.userId}`);
+                    const userResponse = await axios.get(`http://16.16.43.64:8080/api/user/${comment.userId}`);
                     const userProfilePhoto = await fetchUserProfilePhoto(comment.userId);
                     return { ...comment, userName: userResponse.data.name, userProfilePhoto };
                 } catch (error) {

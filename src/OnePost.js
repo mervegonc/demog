@@ -25,13 +25,13 @@ const OnePost = () => {
   useEffect(() => {
     const fetchPostData = async () => {
       try {
-        const postDataResponse = await axios.get(`http://localhost:8080/api/post/${postId}`);
+        const postDataResponse = await axios.get(`http://16.16.43.64:8080/api/post/${postId}`);
         const postData = postDataResponse.data;
         if (postData) {
           const userId = postData.userId;
-          const userResponse = await axios.get(`http://localhost:8080/api/user/${userId}`);
+          const userResponse = await axios.get(`http://16.16.43.64:8080/api/user/${userId}`);
           const userData = userResponse.data;
-          const userProfilePhotoResponse = await axios.get(`http://localhost:8080/api/user/profile/${userId}`, {
+          const userProfilePhotoResponse = await axios.get(`http://16.16.43.64:8080/api/user/profile/${userId}`, {
             responseType: 'blob',
             headers: {
               Authorization: `Bearer ${AuthService.getToken()}`
@@ -50,10 +50,10 @@ const OnePost = () => {
             user: userData, // Include user data in the post object
           });
 
-          const photoNamesResponse = await axios.get(`http://localhost:8080/api/post/photos/${postId}`);
+          const photoNamesResponse = await axios.get(`http://16.16.43.64:8080/api/post/photos/${postId}`);
           const photoUrls = await Promise.all(photoNamesResponse.data.map(async photoName => {
             try {
-              const photoUrlResponse = await axios.get(`http://localhost:8080/api/post/photos/${postId}/${photoName}`, {
+              const photoUrlResponse = await axios.get(`http://16.16.43.64:8080/api/post/photos/${postId}/${photoName}`, {
                 responseType: 'blob'
               });
               const imageUrl = URL.createObjectURL(photoUrlResponse.data);
@@ -64,7 +64,7 @@ const OnePost = () => {
             }
           }));
 
-          const videoUrlsResponse = await axios.get(`http://localhost:8080/api/post/videos/${postId}`);
+          const videoUrlsResponse = await axios.get(`http://16.16.43.64:8080/api/post/videos/${postId}`);
           const videoUrls = videoUrlsResponse.data.map(videoUrl => ({
             type: 'video',
             url: videoUrl,
@@ -107,11 +107,11 @@ const OnePost = () => {
 
   const fetchComments = async () => {
     try {
-      const response = await axios.get(`http://localhost:8080/api/comment/post/${postId}/comment`);
+      const response = await axios.get(`http://16.16.43.64:8080/api/comment/post/${postId}/comment`);
       const updatedComments = await Promise.all(response.data.map(async comment => {
         try {
-          const userResponse = await axios.get(`http://localhost:8080/api/user/${comment.userId}`);
-          const userProfilePhotoResponse = await axios.get(`http://localhost:8080/api/user/profile/${comment.userId}`, { responseType: 'blob' });
+          const userResponse = await axios.get(`http://16.16.43.64:8080/api/user/${comment.userId}`);
+          const userProfilePhotoResponse = await axios.get(`http://16.16.43.64:8080/api/user/profile/${comment.userId}`, { responseType: 'blob' });
           const userProfilePhotoUrl = URL.createObjectURL(userProfilePhotoResponse.data);
           return { ...comment, userName: userResponse.data.username, userProfilePhoto: userProfilePhotoUrl };
         } catch (error) {
@@ -137,7 +137,7 @@ const OnePost = () => {
 
   const handleDeleteComment = async (commentId) => {
     try {
-      await axios.delete(`http://localhost:8080/api/comment/${userId}/${postId}/${commentId}`, {
+      await axios.delete(`http://16.16.43.64:8080/api/comment/${userId}/${postId}/${commentId}`, {
         headers: {
           Authorization: `Bearer ${AuthService.getToken()}`
         }
