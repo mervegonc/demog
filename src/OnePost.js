@@ -37,12 +37,17 @@ const OnePost = () => {
               Authorization: `Bearer ${AuthService.getToken()}`
             }
           });
-          const userProfilePhotoUrl = URL.createObjectURL(userProfilePhotoResponse.data);
+
+          if (userProfilePhotoResponse.data) {
+            const userProfilePhotoUrl = URL.createObjectURL(userProfilePhotoResponse.data);
+            setUserProfilePhoto(userProfilePhotoUrl);
+          } else {
+            console.error('User profile photo data is missing.');
+          }
 
           setPost({
             ...postData,
             user: userData, // Include user data in the post object
-            userProfilePhoto: userProfilePhotoUrl,
           });
 
           const photoNamesResponse = await axios.get(`http://localhost:8080/api/post/photos/${postId}`);
@@ -197,8 +202,7 @@ const OnePost = () => {
       const videoId = url.split('v=')[1]?.split('&')[0] || url.split('/').pop();
       return (
         <iframe
-          width="650"
-          height="365"
+          className="video-class" // Apply the CSS class here
           src={`https://www.youtube.com/embed/${videoId}`}
           title="YouTube video player"
           frameBorder="0"
@@ -210,9 +214,8 @@ const OnePost = () => {
       const videoId = url.split('/').pop();
       return (
         <iframe
+          className="video-class" // Apply the CSS class here
           src={`https://player.vimeo.com/video/${videoId}`}
-          width="650"
-          height="365"
           frameBorder="0"
           allow="autoplay; fullscreen; picture-in-picture"
           allowFullScreen
@@ -232,12 +235,14 @@ const OnePost = () => {
             <div>
               <div className="user-infos">
                 <p className='article-create-date'>{post.formattedCreatedAt}</p>
-                {userProfilePhoto && (
-                  <img src={userProfilePhoto} alt={`Profile photo for ${user.username}`} className="user-photo-container" />
+                {userProfilePhoto ? (
+                  <img src={userProfilePhoto} alt={`Profile photo for ${post.user?.username}`} className="user-photo-container" />
+                ) : (
+                  console.log('User profile photo is not set.')
                 )}
                 <div className="user-name">
-                  {user && (
-                    <p><Link to={`/user/${user.id}`}>{user.username}</Link></p>
+                  {post.user && (
+                    <p><Link to={`/user/${post.user.id}`}>{post.user.username}</Link></p>
                   )}
                 </div>
               </div>

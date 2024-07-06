@@ -145,10 +145,11 @@ border-radius: 9px;
 }
 
 .video-class {
-  width: 600px;
-  height: auto;
+  width: 600px; /* Set the width to 600px */
+  height: 265px;
   margin: 0 auto;
 }
+
 .post-photos-clicks {
   position: absolute;
   top: 50%;
