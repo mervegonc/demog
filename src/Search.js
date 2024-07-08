@@ -24,15 +24,15 @@ const Search = () => {
     }
 
     try {
-      const postResponse = await axios.get(`http://16.16.43.64:8080/api/post/search/?keyword=${term}`);
+      const postResponse = await axios.get(`http://16.16.43.64:8080/api/post/search/${term}`);
       const posts = Array.isArray(postResponse.data) ? postResponse.data : [];
       setPostResults(posts);
 
-      const articleResponse = await axios.get(`http://16.16.43.64:8080/api/article/search/?keyword=${term}`);
+      const articleResponse = await axios.get(`http://16.16.43.64:8080/api/article/search/${term}`);
       const articles = Array.isArray(articleResponse.data) ? articleResponse.data : [];
       setArticleResults(articles);
 
-      const userResponse = await axios.get(`http://16.16.43.64:8080/api/user/search/?username=${term}`);
+      const userResponse = await axios.get(`http://16.16.43.64:8080/api/user/search/${term}`);
       const users = Array.isArray(userResponse.data) ? userResponse.data : [];
       setUserResults(users);
     } catch (error) {
