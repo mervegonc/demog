@@ -51,6 +51,7 @@ const Search = () => {
   };
 
   const handleTabChange = async (tab) => {
+    console.log(`Tab changed to: ${tab}`);
     setActiveTab(tab);
 
     if (searchTerm === '') {
