@@ -9,8 +9,9 @@ const Search = () => {
   const [postResults, setPostResults] = useState([]);
   const [articleResults, setArticleResults] = useState([]);
   const [userResults, setUserResults] = useState([]);
-  const [activeTab, setActiveTab] = useState('posts'); // Active tab: 'posts' or 'users'
+  const [activeTab, setActiveTab] = useState('posts'); // Active tab: 'posts', 'articles', or 'users'
   const userId = AuthService.getUserId(); // Get userId from AuthService
+  const token = AuthService.getToken(); // Get the token from AuthService
 
   const handleSearchChange = async (e) => {
     const term = e.target.value.trim();
@@ -28,19 +29,19 @@ const Search = () => {
         headers: { Authorization: `Bearer ${token}` }
       };
 
-      const postResponse = await axios.get(`http://16.16.43.64:8080/api/post/search?keyword=${term}`);
+      const postResponse = await axios.get(`http://16.16.43.64:8080/api/post/search?keyword=${term}`, config);
       const posts = Array.isArray(postResponse.data) ? postResponse.data : [];
       setPostResults(posts);
 
-      const articleResponse = await axios.get(`http://16.16.43.64:8080/api/article/search?keyword=${term}`);
+      const articleResponse = await axios.get(`http://16.16.43.64:8080/api/article/search?keyword=${term}`, config);
       const articles = Array.isArray(articleResponse.data) ? articleResponse.data : [];
       setArticleResults(articles);
 
-      const userResponse = await axios.get(`http://16.16.43.64:8080/api/user/search?username=${term}`);
+      const userResponse = await axios.get(`http://16.16.43.64:8080/api/user/search?username=${term}`, config);
       const users = Array.isArray(userResponse.data) ? userResponse.data : [];
       setUserResults(users);
     } catch (error) {
-      console.error('Error searching posts or users:', error);
+      console.error('Error searching posts, articles, or users:', error);
       setPostResults([]);
       setArticleResults([]);
       setUserResults([]);
