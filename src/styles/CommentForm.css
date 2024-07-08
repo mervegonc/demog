@@ -5,7 +5,7 @@
 }
 
 .see-all-comments-button {
-  background-image: url('C:\campreact\demog\src\styles\images\seeallcomments.png');
+  background-image: url('demog\src\styles\images\seeallcomments.png');
   background-repeat: no-repeat;
   background-size: cover;
   width: 25px;
@@ -19,7 +19,7 @@
 }
 
 .add-comment-button {
-  background-image: url('C:\campreact\demog\src\styles\images\comments.png');
+  background-image: url('demog\src\styles\images\comments.png');
   background-repeat: no-repeat;
   background-size: cover;
   width: 25px;
