@@ -49,11 +49,11 @@ const ArticleForm = () => {
 
       let response;
       if (formData.articleId) {
-        response = await axios.put(`http://localhost:8080/api/article/${formData.articleId}`, articleData, config);
+        response = await axios.put(`http://16.16.43.64:8080/api/article/${formData.articleId}`, articleData, config);
         alert('Updated Successfully');
         navigate(`/onearticle/${response.data.id}`);
       } else {
-        response = await axios.post('http://localhost:8080/api/article', articleData, config);
+        response = await axios.post('http://16.16.43.64:8080/api/article', articleData, config);
         alert('Article created successfully');
         setFormData({ ...formData, articleId: response.data.id });
         navigate(`/onearticle/${response.data.id}`);
@@ -85,7 +85,7 @@ const ArticleForm = () => {
     };
 
     try {
-      await axios.put(`http://localhost:8080/api/article/photos/${articleId}`, photoFormData, config);
+      await axios.put(`http://16.16.43.64:8080/api/article/photos/${articleId}`, photoFormData, config);
       console.log('Photos uploaded successfully!');
     } catch (error) {
       console.error('Error uploading photos:', error);
