@@ -105,7 +105,9 @@ const Search = () => {
       <div className='search-results-container'>
         {activeTab === 'posts' && results.length > 0 && (
           <div className='search-results'>
-            <h2>Posts</h2>
+            <button onClick={() => handleTabChange('posts')} className='result-button'>
+              <h2>Posts</h2>
+            </button>
             {results.map((post) => (
               <div key={post.id} className='search-result'>
                 <h3>{post.title}</h3>
@@ -117,7 +119,9 @@ const Search = () => {
 
         {activeTab === 'articles' && results.length > 0 && (
           <div className='search-results'>
-            <h2>Articles</h2>
+            <button onClick={() => handleTabChange('articles')} className='result-button'>
+              <h2>Articles</h2>
+            </button>
             {results.map((article) => (
               <div key={article.id} className='search-result'>
                 <h3>{article.subject}</h3>
@@ -129,7 +133,9 @@ const Search = () => {
 
         {activeTab === 'users' && results.length > 0 && (
           <div className='search-results'>
-            <h2>Users</h2>
+            <button onClick={() => handleTabChange('users')} className='result-button'>
+              <h2>Users</h2>
+            </button>
             {results.map((user) => (
               <div key={user.id} className='search-result'>
                 <Link to={`/user/${user.id}`} className='read-more'>{user.username}</Link>
