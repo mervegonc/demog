@@ -78,6 +78,7 @@ const Search = () => {
   };
 
   const handleTabChange = async (tab) => {
+    console.log(`${tab} butonuna basıldı`);
     setActiveTab(tab);
     if (searchTerm.trim() !== '') {
       if (tab === 'posts') {
