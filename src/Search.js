@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import './styles/Search.css';
@@ -13,6 +13,43 @@ const Search = () => {
   const userId = AuthService.getUserId(); // Get userId from AuthService
   const token = AuthService.getToken(); // Get the token from AuthService
 
+  useEffect(() => {
+    if (searchTerm !== '') {
+      performSearch(searchTerm);
+    }
+  }, [activeTab]);
+
+  const performSearch = async (term) => {
+    try {
+      const config = {
+        headers: { Authorization: `Bearer ${token}` }
+      };
+
+      if (activeTab === 'posts') {
+        const postResponse = await axios.get(`http://16.16.43.64:8080/api/post/search?keyword=${term}`, config);
+        const posts = Array.isArray(postResponse.data) ? postResponse.data : [];
+        setPostResults(posts);
+      }
+
+      if (activeTab === 'articles') {
+        const articleResponse = await axios.get(`http://16.16.43.64:8080/api/article/search?keyword=${term}`, config);
+        const articles = Array.isArray(articleResponse.data) ? articleResponse.data : [];
+        setArticleResults(articles);
+      }
+
+      if (activeTab === 'users') {
+        const userResponse = await axios.get(`http://16.16.43.64:8080/api/user/search?username=${term}`, config);
+        const users = Array.isArray(userResponse.data) ? userResponse.data : [];
+        setUserResults(users);
+      }
+    } catch (error) {
+      console.error('Error searching posts, articles, or users:', error);
+      setPostResults([]);
+      setArticleResults([]);
+      setUserResults([]);
+    }
+  };
+
   const handleSearchChange = async (e) => {
     const term = e.target.value.trim();
     setSearchTerm(term);
@@ -24,28 +61,7 @@ const Search = () => {
       return;
     }
 
-    try {
-      const config = {
-        headers: { Authorization: `Bearer ${token}` }
-      };
-
-      const postResponse = await axios.get(`http://16.16.43.64:8080/api/post/search?keyword=${term}`, config);
-      const posts = Array.isArray(postResponse.data) ? postResponse.data : [];
-      setPostResults(posts);
-
-      const articleResponse = await axios.get(`http://16.16.43.64:8080/api/article/search?keyword=${term}`, config);
-      const articles = Array.isArray(articleResponse.data) ? articleResponse.data : [];
-      setArticleResults(articles);
-
-      const userResponse = await axios.get(`http://16.16.43.64:8080/api/user/search?username=${term}`, config);
-      const users = Array.isArray(userResponse.data) ? userResponse.data : [];
-      setUserResults(users);
-    } catch (error) {
-      console.error('Error searching posts, articles, or users:', error);
-      setPostResults([]);
-      setArticleResults([]);
-      setUserResults([]);
-    }
+    performSearch(term);
   };
 
   const handleTabChange = (tab) => {
