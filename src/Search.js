@@ -91,23 +91,15 @@ const Search = () => {
       </form>
 
       <div className="tab-buttons">
-        <div className="search-posts-button">
-          <button onClick={() => handleTabChange('posts')} className={activeTab === 'posts' ? 'active' : ''}>Posts</button>
-        </div>
-        <div className="search-articles-button">
-          <button onClick={() => handleTabChange('articles')} className={activeTab === 'articles' ? 'active' : ''}>Articles</button>
-        </div>
-        <div className="search-users-button">
-          <button onClick={() => handleTabChange('users')} className={activeTab === 'users' ? 'active' : ''}>Users</button>
-        </div>
+        <button onClick={() => handleTabChange('posts')} className={activeTab === 'posts' ? 'active' : ''}>Posts</button>
+        <button onClick={() => handleTabChange('articles')} className={activeTab === 'articles' ? 'active' : ''}>Articles</button>
+        <button onClick={() => handleTabChange('users')} className={activeTab === 'users' ? 'active' : ''}>Users</button>
       </div>
 
       <div className='search-results-container'>
         {activeTab === 'posts' && results.length > 0 && (
           <div className='search-results'>
-            <button onClick={() => handleTabChange('posts')} className='result-button'>
-              <h2>Posts</h2>
-            </button>
+            <h2>Posts</h2>
             {results.map((post) => (
               <div key={post.id} className='search-result'>
                 <h3>{post.title}</h3>
@@ -119,9 +111,7 @@ const Search = () => {
 
         {activeTab === 'articles' && results.length > 0 && (
           <div className='search-results'>
-            <button onClick={() => handleTabChange('articles')} className='result-button'>
-              <h2>Articles</h2>
-            </button>
+            <h2>Articles</h2>
             {results.map((article) => (
               <div key={article.id} className='search-result'>
                 <h3>{article.subject}</h3>
@@ -133,9 +123,7 @@ const Search = () => {
 
         {activeTab === 'users' && results.length > 0 && (
           <div className='search-results'>
-            <button onClick={() => handleTabChange('users')} className='result-button'>
-              <h2>Users</h2>
-            </button>
+            <h2>Users</h2>
             {results.map((user) => (
               <div key={user.id} className='search-result'>
                 <Link to={`/user/${user.id}`} className='read-more'>{user.username}</Link>
