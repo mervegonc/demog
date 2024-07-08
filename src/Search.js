@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import './styles/Search.css';
@@ -6,79 +6,89 @@ import AuthService from './AuthService';
 
 const Search = () => {
   const [searchTerm, setSearchTerm] = useState('');
-  const [results, setResults] = useState([]);
+  const [postResults, setPostResults] = useState([]);
+  const [articleResults, setArticleResults] = useState([]);
+  const [userResults, setUserResults] = useState([]);
   const [activeTab, setActiveTab] = useState('posts');
   const userId = AuthService.getUserId();
-
-  const searchPosts = async (term) => {
-    const postResponse = await axios.get(`http://16.16.43.64:8080/api/post/search?keyword=${term}`, {
-      headers: {
-        Authorization: `Bearer ${AuthService.getToken()}`
-      }
-    });
-    return Array.isArray(postResponse.data) ? postResponse.data : [];
-  };
-
-  const searchArticles = async (term) => {
-    const articleResponse = await axios.get(`http://16.16.43.64:8080/api/article/search?keyword=${term}`, {
-      headers: {
-        Authorization: `Bearer ${AuthService.getToken()}`
-      }
-    });
-    return Array.isArray(articleResponse.data) ? articleResponse.data : [];
-  };
-
-  const searchUsers = async (term) => {
-    const userResponse = await axios.get(`http://16.16.43.64:8080/api/user/search?username=${term}`, {
-      headers: {
-        Authorization: `Bearer ${AuthService.getToken()}`
-      }
-    });
-    return Array.isArray(userResponse.data) ? userResponse.data : [];
-  };
 
   const handleSearchChange = async (e) => {
     const term = e.target.value.trim();
     setSearchTerm(term);
 
     if (term === '') {
-      setResults([]);
+      setPostResults([]);
+      setArticleResults([]);
+      setUserResults([]);
       return;
     }
 
-    const posts = await searchPosts(term);
-    setResults(posts);
+    if (activeTab === 'posts') {
+      await handleSearchPosts(term);
+    } else if (activeTab === 'articles') {
+      await handleSearchArticles(term);
+    } else if (activeTab === 'users') {
+      await handleSearchUsers(term);
+    }
+  };
+
+  const handleSearchPosts = async (term) => {
+    try {
+      const postResponse = await axios.get(`http://16.16.43.64:8080/api/post/search?keyword=${term}`, {
+        headers: {
+          Authorization: `Bearer ${AuthService.getToken()}`
+        }
+      });
+      const posts = Array.isArray(postResponse.data) ? postResponse.data : [];
+      setPostResults(posts);
+    } catch (error) {
+      console.error('Error searching posts:', error);
+      setPostResults([]);
+    }
+  };
+
+  const handleSearchArticles = async (term) => {
+    try {
+      const articleResponse = await axios.get(`http://16.16.43.64:8080/api/article/search?keyword=${term}`, {
+        headers: {
+          Authorization: `Bearer ${AuthService.getToken()}`
+        }
+      });
+      const articles = Array.isArray(articleResponse.data) ? articleResponse.data : [];
+      setArticleResults(articles);
+    } catch (error) {
+      console.error('Error searching articles:', error);
+      setArticleResults([]);
+    }
+  };
+
+  const handleSearchUsers = async (term) => {
+    try {
+      const userResponse = await axios.get(`http://16.16.43.64:8080/api/user/search?username=${term}`, {
+        headers: {
+          Authorization: `Bearer ${AuthService.getToken()}`
+        }
+      });
+      const users = Array.isArray(userResponse.data) ? userResponse.data : [];
+      setUserResults(users);
+    } catch (error) {
+      console.error('Error searching users:', error);
+      setUserResults([]);
+    }
   };
 
   const handleTabChange = async (tab) => {
-    console.log(`Tab changed to: ${tab}`);
     setActiveTab(tab);
-
-    if (searchTerm === '') {
-      setResults([]);
-      return;
-    }
-
-    let data;
-    if (tab === 'posts') {
-      data = await searchPosts(searchTerm);
-    } else if (tab === 'articles') {
-      data = await searchArticles(searchTerm);
-    } else if (tab === 'users') {
-      data = await searchUsers(searchTerm);
-    }
-    setResults(data);
-  };
-
-  useEffect(() => {
-    const fetchInitialResults = async () => {
-      if (searchTerm !== '') {
-        const posts = await searchPosts(searchTerm);
-        setResults(posts);
+    if (searchTerm.trim() !== '') {
+      if (tab === 'posts') {
+        await handleSearchPosts(searchTerm);
+      } else if (tab === 'articles') {
+        await handleSearchArticles(searchTerm);
+      } else if (tab === 'users') {
+        await handleSearchUsers(searchTerm);
       }
-    };
-    fetchInitialResults();
-  }, []);
+    }
+  };
 
   return (
     <div className='search-container'>
@@ -92,16 +102,15 @@ const Search = () => {
       </form>
 
       <div className="tab-buttons">
-        <button onClick={() => handleTabChange('posts')} className={activeTab === 'posts' ? 'active' : ''}>Posts</button>
-        <button onClick={() => handleTabChange('articles')} className={activeTab === 'articles' ? 'active' : ''}>Articles</button>
-        <button onClick={() => handleTabChange('users')} className={activeTab === 'users' ? 'active' : ''}>Users</button>
+        <button onClick={() => handleTabChange('posts')} className='search-button'>Posts</button>
+        <button onClick={() => handleTabChange('articles')} className='search-button'>Articles</button>
+        <button onClick={() => handleTabChange('users')} className='search-button'>Users</button>
       </div>
 
       <div className='search-results-container'>
-        {activeTab === 'posts' && results.length > 0 && (
+        {activeTab === 'posts' && postResults.length > 0 && (
           <div className='search-results'>
-            <h2>Posts</h2>
-            {results.map((post) => (
+            {postResults.map((post) => (
               <div key={post.id} className='search-result'>
                 <h3>{post.title}</h3>
                 <Link to={`/onepost/${post.id}`} className='read-more'>Read more</Link>
@@ -110,10 +119,9 @@ const Search = () => {
           </div>
         )}
 
-        {activeTab === 'articles' && results.length > 0 && (
+        {activeTab === 'articles' && articleResults.length > 0 && (
           <div className='search-results'>
-            <h2>Articles</h2>
-            {results.map((article) => (
+            {articleResults.map((article) => (
               <div key={article.id} className='search-result'>
                 <h3>{article.subject}</h3>
                 <Link to={`/onearticle/${article.id}`} className='read-more'>Read more</Link>
@@ -122,10 +130,9 @@ const Search = () => {
           </div>
         )}
 
-        {activeTab === 'users' && results.length > 0 && (
+        {activeTab === 'users' && userResults.length > 0 && (
           <div className='search-results'>
-            <h2>Users</h2>
-            {results.map((user) => (
+            {userResults.map((user) => (
               <div key={user.id} className='search-result'>
                 <Link to={`/user/${user.id}`} className='read-more'>{user.username}</Link>
               </div>
