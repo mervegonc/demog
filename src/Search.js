@@ -24,15 +24,19 @@ const Search = () => {
     }
 
     try {
-      const postResponse = await axios.get(`http://16.16.43.64:8080/api/post/search/${term}`);
+      const config = {
+        headers: { Authorization: `Bearer ${token}` }
+      };
+
+      const postResponse = await axios.get(`http://16.16.43.64:8080/api/post/search?keyword=${term}`);
       const posts = Array.isArray(postResponse.data) ? postResponse.data : [];
       setPostResults(posts);
 
-      const articleResponse = await axios.get(`http://16.16.43.64:8080/api/article/search/${term}`);
+      const articleResponse = await axios.get(`http://16.16.43.64:8080/api/article/search?keyword=${term}`);
       const articles = Array.isArray(articleResponse.data) ? articleResponse.data : [];
       setArticleResults(articles);
 
-      const userResponse = await axios.get(`http://16.16.43.64:8080/api/user/search/${term}`);
+      const userResponse = await axios.get(`http://16.16.43.64:8080/api/user/search?username=${term}`);
       const users = Array.isArray(userResponse.data) ? userResponse.data : [];
       setUserResults(users);
     } catch (error) {
