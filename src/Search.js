@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import './styles/Search.css';
@@ -9,46 +9,8 @@ const Search = () => {
   const [postResults, setPostResults] = useState([]);
   const [articleResults, setArticleResults] = useState([]);
   const [userResults, setUserResults] = useState([]);
-  const [activeTab, setActiveTab] = useState('posts'); // Active tab: 'posts', 'articles', or 'users'
+  const [activeTab, setActiveTab] = useState('posts'); // Active tab: 'posts' or 'users'
   const userId = AuthService.getUserId(); // Get userId from AuthService
-  const token = AuthService.getToken(); // Get the token from AuthService
-
-  useEffect(() => {
-    if (searchTerm !== '') {
-      performSearch(searchTerm);
-    }
-  }, [activeTab]);
-
-  const performSearch = async (term) => {
-    try {
-      const config = {
-        headers: { Authorization: `Bearer ${token}` }
-      };
-
-      if (activeTab === 'posts') {
-        const postResponse = await axios.get(`http://16.16.43.64:8080/api/post/search?keyword=${term}`, config);
-        const posts = Array.isArray(postResponse.data) ? postResponse.data : [];
-        setPostResults(posts);
-      }
-
-      if (activeTab === 'articles') {
-        const articleResponse = await axios.get(`http://16.16.43.64:8080/api/article/search?keyword=${term}`, config);
-        const articles = Array.isArray(articleResponse.data) ? articleResponse.data : [];
-        setArticleResults(articles);
-      }
-
-      if (activeTab === 'users') {
-        const userResponse = await axios.get(`http://16.16.43.64:8080/api/user/search?username=${term}`, config);
-        const users = Array.isArray(userResponse.data) ? userResponse.data : [];
-        setUserResults(users);
-      }
-    } catch (error) {
-      console.error('Error searching posts, articles, or users:', error);
-      setPostResults([]);
-      setArticleResults([]);
-      setUserResults([]);
-    }
-  };
 
   const handleSearchChange = async (e) => {
     const term = e.target.value.trim();
@@ -61,13 +23,37 @@ const Search = () => {
       return;
     }
 
-    performSearch(term);
+    try {
+      let response;
+      switch (activeTab) {
+        case 'posts':
+          response = await axios.get(`http://16.16.43.64:8080/api/post/search?keyword=${term}`);
+          setPostResults(Array.isArray(response.data) ? response.data : []);
+          break;
+        case 'articles':
+          response = await axios.get(`http://16.16.43.64:8080/api/article/search?keyword=${term}`);
+          setArticleResults(Array.isArray(response.data) ? response.data : []);
+          break;
+        case 'users':
+          response = await axios.get(`http://16.16.43.64:8080/api/user/search?username=${term}`);
+          setUserResults(Array.isArray(response.data) ? response.data : []);
+          break;
+        default:
+          break;
+      }
+    } catch (error) {
+      console.error('Error searching:', error);
+      setPostResults([]);
+      setArticleResults([]);
+      setUserResults([]);
+    }
   };
 
   const handleTabChange = (tab) => {
     setActiveTab(tab);
-    if (searchTerm !== '') {
-      performSearch(searchTerm);
+    // Eğer search term doluysa, tıklandığında hemen arama yap
+    if (searchTerm) {
+      handleSearchChange({ target: { value: searchTerm } });
     }
   };
 
