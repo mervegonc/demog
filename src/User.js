@@ -43,9 +43,9 @@ const User = () => {
   useEffect(() => {
     const fetchUser = async () => {
       try {
-        const userResponse = await axios.get(`http://16.16.43.64:8080/api/user/${userId}`);
+        const userResponse = await axios.get(`http://localhost:8080/api/user/${userId}`);
 
-        const connectionsResponse = await axios.get(`http://16.16.43.64:8080/api/user/connections/user/${userId}`, {
+        const connectionsResponse = await axios.get(`http://localhost:8080/api/user/connections/user/${userId}`, {
           headers: {
             Authorization: `Bearer ${AuthService.getToken()}`
           }
@@ -59,14 +59,14 @@ const User = () => {
         fetchBackgroundPhoto(userId);
 
       
-        const followersResponse = await axios.get(`http://16.16.43.64:8080/api/user/${userId}/followers`);
+        const followersResponse = await axios.get(`http://localhost:8080/api/user/${userId}/followers`);
         setFollowersCount(followersResponse.data.total);
 
-        const followingResponse = await axios.get(`http://16.16.43.64:8080/api/user/${userId}/following`);
+        const followingResponse = await axios.get(`http://localhost:8080/api/user/${userId}/following`);
         setFollowingCount(followingResponse.data.total);
 
         if (userId !== authenticatedUserId) {
-          const isFollowingResponse = await axios.get(`http://16.16.43.64:8080/api/user/${userId}/isFollowing/${authenticatedUserId}`, {
+          const isFollowingResponse = await axios.get(`http://localhost:8080/api/user/${userId}/isFollowing/${authenticatedUserId}`, {
             headers: {
               Authorization: `Bearer ${AuthService.getToken()}`
             }
@@ -76,13 +76,13 @@ const User = () => {
       
 
 
-        const userPostsResponse = await axios.get(`http://16.16.43.64:8080/api/post/my/${userId}`, {
+        const userPostsResponse = await axios.get(`http://localhost:8080/api/post/my/${userId}`, {
           headers: {
             Authorization: `Bearer ${localStorage.getItem('token')}`
           }
         });
 
-        const userArticlesResponse = await axios.get(`http://16.16.43.64:8080/api/article/my/${userId}`, {
+        const userArticlesResponse = await axios.get(`http://localhost:8080/api/article/my/${userId}`, {
           headers: {
             Authorization: `Bearer ${localStorage.getItem('token')}`
           }
@@ -115,7 +115,7 @@ const User = () => {
 
   const fetchBackgroundPhoto = async (userId) => {
     try {
-      const response = await axios.get(`http://16.16.43.64:8080/api/user/backgrounds/${userId}`, {
+      const response = await axios.get(`http://localhost:8080/api/user/backgrounds/${userId}`, {
         responseType: 'blob',
         headers: {
           Authorization: `Bearer ${localStorage.getItem('token')}`
@@ -129,11 +129,11 @@ const User = () => {
 
   const fetchPostPhoto = async (postId, userId) => {
     try {
-      const photoNamesResponse = await axios.get(`http://16.16.43.64:8080/api/post/photos/${postId}`);
+      const photoNamesResponse = await axios.get(`http://localhost:8080/api/post/photos/${postId}`);
       const photoNames = photoNamesResponse.data;
 
       const photoUrls = await Promise.all(photoNames.map(async photoName => {
-        const photoUrlResponse = await axios.get(`http://16.16.43.64:8080/api/post/photos/${postId}/${photoName}`, {
+        const photoUrlResponse = await axios.get(`http://localhost:8080/api/post/photos/${postId}/${photoName}`, {
           responseType: 'blob'
         });
         const imageUrl = URL.createObjectURL(photoUrlResponse.data);
@@ -148,11 +148,11 @@ const User = () => {
 
   const fetchPostVideos = async (postId, userId) => {
     try {
-      const videoNamesResponse = await axios.get(`http://16.16.43.64:8080/api/post/videos/${postId}`);
+      const videoNamesResponse = await axios.get(`http://localhost:8080/api/post/videos/${postId}`);
       const videoNames = videoNamesResponse.data;
 
       const videoUrls = await Promise.all(videoNames.map(async videoName => {
-        const videoUrlResponse = await axios.get(`http://16.16.43.64:8080/api/post/videos/${postId}/${videoName}`, {
+        const videoUrlResponse = await axios.get(`http://localhost:8080/api/post/videos/${postId}/${videoName}`, {
           responseType: 'blob'
         });
         const videoUrl = URL.createObjectURL(videoUrlResponse.data);
@@ -167,10 +167,10 @@ const User = () => {
 
   const fetchArticlePhoto = async (articleId, userId) => {
     try {
-      const photoNamesResponse = await axios.get(`http://16.16.43.64:8080/api/article/photos/${articleId}`);
+      const photoNamesResponse = await axios.get(`http://localhost:8080/api/article/photos/${articleId}`);
       const photoNames = photoNamesResponse.data;
       const photoUrls = await Promise.all(photoNames.map(async photoName => {
-        const photoUrlResponse = await axios.get(`http://16.16.43.64:8080/api/article/photos/${articleId}/${photoName}`, {
+        const photoUrlResponse = await axios.get(`http://localhost:8080/api/article/photos/${articleId}/${photoName}`, {
           responseType: 'blob'
         });
         const imageUrl = URL.createObjectURL(photoUrlResponse.data);
@@ -207,7 +207,7 @@ const User = () => {
         if (file) {
           const formData = new FormData();
           formData.append('file', file);
-          await axios.put(`http://16.16.43.64:8080/api/user/background/${user.id}`, formData, {
+          await axios.put(`http://localhost:8080/api/user/background/${user.id}`, formData, {
             headers: {
               'Content-Type': 'multipart/form-data',
               Authorization: `Bearer ${AuthService.getToken()}`
@@ -255,7 +255,7 @@ const User = () => {
   useEffect(() => {
     const fetchUserProfile = async () => {
       try {
-        const response = await axios.get('http://16.16.43.64:8080/api/user/me', {
+        const response = await axios.get('http://localhost:8080/api/user/me', {
           headers: {
             Authorization: `Bearer ${AuthService.getToken()}`
           }
@@ -274,7 +274,7 @@ const User = () => {
   const fetchProfilePhoto = async (userId) => {
     try {
       const token = localStorage.getItem('token');
-      const response = await axios.get(`http://16.16.43.64:8080/api/user/profile/${userId}`, {
+      const response = await axios.get(`http://localhost:8080/api/user/profile/${userId}`, {
         responseType: 'blob',
         headers: {
           Authorization: `Bearer ${token}`
@@ -298,7 +298,7 @@ const User = () => {
   const handleSaveProfile = async () => {
     try {
       await axios.put(
-        `http://16.16.43.64:8080/api/user/info/${user.id}`,
+        `http://localhost:8080/api/user/info/${user.id}`,
         { name: editedUser.name, connections: editedUser.connections, bio: editedUser.bio, gender: editedUser.gender },
         {
           headers: {
@@ -325,7 +325,7 @@ const User = () => {
     formData.append('file', selectedFile);
 
     try {
-      await axios.put(`http://16.16.43.64:8080/api/user/photo/${user.id}`, formData, {
+      await axios.put(`http://localhost:8080/api/user/photo/${user.id}`, formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
           Authorization: `Bearer ${AuthService.getToken()}`
@@ -345,7 +345,7 @@ const User = () => {
 
   const handleDeletePost = async (postId) => {
     try {
-      const response = await axios.delete(`http://16.16.43.64:8080/api/post/${postId}`);
+      const response = await axios.delete(`http://localhost:8080/api/post/${postId}`);
       if (response.status === 200) {
         window.location.reload();
       }
@@ -356,7 +356,7 @@ const User = () => {
 
   const handleDeleteArticle = async (articleId) => {
     try {
-      const response = await axios.delete(`http://16.16.43.64:8080/api/article/${articleId}`);
+      const response = await axios.delete(`http://localhost:8080/api/article/${articleId}`);
       if (response.status === 200) {
         window.location.reload();
       }
@@ -368,14 +368,14 @@ const User = () => {
   useEffect(() => {
     const fetchPosts = async () => {
       try {
-        const response = await axios.get(`http://16.16.43.64:8080/api/post/my/${userId}`);
+        const response = await axios.get(`http://localhost:8080/api/post/my/${userId}`);
         const postsWithMedia = await Promise.all(response.data.map(async post => {
           try {
-            const photoNamesResponse = await axios.get(`http://16.16.43.64:8080/api/post/photos/${post.id}`);
+            const photoNamesResponse = await axios.get(`http://localhost:8080/api/post/photos/${post.id}`);
             const photoNames = photoNamesResponse.data;
             const photoUrls = await Promise.all(photoNames.map(async photoName => {
               try {
-                const photoUrlResponse = await axios.get(`http://16.16.43.64:8080/api/post/photos/${post.id}/${photoName}`, {
+                const photoUrlResponse = await axios.get(`http://localhost:8080/api/post/photos/${post.id}/${photoName}`, {
                   responseType: 'blob'
                 });
                 const imageUrl = URL.createObjectURL(photoUrlResponse.data);
@@ -386,11 +386,11 @@ const User = () => {
               }
             }));
 
-            const videoNamesResponse = await axios.get(`http://16.16.43.64:8080/api/post/videos/${post.id}`);
+            const videoNamesResponse = await axios.get(`http://localhost:8080/api/post/videos/${post.id}`);
             const videoNames = videoNamesResponse.data;
             const videoUrls = await Promise.all(videoNames.map(async videoName => {
               try {
-                const videoUrlResponse = await axios.get(`http://16.16.43.64:8080/api/post/videos/${post.id}/${videoName}`, {
+                const videoUrlResponse = await axios.get(`http://localhost:8080/api/post/videos/${post.id}/${videoName}`, {
                   responseType: 'blob'
                 });
                 const videoUrl = URL.createObjectURL(videoUrlResponse.data);
@@ -421,14 +421,14 @@ const User = () => {
   useEffect(() => {
     const fetchArticles = async () => {
       try {
-        const response = await axios.get(`http://16.16.43.64:8080/api/article/my/${userId}`);
+        const response = await axios.get(`http://localhost:8080/api/article/my/${userId}`);
         const articlesWithPhotos = await Promise.all(response.data.map(async article => {
           try {
-            const photoNamesResponse = await axios.get(`http://16.16.43.64:8080/api/article/photos/${article.id}`);
+            const photoNamesResponse = await axios.get(`http://localhost:8080/api/article/photos/${article.id}`);
             const photoNames = photoNamesResponse.data;
             const photoUrls = await Promise.all(photoNames.map(async photoName => {
               try {
-                const photoUrlResponse = await axios.get(`http://16.16.43.64:8080/api/article/photos/${article.id}/${photoName}`, {
+                const photoUrlResponse = await axios.get(`http://localhost:8080/api/article/photos/${article.id}/${photoName}`, {
                   responseType: 'blob'
                 });
                 const imageUrl = URL.createObjectURL(photoUrlResponse.data);
@@ -458,7 +458,7 @@ const User = () => {
   const fetchUserProfilePhoto = async (userId) => {
     try {
       const token = localStorage.getItem('token');
-      const response = await axios.get(`http://16.16.43.64:8080/api/user/profile/${userId}`, {
+      const response = await axios.get(`http://localhost:8080/api/user/profile/${userId}`, {
         responseType: 'blob',
         headers: {
           Authorization: `Bearer ${token}`
@@ -474,11 +474,11 @@ const User = () => {
 
   const handleShowComments = async (postId) => {
     try {
-      const response = await axios.get(`http://16.16.43.64:8080/api/comment/post/${postId}/comment`);
+      const response = await axios.get(`http://localhost:8080/api/comment/post/${postId}/comment`);
 
       const updatedComments = await Promise.all(response.data.map(async comment => {
         try {
-          const userResponse = await axios.get(`http://16.16.43.64:8080/api/user/${comment.userId}`);
+          const userResponse = await axios.get(`http://localhost:8080/api/user/${comment.userId}`);
           const userProfilePhoto = await fetchUserProfilePhoto(comment.userId);
           return { ...comment, userName: userResponse.data.name, userProfilePhoto };
         } catch (error) {
@@ -644,7 +644,7 @@ const User = () => {
   };
   const handleFollow = async () => {
     try {
-      await axios.post(`http://16.16.43.64:8080/api/user/${userId}/follow/${authenticatedUserId}`);
+      await axios.post(`http://localhost:8080/api/user/${userId}/follow/${authenticatedUserId}`);
       setIsFollowing(true);
       setFollowersCount(followersCount + 1);
     } catch (error) {
@@ -654,7 +654,7 @@ const User = () => {
 
   const handleUnfollow = async () => {
     try {
-      await axios.delete(`http://16.16.43.64:8080/api/user/${userId}/unfollow/${authenticatedUserId}`);
+      await axios.delete(`http://localhost:8080/api/user/${userId}/unfollow/${authenticatedUserId}`);
       setIsFollowing(false);
       setFollowersCount(followersCount - 1);
     } catch (error) {

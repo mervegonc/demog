@@ -22,9 +22,9 @@ const Follower = () => {
 
         const fetchFollowers = async () => {
             try {
-                const response = await axios.get(`http://16.16.43.64:8080/api/user/${userId}/followers`);
+                const response = await axios.get(`http://localhost:8080/api/user/${userId}/followers`);
                 const userProfiles = await Promise.all(response.data.followers.map(async (followerId) => {
-                    const userResponse = await axios.get(`http://16.16.43.64:8080/api/user/${followerId}`);
+                    const userResponse = await axios.get(`http://localhost:8080/api/user/${followerId}`);
                     const userPhotoUrl = await fetchUserProfilePhoto(followerId);
                     const isFollowing = await checkIsFollowing(followerId);
                     return { ...userResponse.data, userPhotoUrl, isFollowing };
@@ -37,9 +37,9 @@ const Follower = () => {
 
         const fetchFollowing = async () => {
             try {
-                const response = await axios.get(`http://16.16.43.64:8080/api/user/${userId}/following`);
+                const response = await axios.get(`http://localhost:8080/api/user/${userId}/following`);
                 const userProfiles = await Promise.all(response.data.following.map(async (followingId) => {
-                    const userResponse = await axios.get(`http://16.16.43.64:8080/api/user/${followingId}`);
+                    const userResponse = await axios.get(`http://localhost:8080/api/user/${followingId}`);
                     const userPhotoUrl = await fetchUserProfilePhoto(followingId);
                     return { ...userResponse.data, userPhotoUrl, isFollowing: true };
                 }));
@@ -51,7 +51,7 @@ const Follower = () => {
 
         const fetchUserProfilePhoto = async (userId) => {
             try {
-                const response = await axios.get(`http://16.16.43.64:8080/api/user/profile/${userId}`, {
+                const response = await axios.get(`http://localhost:8080/api/user/profile/${userId}`, {
                     responseType: 'blob'
                 });
                 return URL.createObjectURL(response.data);
@@ -63,7 +63,7 @@ const Follower = () => {
 
         const checkIsFollowing = async (followerId) => {
             try {
-                const response = await axios.get(`http://16.16.43.64:8080/api/user/${authenticatedUserId}/isFollowing/${followerId}`);
+                const response = await axios.get(`http://localhost:8080/api/user/${authenticatedUserId}/isFollowing/${followerId}`);
                 return response.data;
             } catch (error) {
                 console.error('Error checking if following:', error);
@@ -76,7 +76,7 @@ const Follower = () => {
 
     const handleFollow = async (targetUserId) => {
         try {
-            const url = `http://16.16.43.64:8080/api/user/${targetUserId}/follow/${authenticatedUserId}`;
+            const url = `http://localhost:8080/api/user/${targetUserId}/follow/${authenticatedUserId}`;
             console.log('Follow URL:', url);
             await axios.post(url, {}, {
                 headers: {
@@ -92,7 +92,7 @@ const Follower = () => {
 
     const handleUnfollow = async (targetUserId) => {
         try {
-            const url = `http://16.16.43.64:8080/api/user/${targetUserId}/unfollow/${authenticatedUserId}`;
+            const url = `http://localhost:8080/api/user/${targetUserId}/unfollow/${authenticatedUserId}`;
             console.log('Unfollow URL:', url);
             await axios.delete(url, {
                 headers: {
@@ -111,7 +111,7 @@ const Follower = () => {
 
     const handleUnfollowFromFollowers = async (targetUserId) => {
         try {
-            const url = `http://16.16.43.64:8080/api/user/${authenticatedUserId}/unfollow/${targetUserId}`;
+            const url = `http://localhost:8080/api/user/${authenticatedUserId}/unfollow/${targetUserId}`;
             console.log('Unfollow from Followers URL:', url);
             await axios.delete(url, {
                 headers: {

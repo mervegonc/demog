@@ -10,7 +10,7 @@ const Connection = ({ userId }) => {
   useEffect(() => {
     const fetchConnections = async () => {
       try {
-        const response = await axios.get(`http://16.16.43.64:8080/api/user/connections/user/${userId}`, {
+        const response = await axios.get(`http://localhost:8080/api/user/connections/user/${userId}`, {
           headers: {
             Authorization: `Bearer ${AuthService.getToken()}`
           }
@@ -47,7 +47,7 @@ const Connection = ({ userId }) => {
     }
   
     try {
-      const response = await axios.post(`http://16.16.43.64:8080/api/user/connections`, {
+      const response = await axios.post(`http://localhost:8080/api/user/connections`, {
         ...newConnection,
         user: { id: userId }
       }, {
@@ -66,7 +66,7 @@ const Connection = ({ userId }) => {
 
   const handleDeleteConnection = async (connectionId) => {
     try {
-      await axios.delete(`http://16.16.43.64:8080/api/user/connections/delete/${connectionId}`, {
+      await axios.delete(`http://localhost:8080/api/user/connections/delete/${connectionId}`, {
         headers: {
           Authorization: `Bearer ${AuthService.getToken()}`
         }

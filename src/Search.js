@@ -66,6 +66,9 @@ const Search = () => {
 
   const handleTabChange = (tab) => {
     setActiveTab(tab);
+    if (searchTerm !== '') {
+      performSearch(searchTerm);
+    }
   };
 
   return (
