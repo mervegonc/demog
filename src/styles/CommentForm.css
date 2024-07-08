@@ -5,7 +5,8 @@
 }
 
 .see-all-comments-button {
-  background-image: url('demog\src\styles\images\seeallcomments.png');
+  background-image: url('/src/styles/images/seeallcomments.png');
+
   background-repeat: no-repeat;
   background-size: cover;
   width: 25px;
