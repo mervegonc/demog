@@ -102,11 +102,6 @@ const Search = () => {
         />
       </form>
 
-      <div className="tab-buttons">
-        <button onClick={() => handleTabChange('posts')} className='search-button'>Posts</button>
-        <button onClick={() => handleTabChange('articles')} className='search-button'>Articles</button>
-        <button onClick={() => handleTabChange('users')} className='search-button'>Users</button>
-      </div>
 
       <div className='search-results-container'>
         {activeTab === 'posts' && postResults.length > 0 && (
