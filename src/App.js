@@ -14,6 +14,8 @@ import OneArticle from './OneArticle';
 import ArticleForm from './ArticleForm';
 import Follower from './Follower';
 import Home from './Home';
+import Start from './Start';
+
 
 
 const App = () => {
@@ -21,7 +23,9 @@ const App = () => {
     <Router>
     
       <Routes>
-        <Route path="/" element={<Entry />} />
+      <Route path="/start" element={< Entry />} />
+     
+        <Route path="/" element={< Start/>} />
         <Route path="/signin" element={<SigninForm />} />
         <Route path="/follower/:userId" element={<Follower />} />
         <Route path="/home" element={<Home />} />

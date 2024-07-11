@@ -230,8 +230,8 @@
   /* Genişlik ve yüksekliği eşit olarak ayarla */
   height: 680px;
   /* Genişlik ve yüksekliği eşit olarak ayarla */
-  background-color: rgb(255, 255, 255);
-  border: 2px solid rgb(255, 255, 255);
+  background-color: rgb(243, 246, 219);
+  border: 2px solid rgb(238, 237, 219);
   border-radius: 10px;
   padding: 20px;
   display: flex;
@@ -246,7 +246,7 @@
 .edit-panel input,
 .edit-panel select {
   margin-bottom: 10px;
- 
+  background-color: rgb(243, 246, 219);
 
 }
 .edit-panel textarea[name="bio"] {
@@ -255,13 +255,15 @@
   display: flex;
   flex-direction: column;
   text-align: left;
+  background-color: rgb(243, 246, 219);
 }
 
 .connections-panel{
- 
+  background-color: rgb(243, 246, 219);
 }
 .connections-panel input{
 width: 680px;
+background-color: rgb(243, 246, 219);
 }
 .connections-delete{
  margin-left: 25px;

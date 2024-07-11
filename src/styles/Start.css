@@ -1,0 +1,216 @@
+/* Hide the scrollbar while still allowing scrolling */
+
+
+body::-webkit-scrollbar {
+  display: none; /* Safari and Chrome */
+}
+
+/* Apply scroll to specific container if needed */
+.start-container {
+  overflow: auto; /* Allow scrolling */
+  -ms-overflow-style: none;  /* Internet Explorer 10+ */
+  scrollbar-width: none;  /* Firefox */
+  
+}
+
+.start-container::-webkit-scrollbar {
+  display: none;  /* Safari and Chrome */
+}
+.start-container {
+  text-align: center;
+  padding: 20px;
+  font-family: 'Playfair Display', serif;
+ 
+}
+
+.navbar {
+  background-color: #022e0fb4;
+  overflow: hidden;
+  box-shadow: 0 0 10px rgb(0, 255, 47);
+}
+
+.navbar-list {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  
+}
+
+.navbar-list li {
+  position: relative;
+}
+
+.navbar-button {
+  display: block;
+  color: #f0e8c4;
+  background-color: transparent;
+  border: none;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  cursor: pointer;
+  font-family: 'Playfair Display', serif;
+  font-size: 24px;
+  
+}
+
+.navbar-button:hover {
+  background-color: #f0e8c4;
+  color: black;
+}
+
+.dropdown-content-grid {
+  color: #f0e8c4;
+  display: grid;
+  grid-template-columns: repeat(2, 350px);
+  gap: 20px;
+  justify-content: center;
+  margin-top: 20px;
+  
+}
+
+.dropdown-item {
+  background-color: rgba(1, 172, 43, 0.667);
+  color: #f0e8c4;
+  padding: 20px;
+  text-align: center;
+  border-radius: 8px;
+  cursor: pointer;
+  font-family: 'Playfair Display', serif;
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.764);
+}
+
+.dropdown-item:hover {
+  background-color: #f0e8c4;
+  color: black;
+}
+
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  
+}
+
+.modal-content {
+  background-color: rgb(168, 167, 134);
+  width: 700px;
+  height: auto;
+  max-height: 90%;
+  padding: 20px;
+  position: relative;
+  text-align: left;
+  overflow-y: auto;
+  border-radius: 12px;
+  box-shadow: 0 0 10px rgb(0, 0, 0);
+  
+}
+
+.modal-content {
+  scrollbar-width: none;
+}
+
+.modal-image {
+  width: 100%;
+  height: auto;
+  margin-bottom: 20px;
+  border-radius: 12px;
+}
+
+.modal-text {
+  color: #f0e8c4;
+  text-align: left;
+  margin-bottom: 20px;
+  font-family: 'Playfair Display', serif;
+}
+
+.modal-text p {
+  color: rgb(255, 255, 255);
+  margin-left: 5px;
+  margin-bottom: 16px;
+  font-size: 1.1rem;
+  line-height: 1.5;
+}
+
+.modal-text ul {
+  color: rgb(255, 255, 255);
+  list-style-type: disc;
+  margin-left: 20px;
+  margin-left: -20px;
+}
+
+.modal-text li {
+  margin-bottom: 8px;
+}
+
+.close-button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+.welcome-content {
+  margin-top: 50px;
+}
+
+.content-grid {
+ 
+  column-count: 4;
+  column-gap: 50px;
+  margin: 0 10px; /* Add horizontal margin */
+padding: 20px;
+}
+
+
+.content-item {
+  box-shadow: 0 0 10px rgb(0, 255, 47);
+  background-color: rgba(18, 104, 40, 0.618);
+  color: #f0e8c4;
+  padding: 20px;
+  text-align: center;
+  border-radius: 8px;
+  font-family: 'Playfair Display', serif;
+  display: inline-block;
+  margin: 10px 0; /* Add vertical margin */
+  width: calc(100% - 20px); /* Adjust width to consider margin */
+}
+
+.content-item p {
+  font-size: 20px;
+  margin-left: 20px;
+  color: #f0e8c4;
+  font-weight: bold;
+}
+
+.content-image {
+  width: 100%;
+  border-radius: 8px;
+  margin-bottom: 10px;
+}
+.tech-details {
+  box-shadow: 0 0 10px rgba(221, 255, 0, 0.618);
+  background-color: rgba(224, 236, 140, 0.618);
+  color: #063301;
+  margin: 20px;
+  font-size: 1.2em;
+  text-align: left;
+  padding: 20px;
+  
+}
+.tech-details p{
+
+  text-align: left;
+ margin-left: 0px;
+ font-size: 25px;
+  
+}
