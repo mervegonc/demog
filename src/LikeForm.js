@@ -14,7 +14,7 @@ const LikeForm = ({ postId }) => {
         const fetchUserId = async () => {
             try {
                 const token = localStorage.getItem('token');
-                const response = await axios.get('http://16.16.43.64:8080/api/user/me', {
+                const response = await axios.get('http://16.16.43.64:3000/api/user/me', {
                     headers: {
                         Authorization: `Bearer ${token}`
                     }
@@ -32,7 +32,7 @@ const LikeForm = ({ postId }) => {
     useEffect(() => {
         const fetchLikeCount = async () => {
             try {
-                const response = await axios.get(`http://16.16.43.64:8080/api/like/count/${postId}`);
+                const response = await axios.get(`http://16.16.43.64:3000/api/like/count/${postId}`);
                 setLikeCount(response.data); // Beğeni sayısını güncelle
             } catch (error) {
                 console.error('Error fetching like count:', error);
@@ -47,7 +47,7 @@ const LikeForm = ({ postId }) => {
             try {
                 if (userId) {
                     const token = localStorage.getItem('token');
-                    const response = await axios.get(`http://16.16.43.64:8080/api/like/${postId}/user/${userId}`, {
+                    const response = await axios.get(`http://16.16.43.64:3000/api/like/${postId}/user/${userId}`, {
                         headers: {
                             Authorization: `Bearer ${token}`
                         }
@@ -74,7 +74,7 @@ const LikeForm = ({ postId }) => {
     const handleLike = async () => {
         try {
             const token = localStorage.getItem('token'); // LocalStorage'dan tokeni al
-            const response = await axios.post('http://16.16.43.64:8080/api/like', {
+            const response = await axios.post('http://16.16.43.64:3000/api/like', {
                 userId: userId, // Giriş yapmış kullanıcının userId'sini kullan
                 postId: postId
             }, {
@@ -97,7 +97,7 @@ const LikeForm = ({ postId }) => {
     const handleUnlike = async () => {
         try {
             const token = localStorage.getItem('token'); // LocalStorage'dan tokeni al
-            await axios.delete(`http://16.16.43.64:8080/api/like/unlike/${userId}/${postId}`, {
+            await axios.delete(`http://16.16.43.64:3000/api/like/unlike/${userId}/${postId}`, {
                 headers: {
                     Authorization: `Bearer ${token}` // Authorization headeri ile tokeni gönder
                 }

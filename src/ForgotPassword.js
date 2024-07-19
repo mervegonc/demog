@@ -25,7 +25,7 @@ const ForgotPassword = () => {
     e.preventDefault();
 
     try {
-      const response = await axios.post('http://16.16.43.64:8080/api/auth/forgotpassword', formData);
+      const response = await axios.post('http://16.16.43.64:3000/api/auth/forgotpassword', formData);
       console.log('Forgot Password Response:', response.data);
       // İşlem başarılı olduğunda kullanıcıya bir mesaj gösterebilirsiniz
       navigate('/'); // Şifre değiştirme işlemi başarılı olduğunda giriş sayfasına yönlendirme

@@ -19,7 +19,7 @@ const Article = () => {
   useEffect(() => {
     const fetchArticleIds = async () => {
       try {
-        const response = await axios.get('http://16.16.43.64:8080/api/article/allArticlesIds');
+        const response = await axios.get('http://16.16.43.64:3000/api/article/allArticlesIds');
         const sortedArticleIds = response.data.sort((a, b) => b - a);
         setArticleIds(sortedArticleIds);
       } catch (error) {
@@ -38,13 +38,13 @@ const Article = () => {
 
   const fetchArticle = async (articleId) => {
     try {
-      const response = await axios.get(`http://16.16.43.64:8080/api/article/${articleId}`);
+      const response = await axios.get(`http://16.16.43.64:3000/api/article/${articleId}`);
       const article = response.data;
 
-      const photoNamesResponse = await axios.get(`http://16.16.43.64:8080/api/article/photos/${article.id}`);
+      const photoNamesResponse = await axios.get(`http://16.16.43.64:3000/api/article/photos/${article.id}`);
       const photoNames = photoNamesResponse.data;
       const photoUrls = await Promise.all(photoNames.map(async (photoName) => {
-        const photoUrlResponse = await axios.get(`http://16.16.43.64:8080/api/article/photos/${article.id}/${photoName}`, {
+        const photoUrlResponse = await axios.get(`http://16.16.43.64:3000/api/article/photos/${article.id}/${photoName}`, {
           responseType: 'blob'
         });
         const imageUrl = URL.createObjectURL(photoUrlResponse.data);
@@ -71,7 +71,7 @@ const Article = () => {
   const fetchUserProfilePhoto = async (userId) => {
     try {
       const token = localStorage.getItem('token');
-      const response = await axios.get(`http://16.16.43.64:8080/api/user/profile/${userId}`, {
+      const response = await axios.get(`http://16.16.43.64:3000/api/user/profile/${userId}`, {
         responseType: 'blob',
         headers: {
           Authorization: `Bearer ${token}`
@@ -87,9 +87,9 @@ const Article = () => {
 
   const handleShowComments = async (articleId) => {
     try {
-      const response = await axios.get(`http://16.16.43.64:8080/api/articlecomment/article/${articleId}/articleComment`);
+      const response = await axios.get(`http://16.16.43.64:3000/api/articlecomment/article/${articleId}/articleComment`);
       const updatedComments = await Promise.all(response.data.map(async (comment) => {
-        const userResponse = await axios.get(`http://16.16.43.64:8080/api/user/${comment.userId}`);
+        const userResponse = await axios.get(`http://16.16.43.64:3000/api/user/${comment.userId}`);
         const userProfilePhoto = await fetchUserProfilePhoto(comment.userId);
         return { ...comment, userName: userResponse.data.name, userProfilePhoto };
       }));

@@ -26,19 +26,19 @@ const Search = () => {
       };
 
       if (activeTab === 'posts') {
-        const postResponse = await axios.get(`http://16.16.43.64:8080/api/post/search?keyword=${term}`, config);
+        const postResponse = await axios.get(`http://16.16.43.64:3000/api/post/search?keyword=${term}`, config);
         const posts = Array.isArray(postResponse.data) ? postResponse.data : [];
         setPostResults(posts);
       }
 
       if (activeTab === 'articles') {
-        const articleResponse = await axios.get(`http://16.16.43.64:8080/api/article/search?keyword=${term}`, config);
+        const articleResponse = await axios.get(`http://16.16.43.64:3000/api/article/search?keyword=${term}`, config);
         const articles = Array.isArray(articleResponse.data) ? articleResponse.data : [];
         setArticleResults(articles);
       }
 
       if (activeTab === 'users') {
-        const userResponse = await axios.get(`http://16.16.43.64:8080/api/user/search?username=${term}`, config);
+        const userResponse = await axios.get(`http://16.16.43.64:3000/api/user/search?username=${term}`, config);
         const users = Array.isArray(userResponse.data) ? userResponse.data : [];
         setUserResults(users);
       }

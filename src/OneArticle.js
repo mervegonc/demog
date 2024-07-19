@@ -39,13 +39,13 @@ const OneArticle = () => {
     useEffect(() => {
         const fetchArticleData = async () => {
             try {
-                const articleResponse = await axios.get(`http://16.16.43.64:8080/api/article/${articleId}`);
+                const articleResponse = await axios.get(`http://16.16.43.64:3000/api/article/${articleId}`);
                 const articleData = articleResponse.data;
                 if (articleData) {
                     const userId = articleData.userId;
-                    const userResponse = await axios.get(`http://16.16.43.64:8080/api/user/${userId}`);
+                    const userResponse = await axios.get(`http://16.16.43.64:3000/api/user/${userId}`);
                     const userData = userResponse.data;
-                    const userProfilePhotoResponse = await axios.get(`http://16.16.43.64:8080/api/user/profile/${userId}`, {
+                    const userProfilePhotoResponse = await axios.get(`http://16.16.43.64:3000/api/user/profile/${userId}`, {
                         responseType: 'blob',
                         headers: {
                             Authorization: `Bearer ${AuthService.getToken()}`
@@ -72,10 +72,10 @@ const OneArticle = () => {
     useEffect(() => {
         const fetchArticlePhotos = async () => {
             try {
-                const photoNamesResponse = await axios.get(`http://16.16.43.64:8080/api/article/photos/${articleId}`);
+                const photoNamesResponse = await axios.get(`http://16.16.43.64:3000/api/article/photos/${articleId}`);
                 const photoUrls = await Promise.all(photoNamesResponse.data.map(async photoName => {
                     try {
-                        const photoUrlResponse = await axios.get(`http://16.16.43.64:8080/api/article/photos/${articleId}/${photoName}`, {
+                        const photoUrlResponse = await axios.get(`http://16.16.43.64:3000/api/article/photos/${articleId}/${photoName}`, {
                             responseType: 'blob'
                         });
                         const imageUrl = URL.createObjectURL(photoUrlResponse.data);
@@ -100,11 +100,11 @@ const OneArticle = () => {
 
     const fetchComments = async () => {
         try {
-            const response = await axios.get(`http://16.16.43.64:8080/api/articlecomment/article/${articleId}/articleComment`);
+            const response = await axios.get(`http://16.16.43.64:3000/api/articlecomment/article/${articleId}/articleComment`);
             const updatedComments = await Promise.all(response.data.map(async comment => {
                 try {
-                    const userResponse = await axios.get(`http://16.16.43.64:8080/api/user/${comment.userId}`);
-                    const userProfilePhotoResponse = await axios.get(`http://16.16.43.64:8080/api/user/profile/${comment.userId}`, { responseType: 'blob' });
+                    const userResponse = await axios.get(`http://16.16.43.64:3000/api/user/${comment.userId}`);
+                    const userProfilePhotoResponse = await axios.get(`http://16.16.43.64:3000/api/user/profile/${comment.userId}`, { responseType: 'blob' });
                     const userProfilePhotoUrl = URL.createObjectURL(userProfilePhotoResponse.data);
                     return { ...comment, userName: userResponse.data.username, userProfilePhoto: userProfilePhotoUrl };
                 } catch (error) {
@@ -130,7 +130,7 @@ const OneArticle = () => {
 
     const handleDeleteComment = async (commentId) => {
         try {
-            await axios.delete(`http://16.16.43.64:8080/api/articlecomment/${userId}/${articleId}/${commentId}`, {
+            await axios.delete(`http://16.16.43.64:3000/api/articlecomment/${userId}/${articleId}/${commentId}`, {
                 headers: {
                     Authorization: `Bearer ${AuthService.getToken()}`
                 }

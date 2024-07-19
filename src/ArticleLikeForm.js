@@ -14,7 +14,7 @@ const ArticleLikeForm = ({ articleId }) => {
         const fetchUserId = async () => {
             try {
                 const token = localStorage.getItem('token');
-                const response = await axios.get('http://16.16.43.64:8080/api/user/me', {
+                const response = await axios.get('http://16.16.43.64:3000/api/user/me', {
                     headers: {
                         Authorization: `Bearer ${token}`
                     }
@@ -32,7 +32,7 @@ const ArticleLikeForm = ({ articleId }) => {
     useEffect(() => {
         const fetchLikeCount = async () => {
             try {
-                const response = await axios.get(`http://16.16.43.64:8080/api/articlelike/count/${articleId}`);
+                const response = await axios.get(`http://16.16.43.64:3000/api/articlelike/count/${articleId}`);
                 setLikeCount(response.data); 
             } catch (error) {
                 console.error('Error fetching like count:', error);
@@ -47,7 +47,7 @@ const ArticleLikeForm = ({ articleId }) => {
             try {
                 if (userId) {
                     const token = localStorage.getItem('token');
-                    const response = await axios.get(`http://16.16.43.64:8080/api/articlelike/${articleId}/user/${userId}`, {
+                    const response = await axios.get(`http://16.16.43.64:3000/api/articlelike/${articleId}/user/${userId}`, {
                         headers: {
                             Authorization: `Bearer ${token}`
                         }
@@ -73,7 +73,7 @@ const ArticleLikeForm = ({ articleId }) => {
     const handleLike = async () => {
         try {
             const token = localStorage.getItem('token');
-            const response = await axios.post('http://16.16.43.64:8080/api/articlelike', {
+            const response = await axios.post('http://16.16.43.64:3000/api/articlelike', {
                 userId: userId,
                 articleId: articleId
             }, {
@@ -96,7 +96,7 @@ const ArticleLikeForm = ({ articleId }) => {
     const handleUnlike = async () => {
         try {
             const token = localStorage.getItem('token'); 
-            await axios.delete(`http://16.16.43.64:8080/api/articlelike/unlike/${userId}/${articleId}`, {
+            await axios.delete(`http://16.16.43.64:3000/api/articlelike/unlike/${userId}/${articleId}`, {
                 headers: {
                     Authorization: `Bearer ${token}` 
                 }
