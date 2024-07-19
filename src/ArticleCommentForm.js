@@ -16,7 +16,7 @@ const ArticleCommentForm = ({ articleId, onCommentSubmitted }) => {
     const fetchCommentedUserInfo = async () => {
       try {
         const token = AuthService.getToken();
-        const response = await axios.get(`http://16.16.43.64:3000/api/user/${commentedUserId}`, {
+        const response = await axios.get(`http://16.16.43.64:8080/api/user/${commentedUserId}`, {
           headers: {
             Authorization: `Bearer ${token}`
           }
@@ -45,7 +45,7 @@ const ArticleCommentForm = ({ articleId, onCommentSubmitted }) => {
     try {
       const token = AuthService.getToken();
       const userId = AuthService.getUserId();
-      const response = await axios.post('http://16.16.43.64:3000/api/articlecomment', {
+      const response = await axios.post('http://16.16.43.64:8080/api/articlecomment', {
         userId,
         articleId,
         text: comment

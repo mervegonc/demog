@@ -42,7 +42,7 @@ const PostForm = () => {
     if (searchTerm.trim()) {
       const fetchArticles = async () => {
         try {
-          const response = await axios.get(`http://16.16.43.64:3000/api/article/search?keyword=${searchTerm}&userId=${AuthService.getUserId()}`);
+          const response = await axios.get(`http://16.16.43.64:8080/api/article/search?keyword=${searchTerm}&userId=${AuthService.getUserId()}`);
           if (Array.isArray(response.data)) {
             setArticles(response.data);
           } else {
@@ -120,11 +120,11 @@ const PostForm = () => {
 
       let response;
       if (formData.postId) {
-        response = await axios.put(`http://16.16.43.64:3000/api/post/${formData.postId}`, postData, config);
+        response = await axios.put(`http://16.16.43.64:8080/api/post/${formData.postId}`, postData, config);
         alert('Updated Successfully');
         navigate(`/onepost/${formData.postId}`);
       } else {
-        response = await axios.post('http://16.16.43.64:3000/api/post', postData, config);
+        response = await axios.post('http://16.16.43.64:8080/api/post', postData, config);
         alert('Post created successfully');
         const newPostId = response.data.id;
         if (selectedFiles.length > 0) {
@@ -158,7 +158,7 @@ const PostForm = () => {
     };
 
     try {
-      await axios.put(`http://16.16.43.64:3000/api/post/photos/${postId}`, photoFormData, config);
+      await axios.put(`http://16.16.43.64:8080/api/post/photos/${postId}`, photoFormData, config);
       console.log('Photos uploaded successfully!');
     } catch (error) {
       console.error('Error uploading photos:', error);
@@ -177,7 +177,7 @@ const PostForm = () => {
     };
 
     try {
-      await axios.put(`http://16.16.43.64:3000/api/post/videos/${postId}`, videoFormData, config);
+      await axios.put(`http://16.16.43.64:8080/api/post/videos/${postId}`, videoFormData, config);
       console.log('Video uploaded successfully!');
     } catch (error) {
       console.error('Error uploading video:', error);
