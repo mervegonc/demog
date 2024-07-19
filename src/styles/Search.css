@@ -4,8 +4,8 @@
   width: 680px;
   height: 680px;
  
-  background-color: rgba(0, 0, 0, 0.8);
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  background-color: transparent;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.782);
   border-radius: 15px;
   /*top: 20px;
   left: 20px;*/

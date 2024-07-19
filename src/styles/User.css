@@ -5,8 +5,8 @@
   height: 680px;
   overflow-y: auto;
   /* Kaydırma çubuğunu gizlemek için */
-  background-color: rgba(0, 0, 0, 0.8);
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  background-color:#fbfcfe71;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.705);
   border-radius: 15px;
   top: 50%;
   left: 50%;
@@ -85,9 +85,9 @@
   width: 600px;
   /*height: 620px;*/
   height: auto;
-  background-color: rgba(0, 0, 0, 0.449);
-  box-shadow: 0 0 10px rgba(255, 255, 255, 0.637);
-  color: rgb(255, 255, 255);
+  background-color: transparent;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.637);
+  color: rgb(0, 0, 0);
   padding: 20px;
   border-radius: 10px;
   margin-bottom: 50px;
@@ -208,7 +208,7 @@
 }
 
 .pro-user-info-box {
-  background-color: rgba(0, 0, 0, 0.579);
+  background-color: rgba(255, 255, 255, 0.579);
   width: 200px;
   /* Kutunun genişliğini ayarlayın */
   padding: 10px;
@@ -218,7 +218,7 @@
 }
 
 .pro-user-info-box p {
-  color: white;
+  color: rgb(0, 0, 0);
   margin: 5px 0;
 }
 
@@ -230,7 +230,7 @@
   /* Genişlik ve yüksekliği eşit olarak ayarla */
   height: 680px;
   /* Genişlik ve yüksekliği eşit olarak ayarla */
-  background-color: rgb(243, 246, 219);
+  background-color: rgba(255, 255, 255, 0.993);
   border: 2px solid rgb(238, 237, 219);
   border-radius: 10px;
   padding: 20px;
@@ -239,6 +239,7 @@
   position: fixed;
   /* Position değeri değişti */
   bottom: 0;
+  
   right: 0;
   z-index: 5;
 }
@@ -246,7 +247,7 @@
 .edit-panel input,
 .edit-panel select {
   margin-bottom: 10px;
-  background-color: rgb(243, 246, 219);
+  background-color: rgb(255, 255, 255);
 
 }
 .edit-panel textarea[name="bio"] {
@@ -255,15 +256,15 @@
   display: flex;
   flex-direction: column;
   text-align: left;
-  background-color: rgb(243, 246, 219);
+  background-color: rgb(255, 255, 255);
 }
 
 .connections-panel{
-  background-color: rgb(243, 246, 219);
+  background-color: rgb(255, 255, 255);
 }
 .connections-panel input{
 width: 680px;
-background-color: rgb(243, 246, 219);
+background-color: rgb(255, 255, 255);
 }
 .connections-delete{
  margin-left: 25px;
@@ -384,7 +385,7 @@ background-color: rgb(243, 246, 219);
   position: absolute;
   top: calc(100% + 0px);
   right: 0;
-  background-color: rgba(0, 0, 0, 0.171);
+  background-color: rgba(255, 255, 255, 0.4);
   border: 1px solid #ccc;
   border-radius: 5px;
   padding: 5px;
@@ -531,7 +532,7 @@ background-color: rgb(243, 246, 219);
   align-items: center;
   justify-content: center;
   padding: 20px;
-  color: white;
+  color: rgb(0, 0, 0);
   z-index: 1;
   margin-top: -5px;
 }
@@ -584,9 +585,11 @@ background-color: rgb(243, 246, 219);
 .post-option-panel {
   height: auto;
   width: 100px;
-  background-color: rgba(0, 0, 0, 0.171);
+  background-color:transparent;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  border-radius: 15px;
   border: 1px solid #ccc;
-  border-radius: 5px;
+ 
   padding: 10px;
   position: absolute;
   /* Paneli sabit bir konuma taşı */
@@ -631,7 +634,7 @@ background-color: rgb(243, 246, 219);
   margin-left: 0px;
   border: none;
   border-radius: 0px;
-  color: rgb(255, 255, 255);
+  color: rgb(0, 0, 0);
   background-color: transparent;
   font-size: 12px;
   text-align: center;
@@ -683,8 +686,8 @@ background-color: rgb(243, 246, 219);
 .user-info {
   width: 200px;
   height: 430px;
-  background-color: rgba(0, 0, 0, 0.77);
-  box-shadow: 0 0 10px rgba(255, 253, 253, 0.2);
+  background-color:transparent;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.84);
  border-radius: 15px;
   display: flex;
   flex-direction: column;
@@ -702,18 +705,19 @@ background-color: rgb(243, 246, 219);
   width: 300px;
 margin-top: -150px;
 margin-left: 250px;
-
+color: black;
 
 
       
 }
 .user-bio p{
-  background-color: rgba(0, 0, 0, 0.77);
-  box-shadow: 0 0 10px rgba(255, 253, 253, 0.2);
+  background-color: transparent;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.756);
  border-radius: 15px;
 padding: 20px;
  width: 320px;
  height: 210px;
+ color: black;
 
 }
 
@@ -737,11 +741,12 @@ margin-right: 150px;
 }
 
 .user-info p {
-  color: white;
+  color: rgb(0, 0, 0);
 margin-left: 0px;
   margin-top: 180px;
   margin-bottom: -170px;
-
+  
+font-weight: 500;
 }
 
 
@@ -761,7 +766,7 @@ margin-left: 0px;
 .user-one-post-panel {
   width: 600px;
   height: 620px;
-  background-color: rgba(14, 5, 5, 0.603);
+  background-color: rgb(14, 5, 5);
   box-shadow: 0 0 10px rgba(255, 255, 255, 0.637);
   color: rgb(255, 255, 255);
   padding: 20px;

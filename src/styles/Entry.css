@@ -6,6 +6,8 @@ body {
  /*background-color: rgb(0, 0, 0);*/
   background-size: cover;
   background-position: center top;
+  background-attachment: fixed;
+   overflow: auto;
 }
 
 .left-panel {

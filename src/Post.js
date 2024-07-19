@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import axios from './axios';
 import { Link } from 'react-router-dom';
@@ -9,66 +8,77 @@ import './styles/MyPost.css';
 import AuthService from './AuthService';
 import RightClickIcon from './styles/images/leftclick.png';
 import LeftClickIcon from './styles/images/rightclick.png';
+import ReloadIcon from './styles/images/reloadicon.png';
+
 
 const Post = () => {
   const [posts, setPosts] = useState([]);
+  const [postIds, setPostIds] = useState([]);
+  const [currentIndex, setCurrentIndex] = useState(0);
   const userId = AuthService.getUserId();
 
   useEffect(() => {
-    const fetchPosts = async () => {
+    const fetchPostIds = async () => {
       try {
-        const response = await axios.get('http://16.16.43.64:8080/api/post');
-        const postsWithMedia = await Promise.all(response.data.map(async post => {
-          try {
-            const photoNamesResponse = await axios.get(`http://16.16.43.64:8080/api/post/photos/${post.id}`);
-            console.log(`GET request for photo names of post ${post.id}:`, photoNamesResponse);
-  
-            const photoNames = photoNamesResponse.data;
-            const photoUrls = await Promise.all(photoNames.map(async photoName => {
-              try {
-                const photoUrlResponse = await axios.get(`http://16.16.43.64:8080/api/post/photos/${post.id}/${photoName}`, {
-                  responseType: 'blob'
-                });
-                console.log(`GET request for photo URL of post ${post.id}, photo name ${photoName}:`, photoUrlResponse);
-                const imageUrl = URL.createObjectURL(photoUrlResponse.data);
-                return { type: 'photo', url: imageUrl };
-              } catch (error) {
-                console.error('Error fetching photo URL:', error);
-                return null;
-              }
-            }));
-  
-            const videoNamesResponse = await axios.get(`http://16.16.43.64:8080/api/post/videos/${post.id}`);
-            const videoUrls = await Promise.all(videoNamesResponse.data.map(async videoName => {
-              try {
-                const videoUrlResponse = await axios.get(`http://16.16.43.64:8080/api/post/videos/${post.id}/${videoName}`, {
-                  responseType: 'blob'
-                });
-                const videoUrl = URL.createObjectURL(videoUrlResponse.data);
-                return { type: 'video', url: videoUrl };
-              } catch (error) {
-                console.error('Error fetching video URL:', error);
-                return null;
-              }
-            }));
-  
-            const connections = post.connections ? [{ type: 'youtube', url: post.connections }] : [];
-
-            const userProfilePhoto = await fetchUserProfilePhoto(post.userId);
-            return { ...post, mediaContent: [...photoUrls, ...videoUrls, ...connections], userProfilePhoto };
-          } catch (error) {
-            console.error('Error fetching post photos and videos:', error);
-            const userProfilePhoto = await fetchUserProfilePhoto(post.userId);
-            return { ...post, mediaContent: [], userProfilePhoto };
-          }
-        }));
-        setPosts(postsWithMedia.map(post => ({ ...post, isCommentBoxOpen: false, selectedCommentText: '', currentMediaIndex: 0 })));
+        const response = await axios.get('http://16.16.43.64:8080/api/post/allPostIds');
+        const sortedPostIds = response.data.sort((a, b) => b - a);
+        setPostIds(sortedPostIds);
       } catch (error) {
-        console.error('Error fetching posts:', error);
+        console.error('Error fetching post IDs:', error);
       }
     };
-    fetchPosts();
+    fetchPostIds();
   }, []);
+
+  useEffect(() => {
+    if (postIds.length > 0 && currentIndex === 0) {
+      fetchPost(postIds[0]);
+      setCurrentIndex(1);
+    }
+  }, [postIds]);
+
+  const fetchPost = async (postId) => {
+    try {
+      const response = await axios.get(`http://16.16.43.64:8080/api/post/${postId}`);
+      const post = response.data;
+
+      const photoNamesResponse = await axios.get(`http://16.16.43.64:8080/api/post/photos/${post.id}`);
+      const photoNames = photoNamesResponse.data;
+      const photoUrls = await Promise.all(photoNames.map(async (photoName) => {
+        const photoUrlResponse = await axios.get(`http://16.16.43.64:8080/api/post/photos/${post.id}/${photoName}`, {
+          responseType: 'blob'
+        });
+        const imageUrl = URL.createObjectURL(photoUrlResponse.data);
+        return { type: 'photo', url: imageUrl };
+      }));
+
+      const videoNamesResponse = await axios.get(`http://16.16.43.64:8080/api/post/videos/${post.id}`);
+      const videoUrls = await Promise.all(videoNamesResponse.data.map(async (videoName) => {
+        const videoUrlResponse = await axios.get(`http://16.16.43.64:8080/api/post/videos/${post.id}/${videoName}`, {
+          responseType: 'blob'
+        });
+        const videoUrl = URL.createObjectURL(videoUrlResponse.data);
+        return { type: 'video', url: videoUrl };
+      }));
+
+      const connections = post.connections ? [{ type: 'youtube', url: post.connections }] : [];
+
+      const userProfilePhoto = await fetchUserProfilePhoto(post.userId);
+
+      const newPost = {
+        ...post,
+        mediaContent: [...photoUrls, ...videoUrls, ...connections],
+        userProfilePhoto,
+        isCommentBoxOpen: false,
+        selectedCommentText: '',
+        currentMediaIndex: 0
+      };
+
+      setPosts((prevPosts) => [...prevPosts, newPost]);
+    } catch (error) {
+      console.error('Error fetching post:', error);
+    }
+  };
 
   const fetchUserProfilePhoto = async (userId) => {
     try {
@@ -90,46 +100,40 @@ const Post = () => {
   const handleShowComments = async (postId) => {
     try {
       const response = await axios.get(`http://16.16.43.64:8080/api/comment/post/${postId}/comment`);
-
-      const updatedComments = await Promise.all(response.data.map(async comment => {
-        try {
-          const userResponse = await axios.get(`http://16.16.43.64:8080/api/user/${comment.userId}`);
-          const userProfilePhoto = await fetchUserProfilePhoto(comment.userId);
-          return { ...comment, userName: userResponse.data.name, userProfilePhoto };
-        } catch (error) {
-          console.error('Error fetching user:', error);
-          return { ...comment, userName: 'Unknown', userProfilePhoto: null };
-        }
+      const updatedComments = await Promise.all(response.data.map(async (comment) => {
+        const userResponse = await axios.get(`http://16.16.43.64:8080/api/user/${comment.userId}`);
+        const userProfilePhoto = await fetchUserProfilePhoto(comment.userId);
+        return { ...comment, userName: userResponse.data.name, userProfilePhoto };
       }));
-
-      setPosts(posts.map(post => post.id === postId ? { ...post, selectedPostComments: updatedComments, isCommentBoxOpen: !post.isCommentBoxOpen, selectedCommentText: updatedComments.map(comment => comment.text).join('\n') } : post));
-
+      setPosts((prevPosts) => prevPosts.map((post) => post.id === postId ? {
+        ...post,
+        selectedPostComments: updatedComments,
+        isCommentBoxOpen: !post.isCommentBoxOpen,
+        selectedCommentText: updatedComments.map(comment => comment.text).join('\n')
+      } : post));
     } catch (error) {
       console.error('Error fetching comments:', error);
-      setPosts(posts.map(post => post.id === postId ? { ...post, selectedPostComments: [], isCommentBoxOpen: !post.isCommentBoxOpen, selectedCommentText: '' } : post));
+      setPosts((prevPosts) => prevPosts.map((post) => post.id === postId ? {
+        ...post,
+        selectedPostComments: [],
+        isCommentBoxOpen: !post.isCommentBoxOpen,
+        selectedCommentText: ''
+      } : post));
     }
   };
 
   const handleNextMedia = (postId) => {
-    setPosts(posts.map(post => {
-      if (post.id === postId) {
-        const nextMediaIndex = (post.currentMediaIndex + 1) % post.mediaContent.length;
-        return { ...post, currentMediaIndex: nextMediaIndex };
-      } else {
-        return post;
-      }
-    }));
+    setPosts((prevPosts) => prevPosts.map((post) => post.id === postId ? {
+      ...post,
+      currentMediaIndex: (post.currentMediaIndex + 1) % post.mediaContent.length
+    } : post));
   };
 
   const handlePreviousMedia = (postId) => {
-    setPosts(posts.map(post => {
-      if (post.id === postId) {
-        const previousMediaIndex = (post.currentMediaIndex + post.mediaContent.length - 1) % post.mediaContent.length;
-        return { ...post, currentMediaIndex: previousMediaIndex };
-      } else {
-        return post;
-      }
-    }));
+    setPosts((prevPosts) => prevPosts.map((post) => post.id === postId ? {
+      ...post,
+      currentMediaIndex: (post.currentMediaIndex + post.mediaContent.length - 1) % post.mediaContent.length
+    } : post));
   };
 
   const renderTextWithLinks = (text) => {
@@ -144,7 +148,6 @@ const Post = () => {
 
   const renderVideoEmbed = (url) => {
     if (!url) return null;
-
     const isYouTube = url.includes('youtube.com') || url.includes('youtu.be');
     const isVimeo = url.includes('vimeo.com');
 
@@ -195,11 +198,18 @@ const Post = () => {
     }
   };
 
+  const handleLoadMore = () => {
+    if (currentIndex < postIds.length) {
+      fetchPost(postIds[currentIndex]);
+      setCurrentIndex(currentIndex + 1);
+    }
+  };
+
   return (
     <div>
       <div className="profile-post-container">
         <ul>
-          {posts.map(post => (
+          {posts.map((post) => (
             <li key={post.id}>
               <div className="ones-post-panel">
                 <p className='article-create-date'>{post.formattedCreatedAt}</p>
@@ -243,7 +253,7 @@ const Post = () => {
                 {post.isCommentBoxOpen && post.selectedPostComments && (
                   <div>
                     <ul>
-                      {post.selectedPostComments.map(comment => (
+                      {post.selectedPostComments.map((comment) => (
                         <li key={comment.id}>
                           <p><Link to={`/user/${comment.userId}`}>{comment.userName}</Link></p>
                           <p>{comment.text}</p>
@@ -257,15 +267,22 @@ const Post = () => {
             </li>
           ))}
         </ul>
+        {currentIndex < postIds.length && (
+          <img src={ReloadIcon} alt="Load more icon" className="reload-icon" onClick={handleLoadMore} 
+            title="Click For Other Posts"
+          />
+        )}
       </div>
+     
       <div className="button-container">
-      <Link to="/home" className="realhome-button"></Link>
+        <Link to="/home" className="realhome-button"></Link>
         <Link to="/post" className="home-button"></Link>
         <Link to="/article" className="article-button"></Link>
         <Link to={`/user/${userId}`} className="profile-button"></Link>
         <Link to="/search" className="search-button"></Link>
         <Link to="/articleform" className="article-create-button"></Link>
         <Link to="/postform" className="create-button"></Link>
+       
       </div>
     </div>
   );

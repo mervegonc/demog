@@ -16,6 +16,7 @@
     "react-draft-wysiwyg": "^1.15.0",
     "react-dropzone": "^14.2.3",
     "react-files-preview": "^2.4.0",
+    "react-infinite-scroll-component": "^6.1.0",
     "react-photo-editor": "^2.0.0",
     "react-router-dom": "^6.24.1",
     "react-scripts": "5.0.1",

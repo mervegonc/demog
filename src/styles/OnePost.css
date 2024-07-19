@@ -3,9 +3,9 @@
     width: 600px;
     /*height: 620px;*/
     height: auto;
-    background-color: rgba(0, 0, 0, 0.305);
-    box-shadow: 0 0 10px rgba(255, 255, 255, 0.637); /* Pembe gölge */
-    color: rgb(255, 255, 255); /* Yazı rengi */
+    background-color:transparent;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.637); /* Pembe gölge */
+    color: rgb(0, 0, 0); /* Yazı rengi */
     padding: 20px;
     border-radius: 10px;
     margin-bottom: 20px;

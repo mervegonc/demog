@@ -3,7 +3,7 @@
     position: fixed;
     width: 680px;
     height: 680px;
-    background-color: rgba(0, 0, 0, 0.8);
+    background-color: rgba(255, 255, 255, 0.8);
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
     border-radius: 15px;
     top: calc(50% + 0px); /* 25px aşağı kaydırma */
@@ -32,8 +32,8 @@
     margin-top: 10px;
     width: 660px;
     height: 280px;
-    background-color: rgba(1, 0, 0, 0.475); /* Arka plan rengini siyah yap */
-    color: white; /* Metin rengini beyaz yap */
+    background-color: transparent; /* Arka plan rengini siyah yap */
+    color: rgb(0, 0, 0); /* Metin rengini beyaz yap */
     resize: none; /* Metin alanının boyutunu değiştiremez yap */
     padding: 10px; /* İç boşluk ekleme */
     border-radius: 10px; /* Köşeleri ovalleştirme */
@@ -56,9 +56,9 @@
 
   .title input {
     width: 660px; /* Yatayda uzunluk */
-    background-color: rgba(1, 0, 0, 0.475); /* Arka plan rengini siyah yap */
+    background-color: transparent; /* Arka plan rengini siyah yap */
     border-radius: 10px; /* Köşeleri ovalleştirme */
-    color: white;
+    color: rgb(0, 0, 0);
     padding: 10px; /* İç boşluk ekleme */
     margin-left:175px;
   }

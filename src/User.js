@@ -17,6 +17,7 @@ import Follower from './Follower';
 import FollowIcon from './styles/images/unfollow.png';
 import UnfollowIcon from './styles/images/follow.png';
 
+
 const User = () => {
   const authenticatedUserId = AuthService.getUserId();
   const { userId } = useParams();
@@ -58,7 +59,7 @@ const User = () => {
 
         fetchBackgroundPhoto(userId);
 
-      
+
         const followersResponse = await axios.get(`http://16.16.43.64:8080/api/user/${userId}/followers`);
         setFollowersCount(followersResponse.data.total);
 
@@ -73,7 +74,7 @@ const User = () => {
           });
           setIsFollowing(isFollowingResponse.data);
         }
-      
+
 
 
         const userPostsResponse = await axios.get(`http://16.16.43.64:8080/api/post/my/${userId}`, {
@@ -691,12 +692,12 @@ const User = () => {
 
 
 
-              
-           
+
+
               <div className='user-connections-component'>
-              <p className='user-connections-component-p'>Connections</p>
+                <p className='user-connections-component-p'>Connections</p>
                 <ul className='user-info-connections'>
-                
+
                   {userData.connections && userData.connections.map(connection => (
                     <li key={connection.id}>
                       <a href={connection.link} target="_blank" rel="noopener noreferrer">{connection.name}</a>
@@ -709,27 +710,27 @@ const User = () => {
                 <p className='following-count'>Following<span onClick={() => navigate(`/follower/${userId}`)}>{followingCount}</span></p>
               </div>
 
-         
 
 
 
 
-             
-             
-             
+
+
+
+
               <div className='user-bio'>
                 <p>{userData.bio}</p>
               </div>
 
-  
+
               <div className='user-follow-buttons'>
-              {!isAuthenticatedUser(userId) && (
-  isFollowing ? (
-    <img className='user-unfollow' src={UnfollowIcon}  title="UnFollow" alt="Unfollow" onClick={handleUnfollow} style={{ cursor: 'pointer' }} />
-  ) : (
-    <img className='user-unfollow' src={FollowIcon}  title="Follow" alt="Follow" onClick={handleFollow} style={{ cursor: 'pointer' }} />
-  )
-)}</div>
+                {!isAuthenticatedUser(userId) && (
+                  isFollowing ? (
+                    <img className='user-unfollow' src={UnfollowIcon} title="UnFollow" alt="Unfollow" onClick={handleUnfollow} style={{ cursor: 'pointer' }} />
+                  ) : (
+                    <img className='user-unfollow' src={FollowIcon} title="Follow" alt="Follow" onClick={handleFollow} style={{ cursor: 'pointer' }} />
+                  )
+                )}</div>
             </div>
           </div>
         )}
@@ -926,7 +927,7 @@ const User = () => {
         )}
       </div>
       <div className="button-container">
-      <Link to="/home" className="realhome-button"></Link>
+        <Link to="/home" className="realhome-button"></Link>
         <Link to="/post" className="home-button"></Link>
         <Link to="/article" className="article-button"></Link>
         <Link to={`/user/${authenticatedUserId}`} className="profile-button"></Link>
