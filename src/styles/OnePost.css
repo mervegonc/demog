@@ -91,7 +91,7 @@ border-radius: 9px;
   margin-top:20px;
   width: 600px;
  /* height: auto;*/
-  background-color: rgba(0, 0, 0, 0.574);
+  background-color:rgba(0, 0, 0, 0.248);
   border-radius: 15px;
   color: rgb(255, 255, 255); /* Yazı rengi */
   padding: 10px;
@@ -104,6 +104,8 @@ border-radius: 9px;
  /* margin-top: 0px;
   margin-left: 15px;
   */  margin: 5px 15px;
+  font-weight: 500;
+  color: white;
 }
 .comment-user-photo {
   margin-top: -15px;

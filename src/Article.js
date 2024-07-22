@@ -15,19 +15,15 @@ const Article = () => {
   const [articleIds, setArticleIds] = useState([]);
   const [currentIndex, setCurrentIndex] = useState(0);
   const userId = AuthService.getUserId();
+  const [offset, setOffset] = useState(0);
+ 
 
   useEffect(() => {
-    const fetchArticleIds = async () => {
-      try {
-        const response = await axios.get('http://16.16.43.64:8080/api/article/allArticlesIds');
-        const sortedArticleIds = response.data.sort((a, b) => b - a);
-        setArticleIds(sortedArticleIds);
-      } catch (error) {
-        console.error('Error fetching article IDs:', error);
-      }
-    };
-    fetchArticleIds();
+    fetchArticle(0);
   }, []);
+
+
+
 
   useEffect(() => {
     if (articleIds.length > 0 && currentIndex === 0) {
@@ -36,10 +32,11 @@ const Article = () => {
     }
   }, [articleIds]);
 
-  const fetchArticle = async (articleId) => {
+
+  const fetchArticle = async (offset) => {
     try {
-      const response = await axios.get(`http://16.16.43.64:8080/api/article/${articleId}`);
-      const article = response.data;
+      const response = await axios.get(`http://16.16.43.64:8080/api/article/articles?limit=1&offset=${offset}`);
+      const article = response.data[0];
 
       const photoNamesResponse = await axios.get(`http://16.16.43.64:8080/api/article/photos/${article.id}`);
       const photoNames = photoNamesResponse.data;
@@ -62,12 +59,16 @@ const Article = () => {
         currentPhotoIndex: 0
       };
 
-      setArticles((prevArticles) => [...prevArticles, newArticle]);
+      setArticles((prevArticles) => {
+        if (prevArticles.find(a => a.id === newArticle.id)) {
+          return prevArticles;
+        }
+        return [...prevArticles, newArticle];
+      });
     } catch (error) {
       console.error('Error fetching article:', error);
     }
   };
-
   const fetchUserProfilePhoto = async (userId) => {
     try {
       const token = localStorage.getItem('token');
@@ -135,10 +136,9 @@ const Article = () => {
   };
 
   const handleLoadMore = () => {
-    if (currentIndex < articleIds.length) {
-      fetchArticle(articleIds[currentIndex]);
-      setCurrentIndex(currentIndex + 1);
-    }
+    const newOffset = offset + 1;
+    setOffset(newOffset);
+    fetchArticle(newOffset);
   };
 
   return (
@@ -203,9 +203,9 @@ const Article = () => {
             </li>
           ))}
         </ul>
-        {currentIndex < articleIds.length && (
-          <img src={ReloadIcon} alt="Load more icon" className="reload-icon" onClick={handleLoadMore} title="Click For Other Articles" />
-        )}
+        
+           <img src={ReloadIcon} alt="Load more icon" className="reload-icon" onClick={handleLoadMore} title="Click For Other Articles" />
+   
       </div>
       <div className="button-container">
         <Link to="/home" className="realhome-button"></Link>

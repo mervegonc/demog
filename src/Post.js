@@ -16,7 +16,7 @@ const Post = () => {
   const [postIds, setPostIds] = useState([]);
   const [currentIndex, setCurrentIndex] = useState(0);
   const userId = AuthService.getUserId();
-
+  const [offset, setOffset] = useState(0);
   useEffect(() => {
     const fetchPostIds = async () => {
       try {
@@ -31,16 +31,13 @@ const Post = () => {
   }, []);
 
   useEffect(() => {
-    if (postIds.length > 0 && currentIndex === 0) {
-      fetchPost(postIds[0]);
-      setCurrentIndex(1);
-    }
-  }, [postIds]);
+    fetchPost(0);
+  }, []);
 
-  const fetchPost = async (postId) => {
+  const fetchPost = async (offset) => {
     try {
-      const response = await axios.get(`http://16.16.43.64:8080/api/post/${postId}`);
-      const post = response.data;
+      const response = await axios.get(`http://16.16.43.64:8080/api/post/posts?limit=1&offset=${offset}`);
+      const post = response.data[0];
 
       const photoNamesResponse = await axios.get(`http://16.16.43.64:8080/api/post/photos/${post.id}`);
       const photoNames = photoNamesResponse.data;
@@ -74,11 +71,18 @@ const Post = () => {
         currentMediaIndex: 0
       };
 
-      setPosts((prevPosts) => [...prevPosts, newPost]);
+      setPosts((prevPosts) => {
+        // Duplicate post kontrolü
+        if (prevPosts.find(p => p.id === newPost.id)) {
+          return prevPosts;
+        }
+        return [...prevPosts, newPost];
+      });
     } catch (error) {
       console.error('Error fetching post:', error);
     }
   };
+
 
   const fetchUserProfilePhoto = async (userId) => {
     try {
@@ -199,10 +203,9 @@ const Post = () => {
   };
 
   const handleLoadMore = () => {
-    if (currentIndex < postIds.length) {
-      fetchPost(postIds[currentIndex]);
-      setCurrentIndex(currentIndex + 1);
-    }
+    const newOffset = offset + 1;
+    setOffset(newOffset);
+    fetchPost(newOffset);
   };
 
   return (
